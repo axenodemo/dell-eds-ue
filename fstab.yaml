@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: "https://author-p8803-e21945.adobeaemcloud.com/bin/franklin.delivery/axenodemo/dell-eds-ue/main"
+    url: "https://author-p8803-e1283844.adobeaemcloud.com/bin/franklin.delivery/axenodemo/dell-eds-ue/main"
     type: "markup"
     suffix: ".html"
