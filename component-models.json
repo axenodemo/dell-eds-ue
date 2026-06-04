@@ -214,5 +214,15 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id":"testimonial-cards",
+    "fields":[
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title"
+      }
+    ]
   }
 ]
