@@ -1,0 +1,55 @@
+{
+  "models": [
+    {
+      "id": "dell-cards",
+      "fields": [
+        {
+          "component": "text",
+          "name": "eyebrow",
+          "label": "Eyebrow"
+        },
+        {
+          "component": "text",
+          "name": "heading",
+          "label": "Heading"
+        },
+        {
+          "component": "group",
+          "name": "cards",
+          "label": "Cards Grid",
+          "type": "list",
+          "fields": [
+            {
+              "component": "image",
+              "name": "image",
+              "label": "Card Image"
+            },
+            {
+              "component": "text",
+              "name": "title",
+              "label": "Card Title"
+            },
+            {
+              "component": "reference",
+              "name": "link",
+              "label": "Card CTA Link"
+            }
+          ]
+        },
+        {
+          "component": "group",
+          "name": "footerLinks",
+          "label": "Footer Links",
+          "type": "list",
+          "fields": [
+            {
+              "component": "reference",
+              "name": "footerLink",
+              "label": "Link"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
