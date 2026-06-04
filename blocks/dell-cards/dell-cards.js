@@ -23,17 +23,27 @@ function createCard({ picture, titleText, link }) {
 }
 
 function getCellText(cell) {
-  return [...(cell?.childNodes || [])]
-    .filter((node) => node.nodeType === Node.TEXT_NODE || node.nodeType === Node.ELEMENT_NODE)
-    .map((node) => node.textContent.trim())
-    .find(Boolean);
+  if (!cell) return '';
+
+  const clone = cell.cloneNode(true);
+  clone.querySelectorAll('picture, img, source, a').forEach((element) => element.remove());
+
+  return clone.textContent.trim();
 }
 
-function getCardTitle(row) {
-  return [...row.children]
-    .filter((cell) => !cell.querySelector('picture') && !cell.querySelector('a'))
-    .map((cell) => getCellText(cell))
-    .find(Boolean);
+function getCardTitle(element) {
+  return getCellText(element)
+    || element.querySelector('h1, h2, h3, h4, h5, h6, p')?.textContent.trim();
+}
+
+function getTextValues(element) {
+  const clone = element.cloneNode(true);
+  clone.querySelectorAll('picture, img, source, a').forEach((child) => child.remove());
+
+  return clone.textContent
+    .split('\n')
+    .map((text) => text.trim())
+    .filter(Boolean);
 }
 
 function decorateHeader(row) {
@@ -90,22 +100,36 @@ function decorateItemCards(rows, cardsWrapper, footerLinks) {
   });
 }
 
-function decorateGroupedCards(rows, cardsWrapper) {
-  [...(rows[2]?.children || [])].forEach((cardCell) => {
-    const link = cardCell.querySelector('a');
-    const titleText = [...cardCell.childNodes]
-      .filter((node) => node.nodeType === Node.TEXT_NODE)
-      .map((node) => node.textContent.trim())
-      .find(Boolean) || cardCell.querySelector('h1, h2, h3, h4, h5, h6, p')?.textContent.trim();
+function decorateCardRows(rows, cardsWrapper, footerLinks) {
+  rows.forEach((row) => {
+    if (!row.isConnected) return;
 
-    cardsWrapper.append(createCard({
-      picture: cardCell.querySelector('picture'),
-      titleText,
-      link,
-    }));
+    const cardCells = [...row.children].filter((cell) => cell.querySelector('picture'));
+
+    if (cardCells.length) {
+      cardCells.forEach((cardCell) => {
+        const pictures = [...cardCell.querySelectorAll('picture')];
+        const links = [...cardCell.querySelectorAll('a')];
+        const titles = getTextValues(cardCell);
+
+        pictures.forEach((picture, index) => {
+          cardsWrapper.append(createCard({
+            picture,
+            titleText: titles[index] || getCardTitle(cardCell),
+            link: links[index],
+          }));
+        });
+      });
+      row.remove();
+      return;
+    }
+
+    const links = [...row.querySelectorAll('a')];
+    if (links.length) {
+      links.forEach((link) => footerLinks.append(link));
+      row.remove();
+    }
   });
-
-  rows[2]?.remove();
 }
 
 export default function decorate(block) {
@@ -131,9 +155,9 @@ export default function decorate(block) {
   if (rows[3]?.querySelector('picture') || rows[4]?.querySelector('a')) {
     decorateLegacyCards(rows, cardsWrapper);
   } else if (rows.some((row) => row.querySelector('picture'))) {
-    decorateItemCards(rows.filter((row) => row.isConnected), cardsWrapper, footerLinks);
+    decorateCardRows(rows.slice(2), cardsWrapper, footerLinks);
   } else {
-    decorateGroupedCards(rows, cardsWrapper);
+    decorateItemCards(rows.slice(2), cardsWrapper, footerLinks);
   }
 
   if (cardsWrapper.children.length) block.append(cardsWrapper);

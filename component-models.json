@@ -180,7 +180,7 @@
     ]
   },
   {
-    "id": "dell-cards-header",
+    "id": "dell-cards",
     "fields": [
       {
         "component": "text",
@@ -193,57 +193,148 @@
         "valueType": "string",
         "name": "heading",
         "label": "Heading"
-      }
-    ]
-  },
-  {
-    "id": "dell-card",
-    "fields": [
+      },
       {
         "component": "reference",
         "valueType": "string",
-        "name": "image",
-        "label": "Image",
+        "name": "cards_card1Image",
+        "label": "Card 1 Image",
         "multi": false
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "imageAlt",
-        "label": "Image Alt Text"
+        "name": "cards_card1ImageAlt",
+        "label": "Card 1 Image Alt Text"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "title",
-        "label": "Title"
+        "name": "cards_card1Headline",
+        "label": "Card 1 Title"
       },
       {
         "component": "aem-content",
-        "name": "link",
-        "label": "CTA Link"
+        "name": "cards_card1Link",
+        "label": "Card 1 CTA Link"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "linkText",
-        "label": "CTA Text"
-      }
-    ]
-  },
-  {
-    "id": "dell-cards-footer-link",
-    "fields": [
+        "name": "cards_card1LinkText",
+        "label": "Card 1 CTA Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "cards_card2Image",
+        "label": "Card 2 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card2ImageAlt",
+        "label": "Card 2 Image Alt Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card2Headline",
+        "label": "Card 2 Title"
+      },
       {
         "component": "aem-content",
-        "name": "link",
-        "label": "Link"
+        "name": "cards_card2Link",
+        "label": "Card 2 CTA Link"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "linkText",
-        "label": "Link Text"
+        "name": "cards_card2LinkText",
+        "label": "Card 2 CTA Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "cards_card3Image",
+        "label": "Card 3 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card3ImageAlt",
+        "label": "Card 3 Image Alt Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card3Headline",
+        "label": "Card 3 Title"
+      },
+      {
+        "component": "aem-content",
+        "name": "cards_card3Link",
+        "label": "Card 3 CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card3LinkText",
+        "label": "Card 3 CTA Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "cards_card4Image",
+        "label": "Card 4 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card4ImageAlt",
+        "label": "Card 4 Image Alt Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card4Headline",
+        "label": "Card 4 Title"
+      },
+      {
+        "component": "aem-content",
+        "name": "cards_card4Link",
+        "label": "Card 4 CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card4LinkText",
+        "label": "Card 4 CTA Text"
+      },
+      {
+        "component": "aem-content",
+        "name": "footer_link1",
+        "label": "Footer Link 1"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "footer_link1Text",
+        "label": "Footer Link 1 Text"
+      },
+      {
+        "component": "aem-content",
+        "name": "footer_link2",
+        "label": "Footer Link 2"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "footer_link2Text",
+        "label": "Footer Link 2 Text"
       }
     ]
   },
