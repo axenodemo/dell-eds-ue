@@ -214,5 +214,40 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "video-hero",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "video",
+        "label": "Background Video",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "heading",
+        "label": "Heading",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Body Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "ctaLabel",
+        "label": "Button Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "ctaUrl",
+        "label": "Button URL",
+        "valueType": "string"
+      }
+    ]
   }
 ]
