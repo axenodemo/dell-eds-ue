@@ -222,6 +222,12 @@
         "component": "text",
         "name": "title",
         "label": "Title"
+      },
+      {
+        "component":"card",
+        "name":"card",
+        "label":"Testimonial Card",
+        "multi":true
       }
     ]
   }
