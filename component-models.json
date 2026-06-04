@@ -180,7 +180,7 @@
     ]
   },
   {
-    "id": "dell-cards",
+    "id": "dell-cards-header",
     "fields": [
       {
         "component": "text",
@@ -193,63 +193,57 @@
         "valueType": "string",
         "name": "heading",
         "label": "Heading"
+      }
+    ]
+  },
+  {
+    "id": "dell-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
       },
       {
-        "component": "container",
-        "name": "cards",
-        "label": "Cards",
-        "multi": true,
-        "fields": [
-          {
-            "component": "reference",
-            "valueType": "string",
-            "name": "image",
-            "label": "Image",
-            "multi": false
-          },
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "imageAlt",
-            "label": "Image Alt Text"
-          },
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "title",
-            "label": "Title"
-          },
-          {
-            "component": "aem-content",
-            "name": "link",
-            "label": "CTA Link"
-          },
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "linkText",
-            "label": "CTA Text"
-          }
-        ]
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text"
       },
       {
-        "component": "container",
-        "name": "footerLinks",
-        "label": "Footer Links",
-        "multi": true,
-        "fields": [
-          {
-            "component": "aem-content",
-            "name": "footerLink",
-            "label": "Link"
-          },
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "footerLinkText",
-            "label": "Link Text"
-          }
-        ]
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "CTA Text"
+      }
+    ]
+  },
+  {
+    "id": "dell-cards-footer-link",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "Link Text"
       }
     ]
   },
