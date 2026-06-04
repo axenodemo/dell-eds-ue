@@ -1,0 +1,88 @@
+{
+  "definitions": [
+    {
+      "title": "Teaser Carousal",
+      "id": "teaser-carousal",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "dell-eds-ue/components/teaser-carousal",
+            "template": {
+              "name": "Teaser Carousal",
+              "model": "teaser-carousal",
+              "slides": [
+                {
+                  "eyebrow": "Dell Technologies Showcase",
+                  "headline": "Smarter Infrastructure Starts Here",
+                  "description": "Support growth with secure, flexible servers and storage that adapt to your business needs.",
+                  "ctas": [
+                    {
+                      "label": "Shop Servers",
+                      "link": "https://www.dell.com/en-us/lp/servers"
+                    },
+                    {
+                      "label": "Shop Storage",
+                      "link": "https://www.dell.com/en-us/lp/storage"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "teaser-carousal",
+      "fields": [
+        {
+          "name": "slides",
+          "label": "Slides",
+          "valueType": "object[]",
+          "fields": [
+            {
+              "component": "image",
+              "name": "image",
+              "label": "Image"
+            },
+            {
+              "component": "text",
+              "name": "eyebrow",
+              "label": "Eyebrow"
+            },
+            {
+              "component": "text",
+              "name": "headline",
+              "label": "Headline"
+            },
+            {
+              "component": "text",
+              "name": "description",
+              "label": "Description"
+            },
+            {
+              "name": "ctas",
+              "label": "CTAs",
+              "valueType": "object[]",
+              "fields": [
+                {
+                  "component": "text",
+                  "name": "label",
+                  "label": "Label"
+                },
+                {
+                  "component": "text",
+                  "name": "link",
+                  "label": "Link"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
