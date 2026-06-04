@@ -1,30 +1,30 @@
 {
   "definitions": [
     {
-      "title": "Hero Cards",
-      "id": "hero-cards",
+      "title": "Hero Cards Category Grid",
+      "id": "hero-cards-category-grid",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Hero Cards",
-              "filter": "hero-cards"
+              "name": "Hero Cards Category Grid",
+              "filter": "hero-cards-category-grid"
             }
           }
         }
       }
     },
     {
-      "title": "Hero Card Item",
-      "id": "hero-card-item",
+      "title": "Hero Cards Category Grid Item",
+      "id": "hero-cards-category-grid-item",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Hero Card Item",
-              "model": "hero-card-item"
+              "name": "Hero Cards Category Grid Item",
+              "model": "hero-cards-category-grid-item"
             }
           }
         }
@@ -33,7 +33,7 @@
   ],
   "models": [
     {
-      "id": "hero-card-item",
+      "id": "hero-cards-category-grid-item",
       "fields": [
         {
           "component": "text",
@@ -61,8 +61,8 @@
   ],
   "filters": [
     {
-      "id": "hero-cards",
-      "components": ["hero-card-item"]
+      "id": "hero-cards-category-grid",
+      "components": ["hero-cards-category-grid-item"]
     }
   ]
 }

@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Roboto';
-  src: url("/fonts/roboto-regular.woff2") format('woff2');
+  font-family: Roboto;
+  src: url("/fonts/roboto-regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
@@ -9,7 +9,7 @@
   padding: 0;
   margin: 0;
   width: 100% !important;
-  font-family: "Roboto", sans-serif;
+  font-family: Roboto, sans-serif;
   max-width: 100%;
   background-color: #0a0e14;
 }
@@ -18,13 +18,13 @@
   padding: 24px 16px;
 }
 
-@media (min-width: 600px) {
+@media (width >= 600px) {
   .hero-cards-category-grid {
     padding: 32px 24px;
   }
 }
 
-@media (min-width: 900px) {
+@media (width >= 900px) {
   .hero-cards-category-grid {
     padding: 48px 40px;
   }
@@ -39,21 +39,21 @@
   padding: 0 5%;
 }
 
-@media (min-width: 600px) {
+@media (width >= 600px) {
   .hero-cards-category-grid__grid {
     grid-template-columns: repeat(2, 1fr);
     padding: 0 8%;
   }
 }
 
-@media (min-width: 900px) {
+@media (width >= 900px) {
   .hero-cards-category-grid__grid {
     grid-template-columns: repeat(3, 1fr);
     padding: 0 10%;
   }
 }
 
-@media (min-width: 1200px) {
+@media (width >= 1200px) {
   .hero-cards-category-grid__grid {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -80,8 +80,8 @@
   top: 0;
   left: 0;
   display: inline-block;
-  background: rgba(10, 14, 20, 0.85);
-  color: #ffffff;
+  background: rgb(10 14 20 / 85%);
+  color: #fff;
   font-size: 0.95rem;
   font-weight: 600;
   padding: 8px 14px;
@@ -97,7 +97,7 @@
   padding: 48px 16px 20px;
   background: linear-gradient(160deg, #93a8ba 0%, #c6cace 100%);
   min-height: 200px;
-  aspect-ratio: 4/3
+  aspect-ratio: 4/3;
 }
 
 .hero-cards-category-grid__img-wrap picture {
