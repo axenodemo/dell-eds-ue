@@ -33,6 +33,10 @@
             {
               "name": "Highlight",
               "value": "highlight"
+            },
+            {
+              "name": "Support Background",
+              "value": "support-background"
             }
           ]
         }
@@ -50,7 +54,8 @@
         "hero",
         "cards",
         "columns",
-        "fragment"
+        "fragment",
+        "feature-card"
       ]
     }
   ]

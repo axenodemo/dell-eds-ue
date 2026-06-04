@@ -316,10 +316,28 @@ main > .section:first-of-type {
   }
 }
 
-/* section metadata */
 main .section.light,
 main .section.highlight {
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;
 }
+
+main .section.support-background {
+  background-color: #1d2c3b;
+  color: #fff;
+  margin: 0;
+  padding: 40px 0;
+}
+
+main .section.support-background h1,
+main .section.support-background h2,
+main .section.support-background h3,
+main .section.support-background h4,
+main .section.support-background h5,
+main .section.support-background h6,
+main .section.support-background p,
+main .section.support-background li {
+  color: #fff;
+}
+
