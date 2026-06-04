@@ -6,14 +6,14 @@ export default function decorate(block) {
   const rows = [...block.querySelectorAll(':scope > div')];
 
   const grid = document.createElement('div');
-  grid.classList.add('hero-cards-category-grid__grid');
+  grid.classList.add('hero-cards-category-grid-grid');
 
   rows.forEach((row) => {
     const cols = [...row.querySelectorAll(':scope > div')];
 
     cols.forEach((col) => {
       const card = document.createElement('a');
-      card.classList.add('hero-cards-category-grid__card');
+      card.classList.add('hero-cards-category-grid-card');
 
       const picture = col.querySelector('picture, img');
       const link = col.querySelector('a');
@@ -51,11 +51,11 @@ export default function decorate(block) {
       }
 
       const label = document.createElement('span');
-      label.classList.add('hero-cards-category-grid__label');
+      label.classList.add('hero-cards-category-grid-label');
       label.textContent = labelText;
 
       const imgWrap = document.createElement('div');
-      imgWrap.classList.add('hero-cards-category-grid__img-wrap');
+      imgWrap.classList.add('hero-cards-category-grid-img-wrap');
       if (picture) {
         imgWrap.append(picture.cloneNode(true));
       }
