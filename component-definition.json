@@ -204,6 +204,21 @@
           }
         },
         {
+          "title": "Teaser Carousal Slide",
+          "id": "teaser-carousal-slide",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Teaser Carousal Slide",
+                  "model": "teaser-carousal-slide"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Video Hero",
           "id": "video-hero",
           "plugins": {

@@ -50,6 +50,12 @@
     ]
   },
   {
+    "id": "teaser-carousal",
+    "components": [
+      "teaser-carousal-slide"
+    ]
+  },
+  {
     "id": "video-hero",
     "components": []
   }
