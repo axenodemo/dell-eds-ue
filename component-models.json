@@ -432,36 +432,32 @@
         "name": "slides",
         "component": "container",
         "label": "Slides",
-        "item": "teaser-carousal-slide"
-      }
-    ]
-  },
-  {
-    "id": "teaser-carousal-slide",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "image",
-        "label": "Image",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "eyebrow",
-        "label": "Eyebrow",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "headline",
-        "label": "Headline",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "description",
-        "label": "Description",
-        "valueType": "string"
+        "fields": [
+          {
+            "component": "reference",
+            "name": "image",
+            "label": "Image",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "eyebrow",
+            "label": "Eyebrow",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "headline",
+            "label": "Headline",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "description",
+            "label": "Description",
+            "valueType": "string"
+          }
+        ]
       }
     ]
   },

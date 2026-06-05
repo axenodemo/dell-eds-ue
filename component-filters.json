@@ -52,7 +52,9 @@
   {
     "id": "teaser-carousal",
     "components": [
-      "teaser-carousal-slide"
+      "container",
+      "reference",
+      "text"
     ]
   },
   {
