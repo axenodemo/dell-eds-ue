@@ -85,7 +85,7 @@ export default function decorate(block) {
 
   // REBUILD CLEAN STRUCTURE
   if (eyebrow) { eyebrow.classList.add('eyebrow'); block.append(eyebrow); }
-  if (heading) { heading.textContent = heading.textContent.trim(); block.append(heading); }
+  if (heading) { const headingEl = document.createElement('h2'); headingEl.textContent = heading.textContent.trim(); block.append(headingEl); }
 
   block.append(cardsWrapper);
   block.append(footerLinks);
