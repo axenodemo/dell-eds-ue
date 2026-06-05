@@ -373,5 +373,34 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "video-hero",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "video",
+        "label": "Background Video",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "eyebrow",
+        "label": "Eyebrow Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "heading",
+        "label": "Heading",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Body Text and Links",
+        "valueType": "string"
+      }
+    ]
   }
 ]
