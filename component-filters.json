@@ -51,11 +51,7 @@
   },
   {
     "id": "teaser-carousal",
-    "components": [
-      "container",
-      "reference",
-      "text"
-    ]
+    "components": []
   },
   {
     "id": "video-hero",
