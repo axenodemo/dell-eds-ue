@@ -71,12 +71,59 @@ export default function decorate(block) {
     const primaryAnchor = document.createElement('a');
     primaryAnchor.href = ctaUrl;
     primaryAnchor.className = 'video-hero__btn-primary button';
+    primaryAnchor.setAttribute('aria-label', ctaLabel);
     const icon = document.createElement('span');
     icon.className = 'video-hero__play-icon';
     icon.setAttribute('aria-hidden', 'true');
     primaryAnchor.appendChild(icon);
     primaryAnchor.appendChild(document.createTextNode(ctaLabel));
     ctasDiv.appendChild(primaryAnchor);
+
+    // Open video in a modal on click
+    primaryAnchor.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const modal = document.createElement('div');
+      modal.className = 'video-hero__modal';
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-modal', 'true');
+      modal.setAttribute('aria-label', 'Video player');
+
+      const modalInner = document.createElement('div');
+      modalInner.className = 'video-hero__modal-inner';
+
+      const modalVideo = document.createElement('video');
+      modalVideo.controls = true;
+      modalVideo.autoplay = true;
+      modalVideo.className = 'video-hero__modal-video';
+      const src = document.createElement('source');
+      src.src = ctaUrl;
+      src.type = 'video/mp4';
+      modalVideo.appendChild(src);
+
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'video-hero__modal-close';
+      closeBtn.setAttribute('aria-label', 'Close video');
+      closeBtn.textContent = '✕';
+
+      const close = () => {
+        modalVideo.pause();
+        modal.remove();
+        document.removeEventListener('keydown', onKeyDown);
+      };
+
+      const onKeyDown = (ev) => { if (ev.key === 'Escape') close(); };
+
+      closeBtn.addEventListener('click', close);
+      modal.addEventListener('click', (ev) => { if (ev.target === modal) close(); });
+      document.addEventListener('keydown', onKeyDown);
+
+      modalInner.appendChild(closeBtn);
+      modalInner.appendChild(modalVideo);
+      modal.appendChild(modalInner);
+      document.body.appendChild(modal);
+      modalVideo.focus();
+    });
   }
 
   // Secondary links — each is a label+url pair
