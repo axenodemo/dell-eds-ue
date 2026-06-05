@@ -9,24 +9,7 @@
             "resourceType": "dell-eds-ue/components/teaser-carousal",
             "template": {
               "name": "Teaser Carousal",
-              "model": "teaser-carousal",
-              "slides": [
-                {
-                  "eyebrow": "Dell Technologies Showcase",
-                  "headline": "Smarter Infrastructure Starts Here",
-                  "description": "Support growth with secure, flexible servers and storage that adapt to your business needs.",
-                  "ctas": [
-                    {
-                      "label": "Shop Servers",
-                      "link": "https://www.dell.com/en-us/lp/servers"
-                    },
-                    {
-                      "label": "Shop Storage",
-                      "link": "https://www.dell.com/en-us/lp/storage"
-                    }
-                  ]
-                }
-              ]
+              "filter": "teaser-carousal"
             }
           }
         }
@@ -39,43 +22,49 @@
       "fields": [
         {
           "name": "slides",
+          "component": "container",
           "label": "Slides",
-          "valueType": "object[]",
           "fields": [
             {
-              "component": "image",
+              "component": "reference",
               "name": "image",
-              "label": "Image"
+              "label": "Image",
+              "valueType": "string"
             },
             {
               "component": "text",
               "name": "eyebrow",
-              "label": "Eyebrow"
+              "label": "Eyebrow",
+              "valueType": "string"
             },
             {
               "component": "text",
               "name": "headline",
-              "label": "Headline"
+              "label": "Headline",
+              "valueType": "string"
             },
             {
               "component": "text",
               "name": "description",
-              "label": "Description"
+              "label": "Description",
+              "valueType": "string"
             },
             {
               "name": "ctas",
               "label": "CTAs",
-              "valueType": "object[]",
+              "component": "container",
               "fields": [
                 {
                   "component": "text",
                   "name": "label",
-                  "label": "Label"
+                  "label": "Label",
+                  "valueType": "string"
                 },
                 {
                   "component": "text",
                   "name": "link",
-                  "label": "Link"
+                  "label": "Link",
+                  "valueType": "string"
                 }
               ]
             }
@@ -84,5 +73,10 @@
       ]
     }
   ],
-  "filters": []
+  "filters": [
+    {
+      "id": "teaser-carousal",
+      "components": []
+    }
+  ]
 }
