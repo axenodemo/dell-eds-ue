@@ -226,6 +226,12 @@
       },
       {
         "component": "text",
+        "name": "eyebrow",
+        "label": "Eyebrow Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
         "name": "heading",
         "label": "Heading",
         "valueType": "string"
@@ -239,13 +245,37 @@
       {
         "component": "text",
         "name": "ctaLabel",
-        "label": "Button Label",
+        "label": "Primary Button Label",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "ctaUrl",
-        "label": "Button URL",
+        "label": "Primary Button URL",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "link1Label",
+        "label": "Secondary Link 1 Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "link1Url",
+        "label": "Secondary Link 1 URL",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "link2Label",
+        "label": "Secondary Link 2 Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "link2Url",
+        "label": "Secondary Link 2 URL",
         "valueType": "string"
       }
     ]
