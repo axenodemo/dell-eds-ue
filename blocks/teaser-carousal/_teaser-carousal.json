@@ -25,6 +25,7 @@
           "name": "slides",
           "component": "container",
           "label": "Slides",
+          "item": "slide",
           "fields": [
             {
               "component": "reference",
@@ -55,10 +56,5 @@
       ]
     }
   ],
-  "filters": [
-    {
-      "id": "teaser-carousal",
-      "components": []
-    }
-  ]
+  "filters": []
 }

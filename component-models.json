@@ -432,6 +432,7 @@
         "name": "slides",
         "component": "container",
         "label": "Slides",
+        "item": "slide",
         "fields": [
           {
             "component": "reference",
