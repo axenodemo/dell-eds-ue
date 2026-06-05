@@ -1,22 +1,16 @@
 export default function decorate(block) {
-  // Expected block structure (from UE model fields, each field = one row):
-  // Row 0: video (reference — link to .mp4)
-  // Row 1: eyebrow (text)
-  // Row 2: heading (text)
-  // Row 3: text (richtext)
-  // Row 4: ctaLabel (text)
-  // Row 5: ctaUrl (text)
-  // Row 6: link1Label (text)
-  // Row 7: link1Url (text)
-  // Row 8: link2Label (text)
-  // Row 9: link2Url (text)
+  // Block structure (4 cells):
+  // Row 0: video    — reference to .mp4
+  // Row 1: eyebrow  — short text
+  // Row 2: heading  — heading or paragraph
+  // Row 3: text     — richtext: body paragraphs + links
+  //                   First link → primary CTA button (opens video in modal)
+  //                   Remaining links → secondary text links
 
   const rows = [...block.children];
-
-  // Helper: get plain text content from a row
   const getText = (row) => row?.querySelector('div')?.textContent?.trim() || row?.textContent?.trim();
 
-  // --- Video ---
+  // --- Background video ---
   const videoLink = rows[0]?.querySelector('a')?.href;
   const video = document.createElement('video');
   video.autoplay = true;
@@ -31,7 +25,7 @@ export default function decorate(block) {
     video.appendChild(source);
   }
 
-  // --- Overlay content wrapper ---
+  // --- Overlay ---
   const overlay = document.createElement('div');
   overlay.className = 'video-hero-overlay';
 
@@ -51,100 +45,94 @@ export default function decorate(block) {
     overlay.appendChild(headingEl);
   }
 
-  // Body text (row 3)
-  const bodyEl = rows[3];
-  if (bodyEl) {
+  // Body + links (row 3 richtext)
+  const textEl = rows[3];
+  if (textEl) {
     const bodyDiv = document.createElement('div');
     bodyDiv.className = 'video-hero-body';
-    [...bodyEl.querySelectorAll('p')].forEach((p) => bodyDiv.appendChild(p));
-    overlay.appendChild(bodyDiv);
-  }
+    const links = [...(textEl.querySelectorAll('a') || [])];
 
-  // --- CTAs wrapper ---
-  const ctasDiv = document.createElement('div');
-  ctasDiv.className = 'video-hero-ctas';
-
-  // Primary CTA — label (row 4) + url (row 5) are separate text fields
-  const ctaLabel = getText(rows[4]);
-  const ctaUrl = getText(rows[5]);
-  if (ctaLabel && ctaUrl) {
-    const primaryAnchor = document.createElement('a');
-    primaryAnchor.href = ctaUrl;
-    primaryAnchor.className = 'video-hero-btn-primary button';
-    primaryAnchor.setAttribute('aria-label', ctaLabel);
-    const icon = document.createElement('span');
-    icon.className = 'video-hero-play-icon';
-    icon.setAttribute('aria-hidden', 'true');
-    primaryAnchor.appendChild(icon);
-    primaryAnchor.appendChild(document.createTextNode(ctaLabel));
-    ctasDiv.appendChild(primaryAnchor);
-
-    // Open video in a modal on click
-    primaryAnchor.addEventListener('click', (e) => {
-      e.preventDefault();
-
-      const modal = document.createElement('div');
-      modal.className = 'video-hero-modal';
-      modal.setAttribute('role', 'dialog');
-      modal.setAttribute('aria-modal', 'true');
-      modal.setAttribute('aria-label', 'Video player');
-
-      const modalInner = document.createElement('div');
-      modalInner.className = 'video-hero-modal-inner';
-
-      const modalVideo = document.createElement('video');
-      modalVideo.controls = true;
-      modalVideo.autoplay = true;
-      modalVideo.className = 'video-hero-modal-video';
-      const src = document.createElement('source');
-      src.src = ctaUrl;
-      src.type = 'video/mp4';
-      modalVideo.appendChild(src);
-
-      const closeBtn = document.createElement('button');
-      closeBtn.className = 'video-hero-modal-close';
-      closeBtn.setAttribute('aria-label', 'Close video');
-      closeBtn.textContent = '✕';
-
-      const close = () => {
-        modalVideo.pause();
-        modal.remove();
-      };
-
-      const onKeyDown = (ev) => { if (ev.key === 'Escape') close(); };
-
-      closeBtn.addEventListener('click', close);
-      modal.addEventListener('click', (ev) => { if (ev.target === modal) close(); });
-      document.addEventListener('keydown', onKeyDown);
-
-      modalInner.appendChild(closeBtn);
-      modalInner.appendChild(modalVideo);
-      modal.appendChild(modalInner);
-      document.body.appendChild(modal);
-      modalVideo.focus();
+    // Paragraphs without links → body copy
+    [...textEl.querySelectorAll('p')].forEach((p) => {
+      if (!p.querySelector('a')) bodyDiv.appendChild(p);
     });
+    if (bodyDiv.children.length) overlay.appendChild(bodyDiv);
+
+    const ctasDiv = document.createElement('div');
+    ctasDiv.className = 'video-hero-ctas';
+
+    // First link → primary CTA button
+    const [primaryLink, ...secondaryLinks] = links;
+    if (primaryLink) {
+      const primaryAnchor = document.createElement('a');
+      primaryAnchor.href = primaryLink.href;
+      primaryAnchor.className = 'video-hero-btn-primary button';
+      primaryAnchor.setAttribute('aria-label', primaryLink.textContent.trim());
+      const icon = document.createElement('span');
+      icon.className = 'video-hero-play-icon';
+      icon.setAttribute('aria-hidden', 'true');
+      primaryAnchor.appendChild(icon);
+      primaryAnchor.appendChild(document.createTextNode(primaryLink.textContent.trim()));
+      ctasDiv.appendChild(primaryAnchor);
+
+      primaryAnchor.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const modal = document.createElement('div');
+        modal.className = 'video-hero-modal';
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-label', 'Video player');
+
+        const modalInner = document.createElement('div');
+        modalInner.className = 'video-hero-modal-inner';
+
+        const modalVideo = document.createElement('video');
+        modalVideo.controls = true;
+        modalVideo.autoplay = true;
+        modalVideo.className = 'video-hero-modal-video';
+        const src = document.createElement('source');
+        src.src = primaryAnchor.href;
+        src.type = 'video/mp4';
+        modalVideo.appendChild(src);
+
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'video-hero-modal-close';
+        closeBtn.setAttribute('aria-label', 'Close video');
+        closeBtn.textContent = '✕';
+
+        const close = () => { modalVideo.pause(); modal.remove(); };
+        const onKeyDown = (ev) => { if (ev.key === 'Escape') close(); };
+
+        closeBtn.addEventListener('click', close);
+        modal.addEventListener('click', (ev) => { if (ev.target === modal) close(); });
+        document.addEventListener('keydown', onKeyDown);
+
+        modalInner.appendChild(closeBtn);
+        modalInner.appendChild(modalVideo);
+        modal.appendChild(modalInner);
+        document.body.appendChild(modal);
+        modalVideo.focus();
+      });
+    }
+
+    // Remaining links → secondary text links
+    if (secondaryLinks.length) {
+      const secLinksDiv = document.createElement('div');
+      secLinksDiv.className = 'video-hero-secondary-links';
+      secondaryLinks.forEach((link) => {
+        const anchor = document.createElement('a');
+        anchor.href = link.href;
+        anchor.className = 'video-hero-link-secondary';
+        anchor.textContent = link.textContent.trim();
+        secLinksDiv.appendChild(anchor);
+      });
+      ctasDiv.appendChild(secLinksDiv);
+    }
+
+    overlay.appendChild(ctasDiv);
   }
 
-  // Secondary links — each is a label+url pair
-  const secLinksDiv = document.createElement('div');
-  secLinksDiv.className = 'video-hero-secondary-links';
-
-  [[rows[6], rows[7]], [rows[8], rows[9]]].forEach(([labelRow, urlRow]) => {
-    const label = getText(labelRow);
-    const url = getText(urlRow);
-    if (label && url) {
-      const anchor = document.createElement('a');
-      anchor.href = url;
-      anchor.className = 'video-hero-link-secondary';
-      anchor.textContent = label;
-      secLinksDiv.appendChild(anchor);
-    }
-  });
-
-  if (secLinksDiv.children.length) ctasDiv.appendChild(secLinksDiv);
-  overlay.appendChild(ctasDiv);
-
-  // --- Assemble ---
   block.innerHTML = '';
   block.appendChild(video);
   block.appendChild(overlay);

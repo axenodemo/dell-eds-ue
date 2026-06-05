@@ -239,43 +239,7 @@
       {
         "component": "richtext",
         "name": "text",
-        "label": "Body Text",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "ctaLabel",
-        "label": "Primary Button Label",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "ctaUrl",
-        "label": "Primary Button URL",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "link1Label",
-        "label": "Secondary Link 1 Label",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "link1Url",
-        "label": "Secondary Link 1 URL",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "link2Label",
-        "label": "Secondary Link 2 Label",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "link2Url",
-        "label": "Secondary Link 2 URL",
+        "label": "Body Text and Links",
         "valueType": "string"
       }
     ]
