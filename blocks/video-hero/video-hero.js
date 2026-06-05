@@ -23,7 +23,7 @@ export default function decorate(block) {
   video.muted = true;
   video.loop = true;
   video.playsInline = true;
-  video.className = 'video-hero__video';
+  video.className = 'video-hero-video';
   if (videoLink) {
     const source = document.createElement('source');
     source.src = videoLink;
@@ -33,13 +33,13 @@ export default function decorate(block) {
 
   // --- Overlay content wrapper ---
   const overlay = document.createElement('div');
-  overlay.className = 'video-hero__overlay';
+  overlay.className = 'video-hero-overlay';
 
   // Eyebrow (row 1)
   const eyebrowText = getText(rows[1]);
   if (eyebrowText) {
     const eyebrow = document.createElement('p');
-    eyebrow.className = 'video-hero__eyebrow';
+    eyebrow.className = 'video-hero-eyebrow';
     eyebrow.textContent = eyebrowText;
     overlay.appendChild(eyebrow);
   }
@@ -47,7 +47,7 @@ export default function decorate(block) {
   // Heading (row 2)
   const headingEl = rows[2]?.querySelector('h1, h2, h3, p');
   if (headingEl) {
-    headingEl.className = 'video-hero__heading';
+    headingEl.className = 'video-hero-heading';
     overlay.appendChild(headingEl);
   }
 
@@ -55,14 +55,14 @@ export default function decorate(block) {
   const bodyEl = rows[3];
   if (bodyEl) {
     const bodyDiv = document.createElement('div');
-    bodyDiv.className = 'video-hero__body';
+    bodyDiv.className = 'video-hero-body';
     [...bodyEl.querySelectorAll('p')].forEach((p) => bodyDiv.appendChild(p));
     overlay.appendChild(bodyDiv);
   }
 
   // --- CTAs wrapper ---
   const ctasDiv = document.createElement('div');
-  ctasDiv.className = 'video-hero__ctas';
+  ctasDiv.className = 'video-hero-ctas';
 
   // Primary CTA — label (row 4) + url (row 5) are separate text fields
   const ctaLabel = getText(rows[4]);
@@ -70,10 +70,10 @@ export default function decorate(block) {
   if (ctaLabel && ctaUrl) {
     const primaryAnchor = document.createElement('a');
     primaryAnchor.href = ctaUrl;
-    primaryAnchor.className = 'video-hero__btn-primary button';
+    primaryAnchor.className = 'video-hero-btn-primary button';
     primaryAnchor.setAttribute('aria-label', ctaLabel);
     const icon = document.createElement('span');
-    icon.className = 'video-hero__play-icon';
+    icon.className = 'video-hero-play-icon';
     icon.setAttribute('aria-hidden', 'true');
     primaryAnchor.appendChild(icon);
     primaryAnchor.appendChild(document.createTextNode(ctaLabel));
@@ -84,32 +84,31 @@ export default function decorate(block) {
       e.preventDefault();
 
       const modal = document.createElement('div');
-      modal.className = 'video-hero__modal';
+      modal.className = 'video-hero-modal';
       modal.setAttribute('role', 'dialog');
       modal.setAttribute('aria-modal', 'true');
       modal.setAttribute('aria-label', 'Video player');
 
       const modalInner = document.createElement('div');
-      modalInner.className = 'video-hero__modal-inner';
+      modalInner.className = 'video-hero-modal-inner';
 
       const modalVideo = document.createElement('video');
       modalVideo.controls = true;
       modalVideo.autoplay = true;
-      modalVideo.className = 'video-hero__modal-video';
+      modalVideo.className = 'video-hero-modal-video';
       const src = document.createElement('source');
       src.src = ctaUrl;
       src.type = 'video/mp4';
       modalVideo.appendChild(src);
 
       const closeBtn = document.createElement('button');
-      closeBtn.className = 'video-hero__modal-close';
+      closeBtn.className = 'video-hero-modal-close';
       closeBtn.setAttribute('aria-label', 'Close video');
       closeBtn.textContent = '✕';
 
       const close = () => {
         modalVideo.pause();
         modal.remove();
-        document.removeEventListener('keydown', onKeyDown);
       };
 
       const onKeyDown = (ev) => { if (ev.key === 'Escape') close(); };
@@ -128,7 +127,7 @@ export default function decorate(block) {
 
   // Secondary links — each is a label+url pair
   const secLinksDiv = document.createElement('div');
-  secLinksDiv.className = 'video-hero__secondary-links';
+  secLinksDiv.className = 'video-hero-secondary-links';
 
   [[rows[6], rows[7]], [rows[8], rows[9]]].forEach(([labelRow, urlRow]) => {
     const label = getText(labelRow);
@@ -136,7 +135,7 @@ export default function decorate(block) {
     if (label && url) {
       const anchor = document.createElement('a');
       anchor.href = url;
-      anchor.className = 'video-hero__link-secondary';
+      anchor.className = 'video-hero-link-secondary';
       anchor.textContent = label;
       secLinksDiv.appendChild(anchor);
     }
