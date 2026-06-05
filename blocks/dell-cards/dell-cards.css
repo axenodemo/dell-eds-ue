@@ -133,3 +133,6 @@
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+.dell-cards .eyebrow p { margin: 0; }
+.dell-cards > h2 { margin-top: 0; }
