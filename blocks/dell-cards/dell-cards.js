@@ -134,41 +134,88 @@ function decorateCardRows(rows, cardsWrapper, footerLinks) {
 
 export default function decorate(block) {
   const rows = [...block.children];
+
+  // HEADER
+  const eyebrowRow = rows[0];
+  const headingRow = rows[1];
+
+  if (eyebrowRow) {
+    eyebrowRow.classList.add('eyebrow');
+  }
+
+  if (headingRow) {
+    const heading = document.createElement('h2');
+    heading.textContent = headingRow.textContent.trim();
+    headingRow.replaceWith(heading);
+  }
+
+  // CREATE CARD WRAPPER
   const cardsWrapper = document.createElement('div');
   cardsWrapper.className = 'dell-cards-list';
+
+  // CARD ROWS
+  const cardRows = rows.slice(2, 6);
+
+  cardRows.forEach((row) => {
+    const cols = [...row.children];
+
+    if (cols.length < 3) return;
+
+    const picture = cols[0].querySelector('picture');
+
+    const titleText = cols[1].textContent.trim();
+
+    const link = cols[2].querySelector('a');
+
+    const article = document.createElement('article');
+    article.className = 'dell-cards-card';
+
+    // IMAGE
+    if (picture) {
+      article.append(picture.cloneNode(true));
+    }
+
+    // BODY
+    const body = document.createElement('div');
+    body.className = 'dell-cards-card-body';
+
+    // TITLE
+    const title = document.createElement('h3');
+    title.textContent = titleText;
+
+    body.append(title);
+
+    // SPACER
+    const spacer = document.createElement('div');
+    spacer.className = 'dell-cards-spacer';
+
+    body.append(spacer);
+
+    // LINK
+    if (link) {
+      body.append(link.cloneNode(true));
+    }
+
+    article.append(body);
+
+    cardsWrapper.append(article);
+  });
+
+  block.append(cardsWrapper);
+
+  // FOOTER LINKS
   const footerLinks = document.createElement('div');
   footerLinks.className = 'footer-links';
 
-  if (rows[0]?.children.length > 1 && !rows[0].querySelector('picture, a')) {
-    decorateHeader(rows[0]);
-  } else {
-    rows[0]?.classList.add('eyebrow');
+  const footerRows = rows.slice(6);
 
-    const headingText = rows[1]?.textContent.trim();
-    if (headingText) {
-      const heading = document.createElement('h2');
-      heading.textContent = headingText;
-      rows[1].replaceWith(heading);
+  footerRows.forEach((row) => {
+    const link = row.querySelector('a');
+
+    if (link) {
+      footerLinks.append(link.cloneNode(true));
     }
-  }
+  });
 
-  if (rows[3]?.querySelector('picture') || rows[4]?.querySelector('a')) {
-    decorateLegacyCards(rows, cardsWrapper);
-  } else if (rows.some((row) => row.querySelector('picture'))) {
-    decorateCardRows(rows.slice(2), cardsWrapper, footerLinks);
-  } else {
-    decorateItemCards(rows.slice(2), cardsWrapper, footerLinks);
-  }
-
-  if (cardsWrapper.children.length) block.append(cardsWrapper);
-
-  if (!footerLinks.children.length) {
-    const footerRow = rows.find((row) => row.isConnected && row.querySelector('a'));
-    const footerAnchors = [...(footerRow?.querySelectorAll('a') || [])];
-
-    footerAnchors.forEach((anchor) => footerLinks.append(anchor));
-    footerRow?.remove();
-  }
-
-  if (footerLinks.children.length) block.append(footerLinks);
+  block.append(footerLinks);
 }
