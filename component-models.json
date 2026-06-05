@@ -426,6 +426,55 @@
     ]
   },
   {
+    "id": "teaser-carousal",
+    "fields": [
+      {
+        "name": "slides",
+        "label": "Slides",
+        "valueType": "object[]",
+        "fields": [
+          {
+            "component": "image",
+            "name": "image",
+            "label": "Image"
+          },
+          {
+            "component": "text",
+            "name": "eyebrow",
+            "label": "Eyebrow"
+          },
+          {
+            "component": "text",
+            "name": "headline",
+            "label": "Headline"
+          },
+          {
+            "component": "text",
+            "name": "description",
+            "label": "Description"
+          },
+          {
+            "name": "ctas",
+            "label": "CTAs",
+            "valueType": "object[]",
+            "fields": [
+              {
+                "component": "text",
+                "name": "label",
+                "label": "Label"
+              },
+              {
+                "component": "text",
+                "name": "link",
+                "label": "Link"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "video-hero",
     "fields": [
       {
