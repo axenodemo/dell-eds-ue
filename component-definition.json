@@ -188,14 +188,14 @@
           }
         },
         {
-          "title":"Testimonial Cards",
-          "id":"testimonial-cards",
+          "title": "Testimonial Cards",
+          "id": "testimonial-cards",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Testimonials",
+                  "name": "Testimonial Cards",
                   "model": "testimonial-cards"
                 }
               }
