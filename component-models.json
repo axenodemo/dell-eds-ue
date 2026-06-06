@@ -463,6 +463,12 @@
         "name": "description",
         "label": "Description",
         "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "ctas",
+        "label": "CTAs",
+        "valueType": "string"
       }
     ]
   },

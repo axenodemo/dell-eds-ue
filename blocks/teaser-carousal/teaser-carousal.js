@@ -16,18 +16,18 @@ function chevronSvg() {
 }
 
 // ── Build one slide from a slide row ─────────────────────────────────────
-// EDS DOM per slide row (4 cells, fixed schema):
+// EDS DOM per slide row (5 cells, fixed schema):
 //   cell 0 → <div><picture><img data-aue-prop="image" …></picture></div>
 //   cell 1 → <div><p data-aue-prop="eyebrow" …>text</p></div>
 //   cell 2 → <div><p data-aue-prop="headline" …>text</p></div>
 //   cell 3 → <div><p data-aue-prop="description" …>text</p></div>
+//   cell 4 → <div data-aue-prop="ctas" …>
+//               richtext content — <ul><li><a href="…">Label</a></li>…</ul>
+//               or <p><a href="…">Label</a></p> per link authored in RTE
+//            </div>
 function buildSlide(row, index, total) {
-  const [imageCell, eyebrowCell, headlineCell, descriptionCell] = [...row.children];
+  const [imageCell, eyebrowCell, headlineCell, descriptionCell, ctasCell] = [...row.children];
 
-  // Create the rendered slide div and move UE instrumentation from the
-  // authored row onto it. The row itself is hidden (display:none) but stays
-  // in the DOM as a direct child of block — UE needs it there to detect
-  // existing items and enable the + button for adding new slides.
   const slide = document.createElement('div');
   slide.className = 'dc-slide';
   slide.setAttribute('role', 'group');
@@ -63,7 +63,7 @@ function buildSlide(row, index, total) {
     card.appendChild(eyebrowP);
   }
 
-  // Headline — authored as <p> but render as <h3>; move UE attrs onto h3
+  // Headline — authored as <p>, render as <h3>; move UE attrs onto h3
   const headlineP = headlineCell?.querySelector('p');
   if (headlineP) {
     const h3 = document.createElement('h3');
@@ -74,34 +74,39 @@ function buildSlide(row, index, total) {
   }
 
   // Description — authored <p> carries data-aue-prop="description"
-  // After decorateButtons() any <a> links become <p class="button-container"><a>
-  if (descriptionCell) {
-    const allParas = [...descriptionCell.querySelectorAll(':scope > p')];
-    const bodyParas = allParas.filter((p) => !p.classList.contains('button-container'));
-    const ctaAnchors = descriptionCell.querySelectorAll('p.button-container > a, :scope > a');
+  const descP = descriptionCell?.querySelector('p');
+  if (descP) {
+    descP.className = 'dc-card__body';
+    card.appendChild(descP);
+  }
 
-    if (bodyParas.length > 0) {
-      const authoredP = bodyParas[0];
-      authoredP.className = 'dc-card__body';
-      card.appendChild(authoredP);
-    }
+  // CTAs — richtext cell authored via RTE hyperlink tool.
+  // RTE output can be:
+  //   <ul><li><a href="…">Label</a></li><li><a href="…">Label</a></li></ul>
+  //   or <p><a href="…">Label</a></p> (one per line in RTE)
+  // We read all <a> elements from the richtext cell and build dc-cta-link items.
+  if (ctasCell) {
+    const anchors = [...ctasCell.querySelectorAll('a')].filter(
+      (a) => a.getAttribute('href') && a.textContent.trim(),
+    );
 
-    if (ctaAnchors.length > 0) {
+    if (anchors.length > 0) {
       const ctaWrap = document.createElement('div');
       ctaWrap.className = 'dc-card__ctas';
-      [...ctaAnchors].forEach((anchor) => {
-        const label = anchor.textContent.trim();
-        const href = anchor.getAttribute('href') || '#';
-        if (!label || !href) return;
+      // Move UE instrumentation from the ctas cell onto the wrapper div
+      moveInstrumentation(ctasCell, ctaWrap);
+
+      anchors.forEach((anchor) => {
         const a = document.createElement('a');
         a.className = 'dc-cta-link';
-        a.href = href;
+        a.href = anchor.getAttribute('href');
         const span = document.createElement('span');
-        span.textContent = label;
+        span.textContent = anchor.textContent.trim();
         a.appendChild(span);
         a.appendChild(chevronSvg());
         ctaWrap.appendChild(a);
       });
+
       card.appendChild(ctaWrap);
     }
   }
@@ -171,7 +176,7 @@ function startAutoSlide(state, slides, track, dotEls, playBtn) {
 
 // ── Main decorate ─────────────────────────────────────────────────────────
 export default function decorate(block) {
-  // Collect valid slide rows (direct children with data-aue-component="teaser-carousal-slide")
+  // Collect valid slide rows — filter out empty placeholder rows injected by UE
   const itemRows = [...block.children].filter(
     (row) =>
       row.children.length > 0 &&
@@ -190,18 +195,13 @@ export default function decorate(block) {
   track.className = 'dc-track';
 
   // Build slides — moveInstrumentation moves data-aue-* from each row onto
-  // the slide div. The original rows become unstyled empty shells; we hide
-  // them with a utility class so they stay in block.children (UE scans direct
-  // children of the block container to detect items and show the + button).
+  // the slide div. The original rows become empty shells; hide them with
+  // display:none but keep them as direct children of block so UE can still
+  // detect items via its container filter scan and show the + button.
   const slides = itemRows.map((row, i, arr) => {
     const slide = buildSlide(row, i, arr.length);
     track.appendChild(slide);
-
-    // Keep the now-empty authored row in the DOM as a hidden UE anchor.
-    // UE uses block's direct children with data-aue-component to manage items.
-    // Without these rows present, the + button disappears.
     row.style.display = 'none';
-
     return slide;
   });
 
@@ -254,9 +254,9 @@ export default function decorate(block) {
   footer.appendChild(dotsWrap);
   footer.appendChild(playBtn);
 
-  // Append stage and footer AFTER the existing (now-hidden) authored rows.
+  // Append stage and footer AFTER the hidden authored rows.
   // Do NOT use replaceChildren — the hidden rows must stay as direct children
-  // of block so UE can find them via its container filter scan.
+  // of block so UE can find them for item management (+ button).
   block.appendChild(stage);
   block.appendChild(footer);
 
