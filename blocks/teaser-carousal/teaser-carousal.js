@@ -14,14 +14,32 @@ function chevronSvg() {
   return svg;
 }
 
-// ── Build one slide from a slide row ────────────────────────────────────
-// EDS block DOM per slide row (4 cells, fixed schema):
+// ── Copy UE instrumentation attributes (without removing from source) ────
+// moveInstrumentation moves attrs AND removes them from source, breaking UE's
+// ability to detect the authored item for the + button. We copy instead.
+function copyInstrumentation(from, to) {
+  [
+    'data-aue-resource',
+    'data-aue-type',
+    'data-aue-component',
+    'data-aue-model',
+    'data-aue-label',
+    'data-aue-filter',
+    'data-aue-behavior',
+    'data-aue-prop',
+  ].forEach((attr) => {
+    const val = from.getAttribute(attr);
+    if (val) to.setAttribute(attr, val);
+  });
+}
+
+// ── Build one slide from a slide row ─────────────────────────────────────
+// EDS DOM per slide row (4 cells, fixed schema):
 //   cell 0 → <div><picture><img data-aue-prop="image" …></picture></div>
 //   cell 1 → <div><p data-aue-prop="eyebrow" …>text</p></div>
 //   cell 2 → <div><p data-aue-prop="headline" …>text</p></div>
 //   cell 3 → <div><p data-aue-prop="description" …>text</p></div>
 function buildSlide(row, index, total) {
-  // Fixed schema — destructure by index (Rule 17)
   const [imageCell, eyebrowCell, headlineCell, descriptionCell] = [...row.children];
 
   const slide = document.createElement('div');
@@ -32,14 +50,19 @@ function buildSlide(row, index, total) {
   slide.setAttribute('aria-hidden', index !== 0 ? 'true' : 'false');
   if (index === 0) slide.classList.add('dc-slide--active');
 
-  // Move UE instrumentation from the authored row onto the new slide div
-  moveInstrumentation(row, slide);
+  // Copy UE resource attrs from authored row onto slide so UE can target it.
+  // We do NOT call moveInstrumentation() here — that would strip attrs from
+  // the original row, breaking the UE + button for adding new slides.
+  copyInstrumentation(row, slide);
 
   // ── Image ──
   const imgWrap = document.createElement('div');
   imgWrap.className = 'dc-slide__image';
   const picture = imageCell?.querySelector('picture');
   if (picture) {
+    // Move the picture element (it carries data-aue-prop="image" on the <img>)
+    // moveInstrumentation on the img itself is fine — we only avoid it on the
+    // container ROW which UE needs intact for item-level operations.
     imgWrap.appendChild(picture);
   }
   slide.appendChild(imgWrap);
@@ -48,27 +71,43 @@ function buildSlide(row, index, total) {
   const card = document.createElement('div');
   card.className = 'dc-slide__card';
 
-  // Eyebrow — text field, read textContent directly (never querySelector('a'))
+  // Eyebrow — text field
   const eyebrowText = eyebrowCell?.textContent?.trim();
   if (eyebrowText) {
     const ew = document.createElement('p');
     ew.className = 'dc-card__eyebrow';
-    ew.textContent = eyebrowText;
-    card.appendChild(ew);
+    // Move the authored <p> which carries data-aue-prop="eyebrow"
+    const authoredP = eyebrowCell.querySelector('p');
+    if (authoredP) {
+      authoredP.className = 'dc-card__eyebrow';
+      ew.replaceWith(authoredP); // not appended yet — handled below
+      card.appendChild(authoredP);
+    } else {
+      ew.textContent = eyebrowText;
+      card.appendChild(ew);
+    }
   }
 
   // Headline — text field
   const headlineText = headlineCell?.textContent?.trim();
   if (headlineText) {
-    const h = document.createElement('h3');
-    h.className = 'dc-card__headline';
-    h.textContent = headlineText;
-    card.appendChild(h);
+    const authoredP = headlineCell.querySelector('p');
+    if (authoredP) {
+      // Render as h3 but keep UE attrs by moving them
+      const h = document.createElement('h3');
+      h.className = 'dc-card__headline';
+      h.textContent = authoredP.textContent.trim();
+      copyInstrumentation(authoredP, h);
+      card.appendChild(h);
+    } else {
+      const h = document.createElement('h3');
+      h.className = 'dc-card__headline';
+      h.textContent = headlineText;
+      card.appendChild(h);
+    }
   }
 
-  // Description — text field. After decorateButtons() runs, aem-content <a> links
-  // inside this cell get wrapped in <p class="button-container">. Separate plain
-  // paragraphs (body copy) from button-container paragraphs (CTAs).
+  // Description — text field (may also contain button-container CTAs after decorateButtons)
   if (descriptionCell) {
     const allParas = [...descriptionCell.querySelectorAll(':scope > p')];
     const bodyParas = allParas.filter((p) => !p.classList.contains('button-container'));
@@ -77,16 +116,10 @@ function buildSlide(row, index, total) {
     ];
 
     if (bodyParas.length > 0) {
-      const bodyText = bodyParas
-        .map((p) => p.textContent.trim())
-        .filter(Boolean)
-        .join(' ');
-      if (bodyText) {
-        const p = document.createElement('p');
-        p.className = 'dc-card__body';
-        p.textContent = bodyText;
-        card.appendChild(p);
-      }
+      // Move the authored <p> with its UE attrs intact
+      const authoredP = bodyParas[0];
+      authoredP.className = 'dc-card__body';
+      card.appendChild(authoredP);
     }
 
     if (ctaAnchors.length > 0) {
@@ -113,7 +146,7 @@ function buildSlide(row, index, total) {
   return slide;
 }
 
-// ── Transition state ─────────────────────────────────────────────────────
+// ── Transition ────────────────────────────────────────────────────────────
 const TRANSITION_MS = 450;
 
 function goToSlide(index, track, slides, dotEls, state) {
@@ -152,9 +185,7 @@ function setPlayBtnState(btn, playing) {
   if (pathEl) {
     pathEl.setAttribute(
       'd',
-      playing
-        ? 'M9 16h2V8H9v8zm4-8v8h2V8h-2z' // pause icon
-        : 'M8 5v14l11-7z', // play icon
+      playing ? 'M9 16h2V8H9v8zm4-8v8h2V8h-2z' : 'M8 5v14l11-7z',
     );
   }
 }
@@ -176,8 +207,7 @@ function startAutoSlide(state, slides, track, dotEls, playBtn) {
 
 // ── Main decorate ─────────────────────────────────────────────────────────
 export default function decorate(block) {
-  // Collect valid slide rows — filter out empty placeholder rows injected by UE
-  // Each slide row is a direct child of block with data-aue-component="teaser-carousal-slide"
+  // Collect valid slide rows
   const itemRows = [...block.children].filter(
     (row) =>
       row.children.length > 0 &&
@@ -203,7 +233,7 @@ export default function decorate(block) {
 
   stage.appendChild(track);
 
-  // Prev / Next arrows
+  // Prev / Next
   const prevBtn = document.createElement('button');
   prevBtn.className = 'dc-nav dc-nav--prev';
   prevBtn.setAttribute('aria-label', 'Previous slide');
@@ -217,7 +247,7 @@ export default function decorate(block) {
   stage.appendChild(prevBtn);
   stage.appendChild(nextBtn);
 
-  // ── Footer: dots + play button ──
+  // ── Footer ──
   const footer = document.createElement('div');
   footer.className = 'dc-footer';
 
@@ -251,16 +281,16 @@ export default function decorate(block) {
   footer.appendChild(dotsWrap);
   footer.appendChild(playBtn);
 
-  // Atomic DOM replacement — UE instrumentation preserved via moveInstrumentation() in buildSlide()
+  // ── Replace block content ──
+  // We use replaceChildren with stage + footer.
+  // The original authored rows have already had their content moved out
+  // (picture, eyebrow p, etc.) so they are now empty shells — but their
+  // data-aue-* attrs were COPIED (not moved) onto the slide divs, so UE
+  // can still resolve the container's filter and show the + button.
   block.replaceChildren(stage, footer);
 
-  // ── Wire interactions ──
-  const state = {
-    index: 0,
-    playing: false,
-    timer: null,
-    transitioning: false,
-  };
+  // ── Interactions ──
+  const state = { index: 0, playing: false, timer: null, transitioning: false };
 
   dotEls.forEach((dot, i) => {
     dot.addEventListener('click', () => {
@@ -270,13 +300,7 @@ export default function decorate(block) {
   });
 
   prevBtn.addEventListener('click', () => {
-    goToSlide(
-      (state.index - 1 + slides.length) % slides.length,
-      track,
-      slides,
-      dotEls,
-      state,
-    );
+    goToSlide((state.index - 1 + slides.length) % slides.length, track, slides, dotEls, state);
     stopAutoSlide(state, playBtn);
   });
 
@@ -295,6 +319,5 @@ export default function decorate(block) {
     else if (e.key === 'ArrowRight') nextBtn.click();
   });
 
-  // Auto-play on load
   startAutoSlide(state, slides, track, dotEls, playBtn);
 }
