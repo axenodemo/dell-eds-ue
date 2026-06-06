@@ -1,3 +1,4 @@
+import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 // ── CTA chevron SVG ───────────────────────────────────────────────────────
@@ -14,25 +15,6 @@ function chevronSvg() {
   return svg;
 }
 
-// ── Copy UE instrumentation attributes (without removing from source) ────
-// moveInstrumentation moves attrs AND removes them from source, breaking UE's
-// ability to detect the authored item for the + button. We copy instead.
-function copyInstrumentation(from, to) {
-  [
-    'data-aue-resource',
-    'data-aue-type',
-    'data-aue-component',
-    'data-aue-model',
-    'data-aue-label',
-    'data-aue-filter',
-    'data-aue-behavior',
-    'data-aue-prop',
-  ].forEach((attr) => {
-    const val = from.getAttribute(attr);
-    if (val) to.setAttribute(attr, val);
-  });
-}
-
 // ── Build one slide from a slide row ─────────────────────────────────────
 // EDS DOM per slide row (4 cells, fixed schema):
 //   cell 0 → <div><picture><img data-aue-prop="image" …></picture></div>
@@ -42,6 +24,10 @@ function copyInstrumentation(from, to) {
 function buildSlide(row, index, total) {
   const [imageCell, eyebrowCell, headlineCell, descriptionCell] = [...row.children];
 
+  // Create the rendered slide div and move UE instrumentation from the
+  // authored row onto it. The row itself is hidden (display:none) but stays
+  // in the DOM as a direct child of block — UE needs it there to detect
+  // existing items and enable the + button for adding new slides.
   const slide = document.createElement('div');
   slide.className = 'dc-slide';
   slide.setAttribute('role', 'group');
@@ -50,20 +36,19 @@ function buildSlide(row, index, total) {
   slide.setAttribute('aria-hidden', index !== 0 ? 'true' : 'false');
   if (index === 0) slide.classList.add('dc-slide--active');
 
-  // Copy UE resource attrs from authored row onto slide so UE can target it.
-  // We do NOT call moveInstrumentation() here — that would strip attrs from
-  // the original row, breaking the UE + button for adding new slides.
-  copyInstrumentation(row, slide);
+  moveInstrumentation(row, slide);
 
   // ── Image ──
   const imgWrap = document.createElement('div');
   imgWrap.className = 'dc-slide__image';
-  const picture = imageCell?.querySelector('picture');
-  if (picture) {
-    // Move the picture element (it carries data-aue-prop="image" on the <img>)
-    // moveInstrumentation on the img itself is fine — we only avoid it on the
-    // container ROW which UE needs intact for item-level operations.
-    imgWrap.appendChild(picture);
+  const img = imageCell?.querySelector('img');
+  if (img) {
+    const optimizedPic = createOptimizedPicture(img.src, img.alt || '', false, [
+      { media: '(min-width: 600px)', width: '2000' },
+      { width: '750' },
+    ]);
+    moveInstrumentation(img, optimizedPic.querySelector('img'));
+    imgWrap.appendChild(optimizedPic);
   }
   slide.appendChild(imgWrap);
 
@@ -71,52 +56,31 @@ function buildSlide(row, index, total) {
   const card = document.createElement('div');
   card.className = 'dc-slide__card';
 
-  // Eyebrow — text field
-  const eyebrowText = eyebrowCell?.textContent?.trim();
-  if (eyebrowText) {
-    const ew = document.createElement('p');
-    ew.className = 'dc-card__eyebrow';
-    // Move the authored <p> which carries data-aue-prop="eyebrow"
-    const authoredP = eyebrowCell.querySelector('p');
-    if (authoredP) {
-      authoredP.className = 'dc-card__eyebrow';
-      ew.replaceWith(authoredP); // not appended yet — handled below
-      card.appendChild(authoredP);
-    } else {
-      ew.textContent = eyebrowText;
-      card.appendChild(ew);
-    }
+  // Eyebrow — authored <p> carries data-aue-prop="eyebrow", move it directly
+  const eyebrowP = eyebrowCell?.querySelector('p');
+  if (eyebrowP) {
+    eyebrowP.className = 'dc-card__eyebrow';
+    card.appendChild(eyebrowP);
   }
 
-  // Headline — text field
-  const headlineText = headlineCell?.textContent?.trim();
-  if (headlineText) {
-    const authoredP = headlineCell.querySelector('p');
-    if (authoredP) {
-      // Render as h3 but keep UE attrs by moving them
-      const h = document.createElement('h3');
-      h.className = 'dc-card__headline';
-      h.textContent = authoredP.textContent.trim();
-      copyInstrumentation(authoredP, h);
-      card.appendChild(h);
-    } else {
-      const h = document.createElement('h3');
-      h.className = 'dc-card__headline';
-      h.textContent = headlineText;
-      card.appendChild(h);
-    }
+  // Headline — authored as <p> but render as <h3>; move UE attrs onto h3
+  const headlineP = headlineCell?.querySelector('p');
+  if (headlineP) {
+    const h3 = document.createElement('h3');
+    h3.className = 'dc-card__headline';
+    h3.textContent = headlineP.textContent.trim();
+    moveInstrumentation(headlineP, h3);
+    card.appendChild(h3);
   }
 
-  // Description — text field (may also contain button-container CTAs after decorateButtons)
+  // Description — authored <p> carries data-aue-prop="description"
+  // After decorateButtons() any <a> links become <p class="button-container"><a>
   if (descriptionCell) {
     const allParas = [...descriptionCell.querySelectorAll(':scope > p')];
     const bodyParas = allParas.filter((p) => !p.classList.contains('button-container'));
-    const ctaAnchors = [
-      ...descriptionCell.querySelectorAll('p.button-container > a, :scope > a'),
-    ];
+    const ctaAnchors = descriptionCell.querySelectorAll('p.button-container > a, :scope > a');
 
     if (bodyParas.length > 0) {
-      // Move the authored <p> with its UE attrs intact
       const authoredP = bodyParas[0];
       authoredP.className = 'dc-card__body';
       card.appendChild(authoredP);
@@ -125,7 +89,7 @@ function buildSlide(row, index, total) {
     if (ctaAnchors.length > 0) {
       const ctaWrap = document.createElement('div');
       ctaWrap.className = 'dc-card__ctas';
-      ctaAnchors.forEach((anchor) => {
+      [...ctaAnchors].forEach((anchor) => {
         const label = anchor.textContent.trim();
         const href = anchor.getAttribute('href') || '#';
         if (!label || !href) return;
@@ -207,7 +171,7 @@ function startAutoSlide(state, slides, track, dotEls, playBtn) {
 
 // ── Main decorate ─────────────────────────────────────────────────────────
 export default function decorate(block) {
-  // Collect valid slide rows
+  // Collect valid slide rows (direct children with data-aue-component="teaser-carousal-slide")
   const itemRows = [...block.children].filter(
     (row) =>
       row.children.length > 0 &&
@@ -225,15 +189,24 @@ export default function decorate(block) {
   const track = document.createElement('div');
   track.className = 'dc-track';
 
+  // Build slides — moveInstrumentation moves data-aue-* from each row onto
+  // the slide div. The original rows become unstyled empty shells; we hide
+  // them with a utility class so they stay in block.children (UE scans direct
+  // children of the block container to detect items and show the + button).
   const slides = itemRows.map((row, i, arr) => {
     const slide = buildSlide(row, i, arr.length);
     track.appendChild(slide);
+
+    // Keep the now-empty authored row in the DOM as a hidden UE anchor.
+    // UE uses block's direct children with data-aue-component to manage items.
+    // Without these rows present, the + button disappears.
+    row.style.display = 'none';
+
     return slide;
   });
 
   stage.appendChild(track);
 
-  // Prev / Next
   const prevBtn = document.createElement('button');
   prevBtn.className = 'dc-nav dc-nav--prev';
   prevBtn.setAttribute('aria-label', 'Previous slide');
@@ -281,13 +254,11 @@ export default function decorate(block) {
   footer.appendChild(dotsWrap);
   footer.appendChild(playBtn);
 
-  // ── Replace block content ──
-  // We use replaceChildren with stage + footer.
-  // The original authored rows have already had their content moved out
-  // (picture, eyebrow p, etc.) so they are now empty shells — but their
-  // data-aue-* attrs were COPIED (not moved) onto the slide divs, so UE
-  // can still resolve the container's filter and show the + button.
-  block.replaceChildren(stage, footer);
+  // Append stage and footer AFTER the existing (now-hidden) authored rows.
+  // Do NOT use replaceChildren — the hidden rows must stay as direct children
+  // of block so UE can find them via its container filter scan.
+  block.appendChild(stage);
+  block.appendChild(footer);
 
   // ── Interactions ──
   const state = { index: 0, playing: false, timer: null, transitioning: false };
