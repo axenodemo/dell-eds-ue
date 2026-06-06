@@ -1,65 +1,86 @@
 export default function decorate(block) {
-  console.log("aditya 0");
-  const row = block.children[0];
+  console.log("Aditya new");
+  const pretitle = block.children[0]?.textContent?.trim();
+  const title = block.children[1]?.textContent?.trim();
+  const subtitle = block.children[2]?.textContent?.trim();
 
-  console.log("aditya 1");
-  if (!row) return;
+  const primaryButtonText = block.children[3]?.textContent?.trim();
+  const primaryButtonLink = block.children[4]?.textContent?.trim();
 
-  const contentDiv = row.children[0];
-  const imageDiv = row.children[1];
+  const secondaryButtonText = block.children[5]?.textContent?.trim();
+  const secondaryButtonLink = block.children[6]?.textContent?.trim();
 
-  if (!contentDiv || !imageDiv) return;
+  const image = block.children[7]?.querySelector('img');
 
-console.log("aditya 2");
-  // Content extraction
-  const eyebrow = contentDiv.querySelector('p:nth-of-type(1)');
-  const heading = contentDiv.querySelector('h2');
-  const description = contentDiv.querySelector('p:nth-of-type(2)');
-  const ctaWrapper = contentDiv.querySelector('p:nth-of-type(3)');
+  block.innerHTML = '';
 
-  const links = ctaWrapper ? ctaWrapper.querySelectorAll('a') : [];
+  const content = document.createElement('div');
+  content.className = 'demo-center-rewards-block__content';
 
-  const primaryLink = links[0];
-  const secondaryLink = links[1];
+  if (pretitle) {
+    const eyebrow = document.createElement('p');
+    eyebrow.className = 'demo-center-rewards-block__eyebrow';
+    eyebrow.textContent = pretitle;
+    content.appendChild(eyebrow);
+  }
 
-console.log("aditya 3");
-  // Image extraction
-  const picture = imageDiv.querySelector('picture');
+  if (title) {
+    const heading = document.createElement('h2');
+    heading.className = 'demo-center-rewards-block__title';
+    heading.textContent = title;
+    content.appendChild(heading);
+  }
 
-  // Build final structure
-   console.log("aditya 4");
-  block.innerHTML = `
-    <div>
-      <div>
-        ${eyebrow ? eyebrow.outerHTML : ''}
+  if (subtitle) {
+    const description = document.createElement('p');
+    description.className = 'demo-center-rewards-block__description';
+    description.textContent = subtitle;
+    content.appendChild(description);
+  }
 
-        ${heading ? heading.outerHTML : ''}
+  if (
+    primaryButtonText ||
+    secondaryButtonText
+  ) {
+    const actions = document.createElement('div');
+    actions.className = 'demo-center-rewards-block__actions';
 
-        ${description ? description.outerHTML : ''}
+    if (primaryButtonText && primaryButtonLink) {
+      const primaryBtn = document.createElement('a');
+      primaryBtn.className = 'demo-center-rewards-block__button';
+      primaryBtn.href = primaryButtonLink;
+      primaryBtn.textContent = primaryButtonText;
 
-        <p>
-          ${
-            primaryLink
-              ? `<a href="${primaryLink.href}" title="${primaryLink.textContent.trim()}">
-                  ${primaryLink.textContent.trim()}
-                </a>`
-              : ''
-          }
+      actions.appendChild(primaryBtn);
+    }
 
-          ${
-            secondaryLink
-              ? `<a href="${secondaryLink.href}" title="${secondaryLink.textContent.trim()}">
-                  ${secondaryLink.textContent.trim()}
-                </a>`
-              : ''
-          }
-        </p>
-      </div>
+    if (secondaryButtonText && secondaryButtonLink) {
+      const secondaryBtn = document.createElement('a');
+      secondaryBtn.className = 'demo-center-rewards-block__link';
 
-      <div>
-        ${picture ? picture.outerHTML : ''}
-      </div>
-    </div>
-  `;
-  console.log("aditya 5");
+      secondaryBtn.href = secondaryButtonLink;
+
+      secondaryBtn.innerHTML = `
+        ${secondaryButtonText}
+        <span class="demo-center-rewards-block__arrow">
+          →
+        </span>
+      `;
+
+      actions.appendChild(secondaryBtn);
+    }
+
+    content.appendChild(actions);
+  }
+
+  block.classList.add('demo-center-rewards-block');
+
+  const imageWrapper = document.createElement('div');
+  imageWrapper.className = 'demo-center-rewards-block__image';
+
+  if (image) {
+    imageWrapper.appendChild(image);
+  }
+
+  block.append(content, imageWrapper);
 }

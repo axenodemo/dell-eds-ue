@@ -1,147 +1,167 @@
-.dellhero {
-  background: #062f63;
-  padding: 70px 80px;
-}
-
-/* Main layout */
-.dellhero > div {
+.demo-center-rewards-block {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 60px;
+  gap: 80px;
+
+  padding: 60px 80px;
+
+  background: #0b3768;
+  color: #fff;
+
+  min-height: 420px;
+  box-sizing: border-box;
 }
 
-/* Left content */
-.dellhero > div > div:first-child {
-  width: 42%;
-  color: white;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.demo-center-rewards-block * {
+  box-sizing: border-box;
 }
 
-/* Right image */
-.dellhero > div > div:last-child {
-  width: 58%;
+.demo-center-rewards-block__content {
+  flex: 1;
+  max-width: 520px;
 }
 
-/* Dell Rewards text */
-.dellhero p:first-child {
+.demo-center-rewards-block__eyebrow {
   font-size: 16px;
-  font-weight: 600;
-  color: white;
+  font-weight: 400;
 
-  margin-top: 20;
-  margin-bottom: 8px;
+  margin: 0 0 18px;
 }
 
-/* Main heading */
-.dellhero h2 {
-  font-size: 40px;
+.demo-center-rewards-block__title {
+  font-size: 52px;
   line-height: 1.1;
   font-weight: 300;
-  color: white;
 
-  margin-top: 0;
-  margin-bottom: 18px;
-
-  max-width: 320px;
-}
-.dellhero.block div div p:nth-child(2){
-    font-size: 40px;
-}
-.dellhero.block div div p:nth-child(2){
-    max-width: 300px;
-}
-.dellhero.block div div p:nth-child(3){
-    max-width: 400px;
-}
-/* Description */
-.dellhero p {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #dce7f5;
-
-  margin-top: 0;
-  margin-bottom: 12px;
+  margin: 0 0 24px;
 }
 
-/* CTA wrapper spacing */
-.dellhero p:last-child {
-  margin-top: 18px;
+.demo-center-rewards-block__description {
+  font-size: 22px;
+  line-height: 1.5;
+
+  margin: 0 0 36px;
 }
 
-/* CTA buttons */
-.dellhero a {
+.demo-center-rewards-block__actions {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.demo-center-rewards-block__button,
+.demo-center-rewards-block__link {
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+}
 
-  padding: 14px 28px;
-  border-radius: 4px;
+.demo-center-rewards-block__button {
+  background: #1683e2;
+  color: #fff;
 
-  text-decoration: none;
-  font-size: 16px;
+  padding: 16px 34px;
+
+  font-size: 18px;
   font-weight: 600;
 
-  transition: all 0.3s ease;
-
-  margin-right: 18px;
+  transition: background 0.3s ease;
 }
 
-/* Primary CTA */
-.dellhero a:first-of-type {
-  background: #0672cd;
-  border-color: #0672cd;
-  color: white;
+.demo-center-rewards-block__button:hover {
+  background: #2b94ef;
 }
 
-/* Third/Tertiary CTA */
-.dellhero a:last-of-type {
-  background: transparent;
-  color: white;
-  padding-left: 0;
+.demo-center-rewards-block__link {
+  color: #fff;
+
+  font-size: 20px;
+  font-weight: 500;
+
+  gap: 10px;
 }
 
-.dellhero a:last-of-type::after {
-  content: " →";
-  margin-left: 6px;
+.demo-center-rewards-block__arrow {
+  font-size: 24px;
+  line-height: 1;
 }
 
-/* Image */
-.dellhero picture,
-.dellhero img {
+.demo-center-rewards-block__image {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+}
+
+.demo-center-rewards-block__image img {
   width: 100%;
-  display: block;
-}
+  max-width: 620px;
 
-.dellhero img {
-  border-radius: 2px;
+  display: block;
   object-fit: cover;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .dellhero {
-    padding: 40px 20px;
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .demo-center-rewards-block {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+
+    gap: 24px;
+
+    padding: 24px 20px 32px;
   }
 
-  .dellhero > div {
-    flex-direction: column;
-  }
-
-  .dellhero > div > div:first-child,
-  .dellhero > div > div:last-child {
-    width: 100%;
-  }
-
-  .dellhero h2 {
-    font-size: 34px;
+  .demo-center-rewards-block__content {
     max-width: 100%;
   }
 
-  .dellhero img {
-    margin-top: 20px;
+  .demo-center-rewards-block__image {
+    width: 100%;
+  }
+
+  .demo-center-rewards-block__image img {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .demo-center-rewards-block__eyebrow {
+    font-size: 15px;
+
+    margin-bottom: 12px;
+  }
+
+  .demo-center-rewards-block__title {
+    font-size: 28px;
+    line-height: 1.15;
+
+    margin-bottom: 16px;
+  }
+
+  .demo-center-rewards-block__description {
+    font-size: 16px;
+    line-height: 1.5;
+
+    margin-bottom: 24px;
+  }
+
+  .demo-center-rewards-block__actions {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .demo-center-rewards-block__button {
+    padding: 14px 22px;
+    font-size: 16px;
+  }
+
+  .demo-center-rewards-block__link {
+    font-size: 16px;
+  }
+
+  .demo-center-rewards-block__arrow {
+    font-size: 20px;
   }
 }

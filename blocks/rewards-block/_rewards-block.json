@@ -1,15 +1,15 @@
 {
   "definitions": [
     {
-      "title": "Dell Hero Rewards",
-      "id": "dellhero-rewards",
+      "title": "Rewards Block",
+      "id": "rewards-block",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "dellhero-rewards",
-              "model": "dellhero-rewards"
+              "name": "rewards-block",
+              "model": "rewards-block"
             }
           }
         }
@@ -19,12 +19,12 @@
 
   "models": [
     {
-      "id": "dellhero-rewards",
+      "id": "rewards-block",
       "fields": [
         {
           "component": "text",
-          "name": "eyebrow",
-          "label": "Eyebrow Text",
+          "name": "pretitle",
+          "label": "Pretitle",
           "valueType": "string"
         },
         {
@@ -35,33 +35,31 @@
         },
         {
           "component": "multiline",
-          "name": "description",
-          "label": "Description",
+          "name": "subtitle",
+          "label": "Subtitle",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "primaryCtaText",
-          "label": "Primary CTA Text",
+          "name": "primaryButtonText",
+          "label": "Primary Button Text",
           "valueType": "string"
         },
         {
-          "component": "text",
-          "name": "primaryCtaLink",
-          "label": "Primary CTA Link",
-          "valueType": "string"
+          "component": "aem-content",
+          "name": "primaryButtonLink",
+          "label": "Primary Button Link"
         },
         {
           "component": "text",
-          "name": "secondaryCtaText",
-          "label": "Secondary CTA Text",
+          "name": "secondaryButtonText",
+          "label": "Secondary Button Text",
           "valueType": "string"
         },
         {
-          "component": "text",
-          "name": "secondaryCtaLink",
-          "label": "Secondary CTA Link",
-          "valueType": "string"
+          "component": "aem-content",
+          "name": "secondaryButtonLink",
+          "label": "Secondary Button Link"
         },
         {
           "component": "reference",
@@ -72,12 +70,11 @@
       ]
     }
   ],
-
   "filters": [
     {
-      "id": "dellhero-rewards",
+      "id": "rewards-block",
       "components": [
-        "dellhero-rewards"
+        "rewards-block"
       ]
     }
   ]
