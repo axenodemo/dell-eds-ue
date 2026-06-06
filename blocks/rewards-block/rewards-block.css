@@ -57,9 +57,9 @@
   align-items: center;
 }
 
-.demo-center-rewards-block__button {
+.demo-center-rewards-block__button  {
   background: #1683e2;
-  color: #fff;
+  color: #fff !important;
 
   padding: 16px 34px;
 
@@ -74,7 +74,7 @@
 }
 
 .demo-center-rewards-block__link {
-  color: #fff;
+  color: #fff !important;
 
   font-size: 20px;
   font-weight: 500;
@@ -152,9 +152,10 @@
     flex-wrap: wrap;
   }
 
-  .demo-center-rewards-block__button {
+  .demo-center-rewards-block__button !important{
     padding: 14px 22px;
     font-size: 16px;
+    color: white;
   }
 
   .demo-center-rewards-block__link {
@@ -164,4 +165,9 @@
   .demo-center-rewards-block__arrow {
     font-size: 20px;
   }
+}
+
+.demo-center-rewards-block__button:hover,
+.demo-center-rewards-block__link:hover {
+  text-decoration: none;
 }
