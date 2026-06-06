@@ -1,21 +1,13 @@
 /* ==========================================================================
    Dell Carousel Block — teaser-carousal.css
-   Pixel-accurate match to Dell.com homepage carousel
-   Key layout:
-   - Header (eyebrow + bold title) sits inside the dark block, above the stage
-   - Stage has side padding that creates peek zones on BOTH left and right
-   - Image occupies right ~70% of each slide; left ~30% is dark bg
-   - White card is abs-positioned over the left dark strip / image left edge
-   - Prev/Next arrows float over the peek zones
    ========================================================================== */
 
-   
 /* ── Custom properties ────────────────────────────────────────────────────── */
 .teaser-carousal {
-  --dc-peek:        10%;        /* how much of adjacent slide shows on each side */
-  --dc-img-offset:  20%;         /* image starts this far from slide's left edge   */
-  /* --dc-card-left:   0%;       */
-  --dc-card-w:      26%;
+  --dc-peek:        10%;
+  --dc-img-offset:  25%;          /* image starts 25% from slide left edge */
+  --dc-card-left:   0%;           /* card anchored at slide left edge */
+  --dc-card-w:      30%;          /* card width — wide enough to match target */
   --dc-card-bg:     #ffffff;
   --dc-cta-color:   #0076ce;
   --dc-dot-idle:    rgba(255,255,255,0.4);
@@ -28,70 +20,38 @@
   position: relative;
 }
 
-/* ── Section properties ────────────────────────────────────────────────────── */
-main > div.teaser-carousal-container{
-  --dc-bg:          #0e1927;
-
-  
+/* ── Override section / wrapper constraints from styles.css ──────────────── */
+main > div.teaser-carousal-container {
+  --dc-bg: #0e1927;
   background: var(--dc-bg);
+  margin: 0;           /* remove section margin */
 }
 
-body > main > div > div.teaser-carousal-wrapper {
-  padding: 0;
+/* Override styles.css max-width: 1200px and padding on .section > div */
+main > div.teaser-carousal-container > div.teaser-carousal-wrapper {
   max-width: 100%;
-  margin: auto;
-}
-
-/* ── Section header ───────────────────────────────────────────────────────── 
-   Positioned to align with the white card left edge.
-   Uses the same left offset as the card so text appears above it.
-   ─────────────────────────────────────────────────────────────────────────── */
-.teaser-carousal .dc-header {
-  /* Left indent = peek + card-left-within-slide.
-     peek (90px) + ~3% of the viewport ≈ matches card start visually.
-     We use padding-left matching the stage padding + a small nudge. */
-  padding: 1.5rem 0 1rem calc(var(--dc-peek) + 1rem);
-}
-
-.dc-header__eyebrow {
-  font-size: 0.78rem;
-  font-weight: 400;
-  color: rgba(255,255,255,0.75);
-  margin: 0 0 0.3rem;
-  letter-spacing: 0.01em;
-}
-
-.dc-header__title {
-  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
-  font-weight: 700;              /* bold in the screenshot */
-  color: #ffffff;
+  padding: 0;
   margin: 0;
-  line-height: 1.15;
 }
 
-/* ── Stage (overflow:hidden clips everything outside peek) ────────────────── 
-   padding-left/right = --dc-peek creates the peek reveal on both sides.
-   The track fills the remaining inner width; each slide = 100% of inner width.
-   ─────────────────────────────────────────────────────────────────────────── */
+/* ── Stage ───────────────────────────────────────────────────────────────── */
 .dc-stage {
   max-width: 100%;
   margin: auto;
   position: relative;
   overflow: hidden;
-  /* Subtract peek on both sides so the slide fills the "visible slot" */
-  padding: 0;                    /* no padding — we use margin on track instead */
+  padding: 0;
 }
 
-/* Inner wrapper clips only the sliding track */
+/* ── Track ───────────────────────────────────────────────────────────────── */
 .dc-track {
   display: flex;
   transition: transform var(--dc-transition);
   will-change: transform;
-  /* Offset by peek so slide 0 is inset from both edges */
   margin: 0 var(--dc-peek);
 }
 
-/* ── Individual slide ─────────────────────────────────────────────────────── */
+/* ── Individual slide ────────────────────────────────────────────────────── */
 .dc-slide {
   min-width: calc(100% - 24px);
   position: relative;
@@ -99,7 +59,6 @@ body > main > div > div.teaser-carousal-wrapper {
   overflow: visible;
   opacity: 0.3;
   margin-right: 24px;
-
   transition:
     opacity 0.25s ease-in-out,
     transform 0.25s ease;
@@ -109,9 +68,7 @@ body > main > div > div.teaser-carousal-wrapper {
   opacity: 1;
 }
 
-/* ── Slide image ──────────────────────────────────────────────────────────── 
-   Image is pushed right by dc-img-offset, leaving a dark strip on the left.
-   ─────────────────────────────────────────────────────────────────────────── */
+/* ── Slide image ─────────────────────────────────────────────────────────── */
 .dc-slide__image {
   display: block;
   margin-left: var(--dc-img-offset);
@@ -130,11 +87,7 @@ body > main > div > div.teaser-carousal-wrapper {
   object-fit: cover;
 }
 
-/* ── White overlay card ───────────────────────────────────────────────────── 
-   Absolutely positioned, vertically centred over the slide.
-   Left = dc-card-left within the slide; this places it in the dark strip,
-   overlapping the left edge of the image.
-   ─────────────────────────────────────────────────────────────────────────── */
+/* ── White overlay card ──────────────────────────────────────────────────── */
 .dc-slide__card {
   position: absolute;
   top: 50%;
@@ -150,39 +103,40 @@ body > main > div > div.teaser-carousal-wrapper {
   gap: 0.55rem;
   z-index: 4;
   box-sizing: border-box;
-  /* ensure uniform height across cards */
-  min-height: 410px;
+  min-height: 60%;
   max-height: calc(100% - 40px);
   overflow: hidden;
 }
 
-/* ── Card content ─────────────────────────────────────────────────────────── */
+/* ── Card content — reset styles.css heading overrides ──────────────────── */
 .dc-card__eyebrow {
   font-size: 1rem;
   font-weight: 400;
-  letter-spacing: .005em;
+  letter-spacing: 0.005em;
   line-height: 1.5rem;
   color: #444444;
-  margin: 0;
+  margin: 0;           /* reset styles.css p margin */
 }
 
+/* styles.css sets h3 { font-size: 34px; font-weight: 600; margin-top: 0.8em }
+   Override all of those inside the card */
+.dc-slide__card h3.dc-card__headline,
 .dc-card__headline {
-  font-size: 2rem;
-  line-height: 3rem;
-  font-weight: 300;
-  margin-bottom: 0.5rem;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  line-height: 1.25;
+  font-weight: 300;    /* Dell uses light weight for hero headlines */
   color: #111111;
-  margin: 0;
+  margin: 0;           /* reset styles.css heading margin */
+  font-family: inherit;
 }
 
 .dc-card__body {
   font-size: 1rem;
   font-weight: 400;
-  letter-spacing: .005em;
+  letter-spacing: 0.005em;
   line-height: 1.5rem;
-
   color: #444444;
-  margin: 0;
+  margin: 0;           /* reset styles.css p margin */
 }
 
 .dc-card__ctas {
@@ -192,7 +146,9 @@ body > main > div > div.teaser-carousal-wrapper {
   margin-top: auto;
 }
 
-.dc-cta-link {
+/* styles.css sets a:any-link { color: var(--link-color) } — override for CTAs */
+.dc-cta-link,
+.dc-cta-link:any-link {
   display: inline-flex;
   align-items: center;
   gap: 0.1rem;
@@ -206,6 +162,7 @@ body > main > div > div.teaser-carousal-wrapper {
 
 .dc-cta-link:hover,
 .dc-cta-link:focus-visible {
+  color: var(--dc-cta-color);
   text-decoration: underline;
   gap: 0.3rem;
 }
@@ -221,10 +178,7 @@ body > main > div > div.teaser-carousal-wrapper {
   fill: currentColor;
 }
 
-/* ── Prev / Next nav arrows ───────────────────────────────────────────────── 
-   Absolutely positioned over the stage, floating in the peek zones.
-   Vertically centred via top:50% + transform.
-   ─────────────────────────────────────────────────────────────────────────── */
+/* ── Prev / Next nav arrows ──────────────────────────────────────────────── */
 .dc-nav {
   position: absolute;
   top: 50%;
@@ -238,32 +192,26 @@ body > main > div > div.teaser-carousal-wrapper {
   border: none;
   cursor: pointer;
   color: #111111;
-  /* Large thin chevron matching Dell's ‹ › style */
   font-size: 2.2rem;
   font-weight: 200;
   line-height: 1;
   z-index: 10;
   transition: background 0.15s;
-  /* Remove default button padding so character centres perfectly */
   padding: 0 0 2px;
+  /* reset styles.css button font: inherit which inflates button size */
+  font-family: inherit;
 }
 
-.dc-nav:hover          { background: #eeeeee; }
-.dc-nav:focus-visible  {
+.dc-nav:hover         { background: #eeeeee; }
+.dc-nav:focus-visible {
   outline: 2px solid var(--dc-cta-color);
   outline-offset: 1px;
 }
 
-/* Place prev in the left peek zone, next in the right peek zone */
-.dc-nav--prev {
-  left: calc(var(--dc-peek) / 2 - 22px);   /* centre of left peek zone */
-}
+.dc-nav--prev { left:  calc(var(--dc-peek) / 2 - 22px); }
+.dc-nav--next { right: calc(var(--dc-peek) / 2 - 22px); }
 
-.dc-nav--next {
-  right: calc(var(--dc-peek) / 2 - 22px);  /* centre of right peek zone */
-}
-
-/* ── Footer ───────────────────────────────────────────────────────────────── */
+/* ── Footer ──────────────────────────────────────────────────────────────── */
 .teaser-carousal .dc-footer {
   max-width: 80%;
   margin: auto;
@@ -274,7 +222,7 @@ body > main > div > div.teaser-carousal-wrapper {
   padding: 2rem 0;
 }
 
-/* ── Dots ─────────────────────────────────────────────────────────────────── */
+/* ── Dots ────────────────────────────────────────────────────────────────── */
 .dc-dots {
   display: flex;
   align-items: center;
@@ -284,7 +232,7 @@ body > main > div > div.teaser-carousal-wrapper {
 .dc-dot {
   width: 9px;
   height: 9px;
-  border-radius: 9px;       /* full pill — stays circle at 9×9 */
+  border-radius: 9px;
   border: none;
   background: var(--dc-dot-idle);
   cursor: pointer;
@@ -294,7 +242,7 @@ body > main > div > div.teaser-carousal-wrapper {
 }
 
 .dc-dot--active {
-  width: 28px;              /* stretches into a pill */
+  width: 28px;
   background: var(--dc-dot-active);
 }
 
@@ -303,10 +251,10 @@ body > main > div > div.teaser-carousal-wrapper {
   outline-offset: 2px;
 }
 
-/* ── Play / Pause button ──────────────────────────────────────────────────── */
+/* ── Play / Pause ────────────────────────────────────────────────────────── */
 .dc-play {
   position: absolute;
-  right: 0%;
+  right: 0;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -320,31 +268,27 @@ body > main > div > div.teaser-carousal-wrapper {
   letter-spacing: 0.02em;
   transition: background 0.15s;
   white-space: nowrap;
+  font-family: inherit;
 }
 
-.dc-play:hover          { background: #2a2a2a; }
-.dc-play:focus-visible  {
+.dc-play:hover         { background: #2a2a2a; }
+.dc-play:focus-visible {
   outline: 2px solid var(--dc-dot-active);
   outline-offset: 2px;
 }
 
 .dc-play__icon { flex-shrink: 0; }
 
-/* ── Mobile View (1 slide visible) ────────────────────────────────────── */
+/* ── Mobile (≤526px) ─────────────────────────────────────────────────────── */
 @media (max-width: 526px) {
   .teaser-carousal {
-    --dc-peek:        18%;         /* Small peek on sides */
-    --dc-img-offset:  0%;         /* Image takes full width */
-    --dc-card-w:      100%;       /* Card full width */
+    --dc-peek:       18%;
+    --dc-img-offset: 0%;
+    --dc-card-w:     100%;
+    --dc-card-left:  0%;
   }
 
-  .dc-stage {
-    max-width: 100%;
-  }
-
-  .dc-track {
-    margin: 0 var(--dc-peek);
-  }
+  .dc-track { margin: 0 var(--dc-peek); }
 
   .dc-slide {
     min-width: calc(100% - 24px);
@@ -360,9 +304,7 @@ body > main > div > div.teaser-carousal-wrapper {
     order: 1;
   }
 
-  .dc-slide__image picture {
-    height: 100%;
-  }
+  .dc-slide__image picture { height: 100%; }
 
   .dc-slide__image img {
     width: 100%;
@@ -377,85 +319,42 @@ body > main > div > div.teaser-carousal-wrapper {
     top: auto !important;
     transform: none !important;
     padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     order: 2;
-    box-sizing: border-box;
+    min-height: unset;
   }
 
-  .dc-card__eyebrow {
-    font-size: 0.75rem;
-    color: #666;
-    margin: 0 0 0.4rem;
-  }
-
+  .dc-slide__card h3.dc-card__headline,
   .dc-card__headline {
     font-size: 1.4rem;
-    line-height: 1.5rem;
+    line-height: 1.4;
     font-weight: 700;
     margin: 0 0 0.6rem;
   }
 
-  .dc-card__body {
-    font-size: 0.9rem;
-    line-height: 1.5rem;
-    margin: 0 0 0.8rem;
-  }
+  .dc-card__eyebrow { font-size: 0.75rem; margin: 0 0 0.4rem; }
+  .dc-card__body    { font-size: 0.9rem;  margin: 0 0 0.8rem; }
+  .dc-card__ctas    { margin-top: 0.8rem; }
+  .dc-cta-link      { font-size: 0.9rem; }
 
-  .dc-card__ctas {
-    margin-top: 0.8rem;
-  }
+  .teaser-carousal .dc-footer { padding: 1.5rem 1rem; }
 
-  .dc-cta-link {
-    font-size: 0.9rem;
-  }
+  .dc-nav { width: 36px; height: 36px; font-size: 1.8rem; }
+  .dc-nav--prev { left:  0.5rem; }
+  .dc-nav--next { right: 0.5rem; }
 
-  .teaser-carousal .dc-header {
-    padding: 1rem 1rem 0.75rem 1rem;
-  }
-
-  .dc-header__title {
-    font-size: clamp(1.1rem, 2vw, 1.5rem);
-  }
-
-  .dc-header__eyebrow {
-    font-size: 0.7rem;
-  }
-
-  .teaser-carousal .dc-footer {
-    padding: 1.5rem 1rem;
-  }
-
-  .dc-nav {
-    width: 36px;
-    height: 36px;
-    font-size: 1.8rem;
-  }
-
-  .dc-nav--prev {
-    left: 0.5rem;
-  }
-
-  .dc-nav--next {
-    right: 0.5rem;
-  }
-
-  .dc-play {
-    right: 1rem;
-    padding: 0.35rem 0.6rem;
-    font-size: 0.75rem;
-  }
+  .dc-play { right: 1rem; padding: 0.35rem 0.6rem; font-size: 0.75rem; }
 }
 
-/* ── Tablet (stacked cards, 2 visible) ───────────────────────────────── */
+/* ── Tablet (526px–1024px) ───────────────────────────────────────────────── */
 @media (min-width: 526px) and (max-width: 1024px) {
   .teaser-carousal {
-    --dc-peek: 6%;
+    --dc-peek:       6%;
     --dc-img-offset: 0%;
+    --dc-card-left:  0%;
   }
 
-  .dc-track {
-    margin: 0 var(--dc-peek);
-  }
+  .dc-track { margin: 0 var(--dc-peek); }
 
   .dc-slide {
     min-width: calc(50% - 12px);
@@ -472,9 +371,7 @@ body > main > div > div.teaser-carousal-wrapper {
     order: 1;
   }
 
-  .dc-slide__image picture {
-    height: 100%;
-  }
+  .dc-slide__image picture { height: 100%; }
 
   .dc-slide__image img {
     width: 100%;
@@ -489,23 +386,19 @@ body > main > div > div.teaser-carousal-wrapper {
     top: auto !important;
     transform: none !important;
     padding: 1.25rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     order: 2;
-    box-sizing: border-box;
     min-height: 320px;
   }
 
+  .dc-slide__card h3.dc-card__headline,
   .dc-card__headline {
     font-size: 1.25rem;
-    line-height: 1.4rem;
+    line-height: 1.4;
     font-weight: 700;
   }
 
-  .dc-card__ctas {
-    margin-top: auto;
-  }
+  .dc-card__ctas { margin-top: auto; }
 
-  .teaser-carousal .dc-footer {
-    padding: 1.5rem 0;
-  }
+  .teaser-carousal .dc-footer { padding: 1.5rem 0; }
 }

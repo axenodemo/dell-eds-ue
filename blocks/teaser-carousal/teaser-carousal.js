@@ -1,7 +1,6 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-// ── CTA chevron SVG ───────────────────────────────────────────────────────
 function chevronSvg() {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('class', 'dc-cta-icon');
@@ -10,21 +9,10 @@ function chevronSvg() {
   svg.setAttribute('viewBox', '0 0 24 24');
   svg.setAttribute('aria-hidden', 'true');
   svg.setAttribute('focusable', 'false');
-  svg.innerHTML =
-    '<path d="M9.29 6.71a1 1 0 000 1.41L13.17 12l-3.88 3.88a1 1 0 001.41 1.41l4.59-4.59a1 1 0 000-1.41L10.7 6.7a1 1 0 00-1.41.01z"/>';
+  svg.innerHTML = '<path d="M9.29 6.71a1 1 0 000 1.41L13.17 12l-3.88 3.88a1 1 0 001.41 1.41l4.59-4.59a1 1 0 000-1.41L10.7 6.7a1 1 0 00-1.41.01z"/>';
   return svg;
 }
 
-// ── Build one slide from a slide row ─────────────────────────────────────
-// EDS DOM per slide row (5 cells, fixed schema):
-//   cell 0 → <div><picture><img data-aue-prop="image" …></picture></div>
-//   cell 1 → <div><p data-aue-prop="eyebrow" …>text</p></div>
-//   cell 2 → <div><p data-aue-prop="headline" …>text</p></div>
-//   cell 3 → <div><p data-aue-prop="description" …>text</p></div>
-//   cell 4 → <div data-aue-prop="ctas" …>
-//               richtext content — <ul><li><a href="…">Label</a></li>…</ul>
-//               or <p><a href="…">Label</a></p> per link authored in RTE
-//            </div>
 function buildSlide(row, index, total) {
   const [imageCell, eyebrowCell, headlineCell, descriptionCell, ctasCell] = [...row.children];
 
@@ -38,7 +26,6 @@ function buildSlide(row, index, total) {
 
   moveInstrumentation(row, slide);
 
-  // ── Image ──
   const imgWrap = document.createElement('div');
   imgWrap.className = 'dc-slide__image';
   const img = imageCell?.querySelector('img');
@@ -52,18 +39,15 @@ function buildSlide(row, index, total) {
   }
   slide.appendChild(imgWrap);
 
-  // ── White card ──
   const card = document.createElement('div');
   card.className = 'dc-slide__card';
 
-  // Eyebrow — authored <p> carries data-aue-prop="eyebrow", move it directly
   const eyebrowP = eyebrowCell?.querySelector('p');
   if (eyebrowP) {
     eyebrowP.className = 'dc-card__eyebrow';
     card.appendChild(eyebrowP);
   }
 
-  // Headline — authored as <p>, render as <h3>; move UE attrs onto h3
   const headlineP = headlineCell?.querySelector('p');
   if (headlineP) {
     const h3 = document.createElement('h3');
@@ -73,18 +57,12 @@ function buildSlide(row, index, total) {
     card.appendChild(h3);
   }
 
-  // Description — authored <p> carries data-aue-prop="description"
   const descP = descriptionCell?.querySelector('p');
   if (descP) {
     descP.className = 'dc-card__body';
     card.appendChild(descP);
   }
 
-  // CTAs — richtext cell authored via RTE hyperlink tool.
-  // RTE output can be:
-  //   <ul><li><a href="…">Label</a></li><li><a href="…">Label</a></li></ul>
-  //   or <p><a href="…">Label</a></p> (one per line in RTE)
-  // We read all <a> elements from the richtext cell and build dc-cta-link items.
   if (ctasCell) {
     const anchors = [...ctasCell.querySelectorAll('a')].filter(
       (a) => a.getAttribute('href') && a.textContent.trim(),
@@ -93,7 +71,6 @@ function buildSlide(row, index, total) {
     if (anchors.length > 0) {
       const ctaWrap = document.createElement('div');
       ctaWrap.className = 'dc-card__ctas';
-      // Move UE instrumentation from the ctas cell onto the wrapper div
       moveInstrumentation(ctasCell, ctaWrap);
 
       anchors.forEach((anchor) => {
@@ -115,7 +92,6 @@ function buildSlide(row, index, total) {
   return slide;
 }
 
-// ── Transition ────────────────────────────────────────────────────────────
 const TRANSITION_MS = 450;
 
 function goToSlide(index, track, slides, dotEls, state) {
@@ -144,7 +120,6 @@ function goToSlide(index, track, slides, dotEls, state) {
   }, TRANSITION_MS);
 }
 
-// ── Auto-play ─────────────────────────────────────────────────────────────
 function setPlayBtnState(btn, playing) {
   btn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
   btn.setAttribute('aria-pressed', String(playing));
@@ -174,19 +149,14 @@ function startAutoSlide(state, slides, track, dotEls, playBtn) {
   }, 8000);
 }
 
-// ── Main decorate ─────────────────────────────────────────────────────────
 export default function decorate(block) {
-  // Collect valid slide rows — filter out empty placeholder rows injected by UE
   const itemRows = [...block.children].filter(
-    (row) =>
-      row.children.length > 0 &&
-      [...row.children].some((c) => c.children.length > 0 || c.textContent.trim() !== ''),
+    (row) => row.children.length > 0 && [...row.children].some((c) => c.children.length > 0 || c.textContent.trim() !== ''),
   );
 
   block.setAttribute('role', 'region');
   block.setAttribute('aria-roledescription', 'Carousel');
 
-  // ── Stage ──
   const stage = document.createElement('div');
   stage.className = 'dc-stage';
   stage.setAttribute('aria-live', 'polite');
@@ -194,10 +164,6 @@ export default function decorate(block) {
   const track = document.createElement('div');
   track.className = 'dc-track';
 
-  // Build slides — moveInstrumentation moves data-aue-* from each row onto
-  // the slide div. The original rows become empty shells; hide them with
-  // display:none but keep them as direct children of block so UE can still
-  // detect items via its container filter scan and show the + button.
   const slides = itemRows.map((row, i, arr) => {
     const slide = buildSlide(row, i, arr.length);
     track.appendChild(slide);
@@ -220,7 +186,6 @@ export default function decorate(block) {
   stage.appendChild(prevBtn);
   stage.appendChild(nextBtn);
 
-  // ── Footer ──
   const footer = document.createElement('div');
   footer.className = 'dc-footer';
 
@@ -254,14 +219,12 @@ export default function decorate(block) {
   footer.appendChild(dotsWrap);
   footer.appendChild(playBtn);
 
-  // Append stage and footer AFTER the hidden authored rows.
-  // Do NOT use replaceChildren — the hidden rows must stay as direct children
-  // of block so UE can find them for item management (+ button).
   block.appendChild(stage);
   block.appendChild(footer);
 
-  // ── Interactions ──
-  const state = { index: 0, playing: false, timer: null, transitioning: false };
+  const state = {
+    index: 0, playing: false, timer: null, transitioning: false,
+  };
 
   dotEls.forEach((dot, i) => {
     dot.addEventListener('click', () => {
