@@ -1,5 +1,4 @@
 export default function decorate(block) {
-  console.log("Aditya new");
   const pretitle = block.children[0]?.textContent?.trim();
   const title = block.children[1]?.textContent?.trim();
   const subtitle = block.children[2]?.textContent?.trim();
