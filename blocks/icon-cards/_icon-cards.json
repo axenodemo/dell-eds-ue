@@ -2,15 +2,15 @@
   "definitions": [
     {
       "title": "Icon Cards",
-      "id": "iconcards",
+      "id": "icon-cards",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "name": "Icon Cards",
-              "model": "iconcards",
-              "filter": "iconcards"
+              "model": "icon-cards",
+              "filter": "icon-cards"
             }
           }
         }
@@ -34,7 +34,7 @@
   ],
   "models": [
     {
-      "id": "iconcards",
+      "id": "icon-cards",
       "fields": [
         {
           "component": "text",
@@ -74,7 +74,7 @@
   ],
   "filters": [
     {
-      "id": "iconcards",
+      "id": "icon-cards",
       "components": [
         "iconcard"
       ]

@@ -14,9 +14,16 @@
       "title",
       "hero",
       "cards",
+      "rewards-block",
+      "dell-cards",
       "columns",
       "fragment",
-      "feature-card"
+      "feature-card",
+      "video-hero",
+      "teaser-carousal",
+      "title-eyebrow",
+      "testimonial-cards",
+      "icon-cards"
     ]
   },
   {
@@ -41,9 +48,37 @@
     ]
   },
   {
-    "id": "iconcards",
+    "id": "hero-cards",
+    "components": [
+      "hero-card-item"
+    ]
+  },
+  {
+    "id": "icon-cards",
     "components": [
       "iconcard"
     ]
+  },
+  {
+    "id": "rewards-block",
+    "components": [
+      "rewards-block"
+    ]
+  },
+  {
+    "id": "teaser-carousal",
+    "components": [
+      "teaser-carousal-slide"
+    ]
+  },
+  {
+    "id": "testimonial-cards",
+    "components": [
+      "testimonial-cards-item"
+    ]
+  },
+  {
+    "id": "video-hero",
+    "components": []
   }
 ]

@@ -1,0 +1,81 @@
+{
+  "definitions": [
+    {
+      "title": "Rewards Block",
+      "id": "rewards-block",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "rewards-block",
+              "model": "rewards-block"
+            }
+          }
+        }
+      }
+    }
+  ],
+
+  "models": [
+    {
+      "id": "rewards-block",
+      "fields": [
+        {
+          "component": "text",
+          "name": "pretitle",
+          "label": "Pretitle",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "multiline",
+          "name": "subtitle",
+          "label": "Subtitle",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "primaryButtonText",
+          "label": "Primary Button Text",
+          "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "primaryButtonLink",
+          "label": "Primary Button Link"
+        },
+        {
+          "component": "text",
+          "name": "secondaryButtonText",
+          "label": "Secondary Button Text",
+          "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "secondaryButtonLink",
+          "label": "Secondary Button Link"
+        },
+        {
+          "component": "reference",
+          "name": "image",
+          "label": "Image",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "rewards-block",
+      "components": [
+        "rewards-block"
+      ]
+    }
+  ]
+}

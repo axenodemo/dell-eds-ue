@@ -128,6 +128,21 @@
           }
         },
         {
+          "title": "Dell Cards",
+          "id": "dell-cards",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Dell Cards",
+                  "model": "dell-cards"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Feature Card",
           "id": "feature-card",
           "plugins": {
@@ -158,6 +173,36 @@
           }
         },
         {
+          "title": "Hero Cards",
+          "id": "hero-cards",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Hero Cards",
+                  "filter": "hero-cards"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Hero Card Item",
+          "id": "hero-card-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Hero Card Item",
+                  "model": "hero-card-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Hero",
           "id": "hero",
           "plugins": {
@@ -174,15 +219,15 @@
         },
         {
           "title": "Icon Cards",
-          "id": "iconcards",
+          "id": "icon-cards",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Icon Cards",
-                  "model": "iconcards",
-                  "filter": "iconcards"
+                  "model": "icon-cards",
+                  "filter": "icon-cards"
                 }
               }
             }
@@ -198,6 +243,114 @@
                 "template": {
                   "name": "Icon Card Item",
                   "model": "iconcard"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Rewards Block",
+          "id": "rewards-block",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "rewards-block",
+                  "model": "rewards-block"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Teaser Carousal",
+          "id": "teaser-carousal",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Teaser Carousal",
+                  "model": "teaser-carousal",
+                  "filter": "teaser-carousal"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Teaser Carousal Slide",
+          "id": "teaser-carousal-slide",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Teaser Carousal Slide",
+                  "model": "teaser-carousal-slide"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Testimonial Cards",
+          "id": "testimonial-cards",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Testimonial Cards",
+                  "model": "testimonial-cards",
+                  "filter": "testimonial-cards"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Testimonial Cards Item",
+          "id": "testimonial-cards-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Testimonial Cards Item",
+                  "model": "testimonial-cards-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "title eyebrow",
+          "id": "title-eyebrow",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "title-eyebrow",
+                  "model": "title-eyebrow",
+                  "filter": "title-eyebrow"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Video Hero",
+          "id": "video-hero",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Video Hero",
+                  "model": "video-hero"
                 }
               }
             }

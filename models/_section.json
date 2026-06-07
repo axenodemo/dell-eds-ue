@@ -53,9 +53,16 @@
         "title",
         "hero",
         "cards",
+        "rewards-block",
+        "dell-cards",
         "columns",
         "fragment",
-        "feature-card"
+        "feature-card",
+        "video-hero",
+        "teaser-carousal",
+        "title-eyebrow",
+        "testimonial-cards",
+        "icon-cards"
       ]
     }
   ]
