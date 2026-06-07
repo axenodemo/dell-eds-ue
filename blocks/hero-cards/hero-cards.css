@@ -171,18 +171,18 @@ main > .section.carousel-container > div:has(.hero-cards-category-grid) {
     height: 100%;
     aspect-ratio: unset;
     order: unset;
-    padding: 24px 16px 10px;
+   padding: 0;
     background: linear-gradient(160deg, #93a8ba 0%, #c6cace 100%);
     transition: opacity 0.2s ease;
   }
 
-  .hero-cards-category-grid-img-wrap img {
-    width: auto;
-    height: 80%;
-    max-width: 80%;
-    object-fit: contain;
-    object-position: center;
-  }
+
+   .hero-cards-category-grid-img-wrap img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;           /* fills entire card */
+     object-position: center;     /* centered */
+   }
 
   .hero-cards-category-grid-label {
     position: absolute;
