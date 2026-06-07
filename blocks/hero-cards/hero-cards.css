@@ -15,25 +15,33 @@
 }
 
 .hero-cards-category-grid {
-  padding: 16px;
+  padding: 16px 32px;
 }
 
 @media (width >= 600px) {
   .hero-cards-category-grid {
-    padding: 20px 24px;
+    padding: 20px 48px;
   }
 }
 
 @media (width >= 900px) {
   .hero-cards-category-grid {
-    padding: 24px 32px;
+    padding: 24px 64px;
   }
+}
+
+/* ✅ Override the section-level classes that kill padding/margin */
+main > .section > div:has(.hero-cards-category-grid),
+main > .section.carousel-container > div:has(.hero-cards-category-grid) {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .hero-cards-category-grid-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 4px;
+  gap: 10px;                 /* more gap */
   max-width: 1400px;
   margin: 0 auto;
   padding: 0;
@@ -42,11 +50,11 @@
 @media (width >= 900px) {
   .hero-cards-category-grid-grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
+    gap: 12px;               /* more gap on desktop */
   }
 }
 
-/* Card: landscape aspect ratio, no border radius, no border */
+/* Smaller cards via aspect-ratio */
 .hero-cards-category-grid-card {
   position: relative;
   display: block;
@@ -56,23 +64,23 @@
   cursor: pointer;
   border: none;
   border-radius: 0;
-  aspect-ratio: 4 / 3;  /* wider than tall */
+  aspect-ratio: 5 / 4;      /* slightly taller ratio = smaller card feel */
 }
 
 .hero-cards-category-grid-card:hover .hero-cards-category-grid-img-wrap {
   opacity: 0.85;
 }
 
-/* Label: small, tight, top-left, semi-transparent dark bg */
+/* Thinner font weight */
 .hero-cards-category-grid-label {
   position: absolute;
   top: 0;
   left: 0;
   display: inline-block;
-  background: rgb(0 0 0 / 70%);
+  background: #0a0e14;
   color: #fff;
-  font-size: 0.78rem;        /* smaller than before */
-  font-weight: 400;          /* normal weight, not bold */
+  font-size: 0.75rem;
+  font-weight: 300;          /* thinner */
   font-family: Roboto, Arial, sans-serif;
   padding: 5px 10px;
   z-index: 2;
@@ -81,15 +89,14 @@
   white-space: nowrap;
 }
 
-/* Image wrap: fills entire card, no padding */
 .hero-cards-category-grid-img-wrap {
   position: absolute;
-  inset: 0;                  /* fills full card */
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(160deg, #93a8ba 0%, #c6cace 100%);
-  padding: 24px 16px 12px;   /* top padding keeps image below label */
+  padding: 28px 16px 12px;
   transition: opacity 0.2s ease;
 }
 
@@ -99,8 +106,8 @@
 
 .hero-cards-category-grid-img-wrap img {
   width: auto;
-  height: 75%;               /* image takes most of card height */
-  max-width: 80%;
+  height: 70%;               /* slightly smaller image within card */
+  max-width: 75%;
   object-fit: contain;
   object-position: center;
 }
