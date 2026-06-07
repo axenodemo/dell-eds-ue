@@ -8,15 +8,17 @@ module.exports = {
   env: {
     browser: true,
   },
-  parser: '@babel/eslint-parser',
   parserOptions: {
-    allowImportExportEverywhere: true,
+    ecmaVersion: 2022,
     sourceType: 'module',
-    requireConfigFile: false,
   },
   rules: {
     'import/extensions': ['error', { js: 'always' }], // require js file extensions in imports
     'linebreak-style': ['error', 'unix'], // enforce unix linebreaks
     'no-param-reassign': [2, { props: false }], // allow modifying properties of param
+    'xwalk/max-cells': ['error', {
+      '*': 4,
+      'feature-card': 7,
+    }],
   },
 };

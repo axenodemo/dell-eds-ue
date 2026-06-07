@@ -136,6 +136,10 @@
           {
             "name": "Highlight",
             "value": "highlight"
+          },
+          {
+            "name": "Support Background",
+            "value": "support-background"
           }
         ]
       }
@@ -339,12 +343,99 @@
     ]
   },
   {
+    "id": "feature-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "primaryButton",
+        "label": "Primary Button",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "secondaryButton",
+        "label": "Secondary Button",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "icons",
+        "label": "Icons",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "classes_layout",
+        "label": "Layout Variant",
+        "options": [
+          {
+            "name": "Default (Image Left)",
+            "value": ""
+          },
+          {
+            "name": "Image Right",
+            "value": "image-right"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "fragment",
     "fields": [
       {
         "component": "aem-content",
         "name": "reference",
         "label": "Reference"
+      }
+    ]
+  },
+  {
+    "id": "hero-card-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link (Page Path)",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "image",
+        "label": "Card Image",
+        "valueType": "string"
       }
     ]
   },
@@ -371,6 +462,44 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "icon-cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "label": "Eyebrow",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "iconcard",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "value": ""
       }
     ]
   },
@@ -473,6 +602,35 @@
     ]
   },
   {
+    "id": "testimonial-cards-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "cardImage",
+        "label": "Card  Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cardTitle",
+        "label": "Card Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cardDescription",
+        "label": "Card Description"
+      },
+      {
+        "component": "aem-content",
+        "name": "cardLink",
+        "label": "Card Link"
+      }
+    ]
+  },
+  {
     "id": "title-eyebrow",
     "fields": [
       {
@@ -515,60 +673,6 @@
         "name": "text",
         "label": "Body Text and Links",
         "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "hero-card-item",
-    "fields": [
-      {
-        "component": "text",
-        "name": "label",
-        "label": "Label",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Link (Page Path)",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "aem-content",
-        "name": "image",
-        "label": "Card Image",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id":"testimonial-cards-item",
-    "fields":[
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "cardImage",
-        "label": "Card  Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "cardTitle",
-        "label": "Card Title"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "cardDescription",
-        "label": "Card Description"
-      },
-      {
-        "component": "aem-content",
-        "name": "cardLink",
-        "label": "Card Link"
       }
     ]
   }
