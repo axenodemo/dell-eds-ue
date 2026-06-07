@@ -19,11 +19,8 @@
       "columns",
       "fragment",
       "video-hero",
-<<<<<<< HEAD
+      "hero-cards",
       "testimonial-cards"
-=======
-      "hero-cards"
->>>>>>> c12be617f7b12efcad1d3ab53bacfed5b304e04f
     ]
   },
   {
