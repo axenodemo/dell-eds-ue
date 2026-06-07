@@ -18,7 +18,8 @@
       "dell-cards",
       "columns",
       "fragment",
-      "video-hero"
+      "video-hero",
+      "hero-cards"
     ]
   },
   {
@@ -45,5 +46,9 @@
   {
     "id": "video-hero",
     "components": []
+  },
+  {
+    "id": "hero-cards",
+    "components": ["hero-card-item"]
   }
 ]
