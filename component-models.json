@@ -547,12 +547,6 @@
     "id": "testimonial-cards",
     "fields": [
       {
-        "component": "title",
-        "valueType": "string",
-        "name": "title",
-        "label": "Title"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "cards_card1Image",
@@ -560,7 +554,7 @@
         "multi": false
       },
       {
-        "component": "title",
+        "component": "text",
         "valueType": "string",
         "name": "card1Title",
         "label": "Card 1 Title"
@@ -584,7 +578,7 @@
         "multi": false
       },
       {
-        "component": "title",
+        "component": "text",
         "valueType": "string",
         "name": "card2Title",
         "label": "Card 2 Title"
@@ -608,7 +602,7 @@
         "multi": false
       },
       {
-        "component": "title",
+        "component": "text",
         "valueType": "string",
         "name": "card3Title",
         "label": "Card 3 Title"
@@ -632,7 +626,7 @@
         "multi": false
       },
       {
-        "component": "title",
+        "component": "text",
         "valueType": "string",
         "name": "card4Title",
         "label": "Card 4 Title"

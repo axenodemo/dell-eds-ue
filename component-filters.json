@@ -63,5 +63,9 @@
   {
     "id": "hero-cards",
     "components": ["hero-card-item"]
+  },
+  {
+    "id":"testimonial-cards",
+    "components":["title"]
   }
 ]
