@@ -11,63 +11,72 @@ export default function decorate(block) {
   rows.forEach((row) => {
     const cols = [...row.querySelectorAll(':scope > div')];
 
-    cols.forEach((col) => {
-      const card = document.createElement('a');
-      card.classList.add('hero-cards-category-grid-card');
+    const card = document.createElement('a');
+    card.classList.add('hero-cards-category-grid-card');
 
-      const picture = col.querySelector('picture, img');
-      const link = col.querySelector('a');
-      if (link) card.href = link.href;
+    // Each row = one card. Cols are: [image col, label+link col]
+    // Adjust indices if your doc column order is different
+    const imageCol = cols[0];
+    const contentCol = cols[1] || cols[0];
 
-      let labelText = '';
-      [...col.querySelectorAll('p, h1, h2, h3, h4, h5, h6')].some((el) => {
-        const anchor = el.querySelector('a');
-        if (anchor && anchor.textContent.trim()) {
-          labelText = anchor.textContent.trim();
-          return true;
-        }
-        const text = [...el.childNodes]
-          .filter((n) => n.nodeType === Node.TEXT_NODE)
-          .map((n) => n.textContent.trim())
-          .filter(Boolean)
-          .join('');
-        if (text) {
-          labelText = text;
-          return true;
-        }
-        return false;
-      });
-      if (!labelText) {
-        labelText = [...col.childNodes]
-          .filter((n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim())
-          .map((n) => n.textContent.trim())
-          .join('');
+    // --- Image ---
+    const picture = imageCol?.querySelector('picture, img');
+    const imgWrap = document.createElement('div');
+    imgWrap.classList.add('hero-cards-category-grid-img-wrap');
+    if (picture) {
+      imgWrap.append(picture.cloneNode(true));
+    }
+
+    // --- Link ---
+    const link = contentCol?.querySelector('a');
+    if (link) card.href = link.href;
+
+    // --- Label ---
+    let labelText = '';
+
+    // 1. Try anchor text inside headings/paragraphs
+    [...(contentCol?.querySelectorAll('p, h1, h2, h3, h4, h5, h6') || [])].some((el) => {
+      const anchor = el.querySelector('a');
+      if (anchor && anchor.textContent.trim()) {
+        labelText = anchor.textContent.trim();
+        return true;
       }
-
-      // FIX 1: UE label field renders as bare text node, not inside <p> or <a>
-      // the existing hunting above finds nothing, so this catches it
-      if (!labelText) {
-        labelText = col.firstElementChild?.textContent?.trim() || '';
+      const text = [...el.childNodes]
+        .filter((n) => n.nodeType === Node.TEXT_NODE)
+        .map((n) => n.textContent.trim())
+        .filter(Boolean)
+        .join('');
+      if (text) {
+        labelText = text;
+        return true;
       }
-
-      const label = document.createElement('span');
-      label.classList.add('hero-cards-category-grid-label');
-      label.textContent = labelText;
-
-      const imgWrap = document.createElement('div');
-      imgWrap.classList.add('hero-cards-category-grid-img-wrap');
-      if (picture) {
-        imgWrap.append(picture.cloneNode(true));
-      }
-
-      card.append(label, imgWrap);
-
-      // FIX 2: move UE instrumentation attributes (data-aue-*) from original
-      // col div to the new card <a> so UE canvas click-to-edit works
-      moveInstrumentation(col, card);
-
-      grid.append(card);
+      return false;
     });
+
+    // 2. Fallback: bare text nodes in contentCol
+    if (!labelText) {
+      labelText = [...(contentCol?.childNodes || [])]
+        .filter((n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim())
+        .map((n) => n.textContent.trim())
+        .join('');
+    }
+
+    // 3. Fallback: UE renders label as bare text, grab firstElementChild text
+    if (!labelText) {
+      labelText = contentCol?.firstElementChild?.textContent?.trim() || '';
+    }
+
+    const label = document.createElement('span');
+    label.classList.add('hero-cards-category-grid-label');
+    label.textContent = labelText;
+
+    card.append(label, imgWrap);
+
+    // ✅ KEY FIX: move instrumentation from ROW (not col)
+    // data-aue-model="hero-card-item" lives on the row div, not the cell
+    moveInstrumentation(row, card);
+
+    grid.append(card);
   });
 
   block.textContent = '';
