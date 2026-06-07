@@ -473,6 +473,23 @@
     ]
   },
   {
+    "id": "title-eyebrow",
+    "fields": [
+      {
+        "component": "text",
+        "name": "eyebrow",
+        "label": "Eyebrow",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "video-hero",
     "fields": [
       {

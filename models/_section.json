@@ -54,7 +54,8 @@
         "columns",
         "fragment",
         "video-hero",
-        "teaser-carousal"
+        "teaser-carousal",
+        "title-eyebrow"
       ]
     }
   ]
