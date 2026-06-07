@@ -407,7 +407,7 @@
     "id": "testimonial-cards",
     "fields": [
       {
-        "component": "text",
+        "component": "title",
         "valueType": "string",
         "name": "title",
         "label": "Title"
@@ -420,7 +420,7 @@
         "multi": false
       },
       {
-        "component": "text",
+        "component": "title",
         "valueType": "string",
         "name": "cards_card1Title",
         "label": "Card 1 Title"
@@ -444,7 +444,7 @@
         "multi": false
       },
       {
-        "component": "text",
+        "component": "title",
         "valueType": "string",
         "name": "cards_card2Title",
         "label": "Card 2 Title"
@@ -468,7 +468,7 @@
         "multi": false
       },
       {
-        "component": "text",
+        "component": "title",
         "valueType": "string",
         "name": "cards_card3Title",
         "label": "Card 3 Title"
@@ -492,7 +492,7 @@
         "multi": false
       },
       {
-        "component": "text",
+        "component": "title",
         "valueType": "string",
         "name": "cards_card4Title",
         "label": "Card 4 Title"
@@ -514,23 +514,6 @@
         "name": "cards_card5Image",
         "label": "Card 5 Image",
         "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "cards_card5Title",
-        "label": "Card 5 Title"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "cards_card5Description",
-        "label": "Card 5 Description"
-      },
-      {
-        "component": "aem-content",
-        "name": "cards_card5Link",
-        "label": "Card 5 Link"
       }
     ]
   }

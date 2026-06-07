@@ -14,21 +14,21 @@ export default function decorate(block) {
     if (!picture && !titleText && !descText) return;
 
     const inner = document.createElement('div');
-    inner.classList.add('testimony-card-inner');
+    inner.classList.add('testimonial-cards-inner');
     if (picture) inner.appendChild(picture);
 
     const overlay = document.createElement('div');
-    overlay.classList.add('testimony-card-overlay');
+    overlay.classList.add('testimonial-cards-overlay');
 
     const titleLink = document.createElement('a');
-    titleLink.classList.add('testimony-title');
+    titleLink.classList.add('testimonial-cards-title');
     titleLink.href = href;
     titleLink.textContent = titleText;
     overlay.appendChild(titleLink);
 
     if (descText) {
       const descEl = document.createElement('span');
-      descEl.classList.add('testimony-desc');
+      descEl.classList.add('testimonial-cards-desc');
       descEl.textContent = descText;
       overlay.appendChild(descEl);
     }
