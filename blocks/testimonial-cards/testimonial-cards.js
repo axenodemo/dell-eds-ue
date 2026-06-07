@@ -4,11 +4,11 @@ export default function decorate(block) {
   let renderedCount = 0;
 
   rows.forEach((row) => {
-    const [pictureCell, contentCell, linkCell] = row.children;
+    const [pictureCell,titleCell,descCell, linkCell] = row.children;
 
     const picture = pictureCell?.querySelector('picture, img') || null;
-    const titleText = contentCell?.querySelector('h1, h2, h3')?.textContent.trim() || '';
-    const descText = contentCell?.querySelector('p')?.textContent.trim() || '';
+    const titleText = titleCell?.querySelector('p')?.textContent.trim() || '';
+    const descText = descCell?.querySelector('p')?.textContent.trim() || '';
     const href = linkCell?.querySelector('a')?.getAttribute('href') || '#';
 
     if (!picture && !titleText && !descText) return;
