@@ -34,7 +34,7 @@ main > .section.carousel-container > div:has(.hero-cards-category-grid) {
 
 @media (width >= 900px) {
   .hero-cards-category-grid {
-    padding: 20px 200px;
+    padding: 30px 150px;
   }
 }
 
