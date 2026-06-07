@@ -1,13 +1,14 @@
+
 @font-face {
   font-family: Roboto;
-  src: url("/fonts/roboto-thin.woff2") format("woff2");
+  src: url("/fonts/Roboto-Thin.woff2") format("woff2");
   font-weight: 100;
   font-style: normal;
 }
 
 @font-face {
   font-family: Roboto;
-  src: url("/fonts/roboto-light.woff2") format("woff2");
+  src: url("/fonts/Roboto-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
 }
@@ -124,7 +125,7 @@ main > .section.carousel-container > div:has(.hero-cards-category-grid) {
   background: #1a2433;
   color: #fff;
   font-size: 0.7rem;
-  font-weight: 200;
+  font-weight: 100;
   font-family: Roboto, Arial, sans-serif;
   padding: 8px 10px;
   line-height: 1.3;
