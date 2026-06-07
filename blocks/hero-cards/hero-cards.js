@@ -55,7 +55,7 @@ export default function decorate(block) {
     imgWrap.classList.add('hero-cards-category-grid-img-wrap');
     if (imgEl) imgWrap.append(imgEl.cloneNode(true));
 
-    card.append(label, imgWrap);
+    card.append(imgWrap, label);
 
     moveInstrumentation(row, card);
     grid.append(card);
