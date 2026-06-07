@@ -1,31 +1,19 @@
 /**
  * Dell Carousel Block - EDS (Edge Delivery Services)
  *
- * Doc-based authoring structure:
- * Row 0: h1 = section title  ("Featured Products and Solutions")
- * Row 1: h4 = eyebrow        ("Dell Technologies Showcase")
- * Row 2+: Slide rows
+ * Supports BOTH doc-based authoring AND Universal Editor (UE) authoring.
+ *
+ * UE authoring structure (each field = its own row):
+ *   Row 0: image (picture element)
+ *   Row 1: eyebrow label
+ *   Row 2: title / headline
+ *   Row 3: description
+ *   Row 4: CTA 1 text + CTA 1 URL (anchor tag)
+ *   Row 5: CTA 2 text + CTA 2 URL (anchor tag)
+ *
+ * Doc-based authoring structure (2 columns):
  *   Left cell  → <picture>
- *   Right cell → h4 (slide eyebrow), h2 (headline), p (body),
- *                h5 per CTA: "Label<br><a href="…">…</a>"
- *
- * Final layout (matches Dell.com exactly):
- *
- *  ┌─────────────────────────────────────────────────────────────────┐
- *  │                                                                 │
- *  │ ┌────────────────────────────────────────────────────────────┐  │
- *  │ │ ◄peek│  dark left margin  │  IMAGE (right ~70%)  │peek►    │  │
- *  │ │      │  [white card]      │                      │         │  │
- *  │ └────────────────────────────────────────────────────────────┘  │
- *  │              ● ● ● ● ● ●                     [Play ▶]           │
- *  └─────────────────────────────────────────────────────────────────┘
- *
- *  - The carousel track slides are full-width of the inner viewport
- *  - The outer wrapper has overflow:hidden with padding on both sides
- *    so that prev/next slides partially peek
- *  - Prev/next arrows float over the left and right peek zones
- *  - Header (eyebrow + title) is inside the block, above the slide area,
- *    aligned to the same left position as the white card
+ *   Right cell → h4 (eyebrow), h2 (headline), p (body), p > a (CTAs)
  */
 
 // ── CTA link builder ──────────────────────────────────────────────────────
@@ -52,30 +40,92 @@ function buildCtaLink(label, href) {
   return a;
 }
 
-// ── Parse CTA from p: "Label<br><a href>url</a>" ────────────────────────
+// ── Detect if block was authored via Universal Editor ─────────────────────
+// UE authored blocks have many single-cell rows (one per field)
+// Doc-based blocks have 2-column rows (image | text)
 
-function parseCtaFromAnchor(anchor) {
-  const url = anchor.getAttribute("href") || "";
-  const label = anchor.textContent.trim();
+function isUEAuthored(rows) {
+  if (!rows.length) return false;
+  // UE: each row has 1-2 cells, first row contains picture OR plain text
+  // Doc: rows have exactly 2 cells where first cell has a picture
+  const firstRowCells = rows[0].querySelectorAll(":scope > div");
+  const hasPictureInFirstCell = firstRowCells[0]?.querySelector("picture");
+  const hasTextInSecondCell = firstRowCells[1]?.textContent?.trim();
 
-  return label && url ? { label, url } : null;
+  // If first row has picture in col 1 AND text in col 2 → doc-based
+  if (hasPictureInFirstCell && hasTextInSecondCell) return false;
+
+  // Otherwise assume UE authored (single field per row)
+  return true;
 }
-// ── Parse one slide row ───────────────────────────────────────────────────
 
-function parseSlideRow(row) {
+// ── Parse slide from UE authored rows (each field = its own row) ──────────
+
+function parseSlideFromUE(rows) {
+  const picture =
+    rows.find((r) => r.querySelector("picture"))?.querySelector("picture") ||
+    null;
+
+  // Get all text rows (excluding the image row)
+  const textRows = rows.filter((r) => !r.querySelector("picture"));
+
+  // Get all anchor tags anywhere in the item for CTAs
+  const anchors = [...rows.flatMap((r) => [...r.querySelectorAll("a")])];
+
+  // Helper to get clean text from a row
+  const getText = (row) => row?.textContent?.trim() || "";
+
+  return {
+    picture,
+    eyebrow: getText(textRows[0]),
+    headline: getText(textRows[1]),
+    description: getText(textRows[2]),
+    ctas: anchors
+      .map((a) => ({
+        label: a.textContent.trim(),
+        url: a.getAttribute("href") || "",
+      }))
+      .filter((c) => c.label && c.url),
+  };
+}
+
+// ── Parse slide from doc-based authored rows (2 columns per row) ──────────
+
+function parseSlideFromDoc(row) {
   const cells = row.querySelectorAll(":scope > div");
   if (cells.length < 2) return null;
+
   const picture = cells[0].querySelector("picture");
   const textCell = cells[1];
+
   return {
     picture,
     eyebrow: textCell.querySelector("h4")?.textContent?.trim() || "",
     headline: textCell.querySelector("h2")?.textContent?.trim() || "",
-    description: textCell.querySelector("p")?.textContent?.trim() || "",
+    description:
+      textCell.querySelector("p:not(:has(a))")?.textContent?.trim() || "",
     ctas: [...textCell.querySelectorAll("p > a")]
-      .map(parseCtaFromAnchor)
-      .filter(Boolean),
+      .map((a) => ({
+        label: a.textContent.trim(),
+        url: a.getAttribute("href") || "",
+      }))
+      .filter((c) => c.label && c.url),
   };
+}
+
+// ── Parse one slide (auto-detects UE vs doc-based) ────────────────────────
+
+function parseSlideRow(row) {
+  const childRows = [...row.querySelectorAll(":scope > div")];
+
+  // Check if this is a UE-authored item block (teaser-carousel-item)
+  // UE items: multiple single-field rows stacked
+  if (isUEAuthored(childRows)) {
+    return parseSlideFromUE(childRows);
+  }
+
+  // Doc-based: 2-column row
+  return parseSlideFromDoc(row);
 }
 
 // ── Build one slide ───────────────────────────────────────────────────────
@@ -87,10 +137,11 @@ function buildSlide(data, index, total) {
   slide.setAttribute("aria-roledescription", "slide");
   slide.setAttribute("aria-label", `${index + 1} of ${total}`);
   slide.setAttribute("aria-hidden", index !== 0 ? "true" : "false");
+
   if (index === 0) {
     slide.classList.add("dc-slide--active");
-    slide.classList.remove("dc-slide--inactive");
   }
+
   // Image — pushed to the right, leaving dark strip on the left
   const imgWrap = document.createElement("div");
   imgWrap.className = "dc-slide__image";
@@ -107,18 +158,21 @@ function buildSlide(data, index, total) {
     ew.textContent = data.eyebrow;
     card.appendChild(ew);
   }
+
   if (data.headline) {
     const h = document.createElement("h3");
     h.className = "dc-card__headline";
     h.textContent = data.headline;
     card.appendChild(h);
   }
+
   if (data.description) {
     const p = document.createElement("p");
     p.className = "dc-card__body";
     p.textContent = data.description;
     card.appendChild(p);
   }
+
   if (data.ctas?.length) {
     const ctaWrap = document.createElement("div");
     ctaWrap.className = "dc-card__ctas";
@@ -134,21 +188,16 @@ function buildSlide(data, index, total) {
 
 // ── State transition ──────────────────────────────────────────────────────
 
-// Matches the CSS --dc-transition duration (450ms)
 const TRANSITION_MS = 450;
 
 function goToSlide(index, track, slides, dotEls, state) {
-  if (state.transitioning) return; // ignore clicks during animation
+  if (state.transitioning) return;
   state.index = index;
   state.transitioning = true;
 
-  // Make all slides visible for the duration of the slide animation
   track.classList.add("dc-track--sliding");
-
-  // Move the track — CSS transition handles the animation
   track.style.transform = `translateX(-${index * 100}%)`;
 
-  // Update dots immediately
   dotEls.forEach((dot, i) => {
     const active = i === index;
     dot.classList.toggle("dc-dot--active", active);
@@ -156,7 +205,6 @@ function goToSlide(index, track, slides, dotEls, state) {
     dot.setAttribute("tabindex", active ? "0" : "-1");
   });
 
-  // After transition completes: mark active slide, hide others, unlock
   setTimeout(() => {
     track.classList.remove("dc-track--sliding");
     slides.forEach((s, i) => {
@@ -179,10 +227,8 @@ function setPlayBtnState(btn, playing) {
   if (pathEl) {
     pathEl.setAttribute(
       "d",
-      playing
-        ? "M9 16h2V8H9v8zm4-8v8h2V8h-2z" // pause bars
-        : "M8 5v14l11-7z",
-    ); // play triangle
+      playing ? "M9 16h2V8H9v8zm4-8v8h2V8h-2z" : "M8 5v14l11-7z",
+    );
   }
 }
 
@@ -205,21 +251,12 @@ function startAutoSlide(state, slides, track, dotEls, playBtn) {
 
 export default async function decorate(block) {
   const rows = [...block.querySelectorAll(":scope > div")];
-  // const slideRows    = rows.slice(2);
 
   block.innerHTML = "";
   block.setAttribute("role", "region");
   block.setAttribute("aria-roledescription", "Carousel");
 
-  // ── Carousel stage: clips both left and right peek ────────────────────
-  // Structure:
-  //   .dc-stage (overflow:hidden, adds side padding so prev/next peek)
-  //     .dc-track-wrap (full width of stage)
-  //       .dc-track (sliding)
-  //         .dc-slide × N
-  //   .dc-nav--prev (abs, left peek zone)
-  //   .dc-nav--next (abs, right peek zone)
-
+  // ── Stage ─────────────────────────────────────────────────────────────
   const stage = document.createElement("div");
   stage.className = "dc-stage";
   stage.setAttribute("aria-live", "polite");
@@ -238,13 +275,13 @@ export default async function decorate(block) {
 
   stage.appendChild(track);
 
-  // Prev arrow — floats over left peek area
+  // Prev arrow
   const prevBtn = document.createElement("button");
   prevBtn.className = "dc-nav dc-nav--prev";
   prevBtn.setAttribute("aria-label", "Previous slide");
   prevBtn.textContent = "‹";
 
-  // Next arrow — floats over right peek area
+  // Next arrow
   const nextBtn = document.createElement("button");
   nextBtn.className = "dc-nav dc-nav--next";
   nextBtn.setAttribute("aria-label", "Next slide");
@@ -254,7 +291,7 @@ export default async function decorate(block) {
   stage.appendChild(nextBtn);
   block.appendChild(stage);
 
-  // ── Footer: dots (centred) + play (pinned right) ───────────────────────
+  // ── Footer: dots + play button ────────────────────────────────────────
   const footer = document.createElement("div");
   footer.className = "dc-footer";
 
@@ -289,7 +326,7 @@ export default async function decorate(block) {
   footer.appendChild(playBtn);
   block.appendChild(footer);
 
-  // ── Wire interactions ──────────────────────────────────────────────────
+  // ── Wire interactions ─────────────────────────────────────────────────
   const state = {
     index: 0,
     playing: false,
