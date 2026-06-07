@@ -517,5 +517,31 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "hero-card-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link (Page Path)",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "image",
+        "label": "Card Image",
+        "valueType": "string"
+      }
+    ]
   }
+
 ]
