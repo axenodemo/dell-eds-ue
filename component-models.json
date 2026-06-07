@@ -475,7 +475,7 @@
         "component": "media",
         "name": "image",
         "label": "Card Image",
-        "valueType": "string",
+        "valueType": "string"
       }
     ]
   }
