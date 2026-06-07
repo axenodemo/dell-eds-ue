@@ -472,7 +472,7 @@
         "value": ""
       },
       {
-        "component": "media",
+        "component": "aem-content",
         "name": "image",
         "label": "Card Image",
         "valueType": "string"
