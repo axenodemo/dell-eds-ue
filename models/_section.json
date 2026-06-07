@@ -49,11 +49,17 @@
         "title",
         "hero",
         "cards",
+        "rewards-block",
         "dell-cards",
         "columns",
         "fragment",
         "video-hero",
+<<<<<<< HEAD
         "testimonial-cards"
+=======
+        "teaser-carousal",
+        "title-eyebrow"
+>>>>>>> c12be617f7b12efcad1d3ab53bacfed5b304e04f
       ]
     }
   ]

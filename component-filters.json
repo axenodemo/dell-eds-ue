@@ -14,11 +14,16 @@
       "title",
       "hero",
       "cards",
+      "rewards-block",
       "dell-cards",
       "columns",
       "fragment",
       "video-hero",
+<<<<<<< HEAD
       "testimonial-cards"
+=======
+      "hero-cards"
+>>>>>>> c12be617f7b12efcad1d3ab53bacfed5b304e04f
     ]
   },
   {
@@ -43,7 +48,23 @@
     ]
   },
   {
+    "id": "rewards-block",
+    "components": [
+      "rewards-block"
+    ]
+  },
+  {
+    "id": "teaser-carousal",
+    "components": [
+      "teaser-carousal-slide"
+    ]
+  },
+  {
     "id": "video-hero",
     "components": []
+  },
+  {
+    "id": "hero-cards",
+    "components": ["hero-card-item"]
   }
 ]

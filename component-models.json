@@ -375,6 +375,121 @@
     ]
   },
   {
+    "id": "rewards-block",
+    "fields": [
+      {
+        "component": "text",
+        "name": "pretitle",
+        "label": "Pretitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "multiline",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "primaryButtonText",
+        "label": "Primary Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "primaryButtonLink",
+        "label": "Primary Button Link"
+      },
+      {
+        "component": "text",
+        "name": "secondaryButtonText",
+        "label": "Secondary Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "secondaryButtonLink",
+        "label": "Secondary Button Link"
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "teaser-carousal",
+    "fields": [
+      {
+        "name": "slides",
+        "component": "container",
+        "label": "Slides",
+        "item": "teaser-carousal-slide"
+      }
+    ]
+  },
+  {
+    "id": "teaser-carousal-slide",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "valueType": "string",
+        "rootPath": "/content/dam"
+      },
+      {
+        "component": "text",
+        "name": "eyebrow",
+        "label": "Eyebrow",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "headline",
+        "label": "Headline",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "ctas",
+        "label": "CTAs",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "title-eyebrow",
+    "fields": [
+      {
+        "component": "text",
+        "name": "eyebrow",
+        "label": "Eyebrow",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "video-hero",
     "fields": [
       {
@@ -404,6 +519,7 @@
     ]
   },
   {
+<<<<<<< HEAD
     "id": "testimonial-cards",
     "fields": [
       {
@@ -511,3 +627,31 @@
     ]
   }
 ]
+=======
+    "id": "hero-card-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link (Page Path)",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "image",
+        "label": "Card Image",
+        "valueType": "string"
+      }
+    ]
+  }
+
+]
+>>>>>>> c12be617f7b12efcad1d3ab53bacfed5b304e04f
