@@ -49,10 +49,13 @@
         "title",
         "hero",
         "cards",
+        "rewards-block",
         "dell-cards",
         "columns",
         "fragment",
-        "video-hero"
+        "video-hero",
+        "teaser-carousal",
+        "title-eyebrow"
       ]
     }
   ]

@@ -44,6 +44,18 @@
     ]
   },
   {
+    "id": "rewards-block",
+    "components": [
+      "rewards-block"
+    ]
+  },
+  {
+    "id": "teaser-carousal",
+    "components": [
+      "teaser-carousal-slide"
+    ]
+  },
+  {
     "id": "video-hero",
     "components": []
   },

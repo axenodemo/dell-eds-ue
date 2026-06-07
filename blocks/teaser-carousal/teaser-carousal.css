@@ -1,0 +1,404 @@
+/* ==========================================================================
+   Dell Carousel Block — teaser-carousal.css
+   ========================================================================== */
+
+/* ── Custom properties ────────────────────────────────────────────────────── */
+.teaser-carousal {
+  --dc-peek:        10%;
+  --dc-img-offset:  25%;          /* image starts 25% from slide left edge */
+  --dc-card-left:   0%;           /* card anchored at slide left edge */
+  --dc-card-w:      30%;          /* card width — wide enough to match target */
+  --dc-card-bg:     #ffffff;
+  --dc-cta-color:   #0076ce;
+  --dc-dot-idle:    rgba(255,255,255,0.4);
+  --dc-dot-active:  #0076ce;
+  --dc-transition:  0.45s cubic-bezier(0.4, 0, 0.2, 1);
+
+  color: #ffffff;
+  font-family: inherit;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Override section / wrapper constraints from styles.css ──────────────── */
+main > div.teaser-carousal-container {
+  --dc-bg: #0e1927;
+  background: var(--dc-bg);
+  margin: 0;           /* remove section margin */
+}
+
+/* Override styles.css max-width: 1200px and padding on .section > div */
+main > div.teaser-carousal-container > div.teaser-carousal-wrapper {
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+/* ── Stage ───────────────────────────────────────────────────────────────── */
+.dc-stage {
+  max-width: 100%;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* ── Track ───────────────────────────────────────────────────────────────── */
+.dc-track {
+  display: flex;
+  transition: transform var(--dc-transition);
+  will-change: transform;
+  margin: 0 var(--dc-peek);
+}
+
+/* ── Individual slide ────────────────────────────────────────────────────── */
+.dc-slide {
+  min-width: calc(100% - 24px);
+  position: relative;
+  display: block;
+  overflow: visible;
+  opacity: 0.3;
+  margin-right: 24px;
+  transition:
+    opacity 0.25s ease-in-out,
+    transform 0.25s ease;
+}
+
+.dc-slide--active {
+  opacity: 1;
+}
+
+/* ── Slide image ─────────────────────────────────────────────────────────── */
+.dc-slide__image {
+  display: block;
+  margin-left: var(--dc-img-offset);
+  width: calc(100% - var(--dc-img-offset));
+}
+
+.dc-slide__image picture {
+  display: block;
+  width: 100%;
+}
+
+.dc-slide__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ── White overlay card ──────────────────────────────────────────────────── */
+.dc-slide__card {
+  position: absolute;
+  top: 50%;
+  left: var(--dc-card-left);
+  transform: translateY(-50%);
+  width: var(--dc-card-w);
+  background: var(--dc-card-bg);
+  padding: 1.6rem 1.75rem;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.55rem;
+  z-index: 4;
+  box-sizing: border-box;
+  min-height: 60%;
+  max-height: calc(100% - 40px);
+  overflow: hidden;
+}
+
+/* ── Card content — reset styles.css heading overrides ──────────────────── */
+.dc-card__eyebrow {
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  line-height: 1.5rem;
+  color: #444444;
+  margin: 0;           /* reset styles.css p margin */
+}
+
+/* styles.css sets h3 { font-size: 34px; font-weight: 600; margin-top: 0.8em }
+   Override all of those inside the card */
+.dc-slide__card h3.dc-card__headline,
+.dc-card__headline {
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  line-height: 1.25;
+  font-weight: 300;    /* Dell uses light weight for hero headlines */
+  color: #111111;
+  margin: 0;           /* reset styles.css heading margin */
+  font-family: inherit;
+}
+
+.dc-card__body {
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  line-height: 1.5rem;
+  color: #444444;
+  margin: 0;           /* reset styles.css p margin */
+}
+
+.dc-card__ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: auto;
+}
+
+/* styles.css sets a:any-link { color: var(--link-color) } — override for CTAs */
+.dc-cta-link,
+.dc-cta-link:any-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--dc-cta-color);
+  text-decoration: none;
+  padding: 0.1rem 0;
+  transition: gap 0.15s;
+}
+
+.dc-cta-link:hover,
+.dc-cta-link:focus-visible {
+  color: var(--dc-cta-color);
+  text-decoration: underline;
+  gap: 0.3rem;
+}
+
+.dc-cta-link:focus-visible {
+  outline: 2px solid var(--dc-cta-color);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.dc-cta-icon {
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+/* ── Prev / Next nav arrows ──────────────────────────────────────────────── */
+.dc-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: none;
+  cursor: pointer;
+  color: #111111;
+  font-size: 2.2rem;
+  font-weight: 200;
+  line-height: 1;
+  z-index: 10;
+  transition: background 0.15s;
+  padding: 0 0 2px;
+  /* reset styles.css button font: inherit which inflates button size */
+  font-family: inherit;
+}
+
+.dc-nav:hover         { background: #eeeeee; }
+.dc-nav:focus-visible {
+  outline: 2px solid var(--dc-cta-color);
+  outline-offset: 1px;
+}
+
+.dc-nav--prev { left:  calc(var(--dc-peek) / 2 - 22px); }
+.dc-nav--next { right: calc(var(--dc-peek) / 2 - 22px); }
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+.teaser-carousal .dc-footer {
+  max-width: 80%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2rem 0;
+}
+
+/* ── Dots ────────────────────────────────────────────────────────────────── */
+.dc-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dc-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 9px;
+  border: none;
+  background: var(--dc-dot-idle);
+  cursor: pointer;
+  padding: 0;
+  transition: width 0.3s ease, background 0.3s ease;
+  flex-shrink: 0;
+}
+
+.dc-dot--active {
+  width: 28px;
+  background: var(--dc-dot-active);
+}
+
+.dc-dot:focus-visible {
+  outline: 2px solid var(--dc-dot-active);
+  outline-offset: 2px;
+}
+
+/* ── Play / Pause ────────────────────────────────────────────────────────── */
+.dc-play {
+  position: absolute;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #111111;
+  color: #ffffff;
+  border: none;
+  padding: 0.42rem 0.75rem 0.42rem 0.65rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.15s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.dc-play:hover         { background: #2a2a2a; }
+.dc-play:focus-visible {
+  outline: 2px solid var(--dc-dot-active);
+  outline-offset: 2px;
+}
+
+.dc-play__icon { flex-shrink: 0; }
+
+/* ── Mobile (≤526px) ─────────────────────────────────────────────────────── */
+@media (max-width: 526px) {
+  .teaser-carousal {
+    --dc-peek:       18%;
+    --dc-img-offset: 0%;
+    --dc-card-w:     100%;
+    --dc-card-left:  0%;
+  }
+
+  .dc-track { margin: 0 var(--dc-peek); }
+
+  .dc-slide {
+    min-width: calc(100% - 24px);
+    margin-right: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dc-slide__image {
+    margin-left: 0;
+    width: 100%;
+    height: 280px;
+    order: 1;
+  }
+
+  .dc-slide__image picture { height: 100%; }
+
+  .dc-slide__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .dc-slide__card {
+    position: static !important;
+    width: 100%;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    order: 2;
+    min-height: unset;
+  }
+
+  .dc-slide__card h3.dc-card__headline,
+  .dc-card__headline {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    font-weight: 700;
+    margin: 0 0 0.6rem;
+  }
+
+  .dc-card__eyebrow { font-size: 0.75rem; margin: 0 0 0.4rem; }
+  .dc-card__body    { font-size: 0.9rem;  margin: 0 0 0.8rem; }
+  .dc-card__ctas    { margin-top: 0.8rem; }
+  .dc-cta-link      { font-size: 0.9rem; }
+
+  .teaser-carousal .dc-footer { padding: 1.5rem 1rem; }
+
+  .dc-nav { width: 36px; height: 36px; font-size: 1.8rem; }
+  .dc-nav--prev { left:  0.5rem; }
+  .dc-nav--next { right: 0.5rem; }
+
+  .dc-play { right: 1rem; padding: 0.35rem 0.6rem; font-size: 0.75rem; }
+}
+
+/* ── Tablet (526px–1024px) ───────────────────────────────────────────────── */
+@media (min-width: 526px) and (max-width: 1024px) {
+  .teaser-carousal {
+    --dc-peek:       6%;
+    --dc-img-offset: 0%;
+    --dc-card-left:  0%;
+  }
+
+  .dc-track { margin: 0 var(--dc-peek); }
+
+  .dc-slide {
+    min-width: calc(50% - 12px);
+    margin-right: 24px;
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+  }
+
+  .dc-slide__image {
+    margin-left: 0;
+    width: 100%;
+    height: 220px;
+    order: 1;
+  }
+
+  .dc-slide__image picture { height: 100%; }
+
+  .dc-slide__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .dc-slide__card {
+    position: static !important;
+    width: 100%;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    order: 2;
+    min-height: 320px;
+  }
+
+  .dc-slide__card h3.dc-card__headline,
+  .dc-card__headline {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  .dc-card__ctas { margin-top: auto; }
+
+  .teaser-carousal .dc-footer { padding: 1.5rem 0; }
+}
