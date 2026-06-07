@@ -293,6 +293,21 @@
               }
             }
           }
+        },
+        {
+          "title": "Testimonial Cards Item",
+          "id": "testimonial-cards-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Testimonial Cards Item",
+                  "model": "testimonial-cards-item"
+                }
+              }
+            }
+          }
         }
       ]
     }

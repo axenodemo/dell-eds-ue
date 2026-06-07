@@ -66,6 +66,6 @@
   },
   {
     "id":"testimonial-cards",
-    "components":["title"]
+    "components":["title","testimonial-cards-item"]
   }
 ]
