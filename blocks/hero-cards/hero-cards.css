@@ -189,7 +189,7 @@ main > .section.carousel-container > div:has(.hero-cards-category-grid) {
     top: 0;
     left: 0;
     display: block;
-    background: rgb(0 0 0 / 60%);
+    background: #0a0e14;
     color: #fff;
     font-size: 0.78rem;
     font-weight: 300;
@@ -201,5 +201,13 @@ main > .section.carousel-container > div:has(.hero-cards-category-grid) {
     min-height: unset;
     flex: unset;
     order: unset;
+  }
+
+  .hero-cards-category-grid-img-wrap {
+    order: 1;   /* image first = TOP */
+  }
+
+  .hero-cards-category-grid-label {
+    order: 2;   /* label second = BOTTOM */
   }
 }
