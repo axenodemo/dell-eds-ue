@@ -18,7 +18,9 @@
       "dell-cards",
       "columns",
       "fragment",
-      "video-hero"
+      "video-hero",
+      "teaser-carousal",
+      "title-eyebrow"
     ]
   },
   {
@@ -46,6 +48,12 @@
     "id": "rewards-block",
     "components": [
       "rewards-block"
+    ]
+  },
+  {
+    "id": "teaser-carousal",
+    "components": [
+      "teaser-carousal-slide"
     ]
   },
   {
