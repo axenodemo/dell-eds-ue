@@ -11,71 +11,53 @@ export default function decorate(block) {
   rows.forEach((row) => {
     const cols = [...row.querySelectorAll(':scope > div')];
 
+    // UE model field order = col[0]: label, col[1]: link, col[2]: image
+    const labelCol = cols[0];
+    const linkCol  = cols[1];
+    const imageCol = cols[2];
+
     const card = document.createElement('a');
     card.classList.add('hero-cards-category-grid-card');
 
-    // Each row = one card. Cols are: [image col, label+link col]
-    // Adjust indices if your doc column order is different
-    const imageCol = cols[0];
-    const contentCol = cols[1] || cols[0];
+    // --- Label: read plain text, NOT anchor href ---
+    const labelText = labelCol?.textContent?.trim() || '';
 
-    // --- Image ---
-    const picture = imageCol?.querySelector('picture, img');
-    const imgWrap = document.createElement('div');
-    imgWrap.classList.add('hero-cards-category-grid-img-wrap');
-    if (picture) {
-      imgWrap.append(picture.cloneNode(true));
-    }
+    // --- Link: read href from anchor inside linkCol ---
+    const linkAnchor = linkCol?.querySelector('a');
+    const linkHref = linkAnchor?.href
+      || linkCol?.textContent?.trim()
+      || '#';
+    card.href = linkHref;
 
-    // --- Link ---
-    const link = contentCol?.querySelector('a');
-    if (link) card.href = link.href;
+    // --- Image: UE stores DAM path as text, build img manually ---
+    let imgEl = imageCol?.querySelector('picture, img');
 
-    // --- Label ---
-    let labelText = '';
-
-    // 1. Try anchor text inside headings/paragraphs
-    [...(contentCol?.querySelectorAll('p, h1, h2, h3, h4, h5, h6') || [])].some((el) => {
-      const anchor = el.querySelector('a');
-      if (anchor && anchor.textContent.trim()) {
-        labelText = anchor.textContent.trim();
-        return true;
+    if (!imgEl) {
+      // UE media/aem-content field stores raw DAM path as text
+      const damPath = imageCol?.textContent?.trim();
+      if (damPath && damPath.startsWith('/content/dam')) {
+        const picture = document.createElement('picture');
+        const img = document.createElement('img');
+        img.src = damPath;
+        img.alt = labelText;
+        img.loading = 'lazy';
+        picture.append(img);
+        imgEl = picture;
       }
-      const text = [...el.childNodes]
-        .filter((n) => n.nodeType === Node.TEXT_NODE)
-        .map((n) => n.textContent.trim())
-        .filter(Boolean)
-        .join('');
-      if (text) {
-        labelText = text;
-        return true;
-      }
-      return false;
-    });
-
-    // 2. Fallback: bare text nodes in contentCol
-    if (!labelText) {
-      labelText = [...(contentCol?.childNodes || [])]
-        .filter((n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim())
-        .map((n) => n.textContent.trim())
-        .join('');
     }
 
-    // 3. Fallback: UE renders label as bare text, grab firstElementChild text
-    if (!labelText) {
-      labelText = contentCol?.firstElementChild?.textContent?.trim() || '';
-    }
-
+    // --- Build card ---
     const label = document.createElement('span');
     label.classList.add('hero-cards-category-grid-label');
     label.textContent = labelText;
 
+    const imgWrap = document.createElement('div');
+    imgWrap.classList.add('hero-cards-category-grid-img-wrap');
+    if (imgEl) imgWrap.append(imgEl.cloneNode(true));
+
     card.append(label, imgWrap);
 
-    // ✅ KEY FIX: move instrumentation from ROW (not col)
-    // data-aue-model="hero-card-item" lives on the row div, not the cell
     moveInstrumentation(row, card);
-
     grid.append(card);
   });
 
