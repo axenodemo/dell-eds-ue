@@ -519,7 +519,31 @@
     ]
   },
   {
-<<<<<<< HEAD
+    "id": "hero-card-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link (Page Path)",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "image",
+        "label": "Card Image",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "testimonial-cards",
     "fields": [
       {
@@ -627,31 +651,3 @@
     ]
   }
 ]
-=======
-    "id": "hero-card-item",
-    "fields": [
-      {
-        "component": "text",
-        "name": "label",
-        "label": "Label",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Link (Page Path)",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "aem-content",
-        "name": "image",
-        "label": "Card Image",
-        "valueType": "string"
-      }
-    ]
-  }
-
-]
->>>>>>> c12be617f7b12efcad1d3ab53bacfed5b304e04f
