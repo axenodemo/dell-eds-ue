@@ -43,6 +43,12 @@
     ]
   },
   {
+    "id": "rewards-block",
+    "components": [
+      "rewards-block"
+    ]
+  },
+  {
     "id": "video-hero",
     "components": []
   }
