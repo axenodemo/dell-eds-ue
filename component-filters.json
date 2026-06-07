@@ -14,8 +14,11 @@
       "title",
       "hero",
       "cards",
+      "rewards-block",
+      "dell-cards",
       "columns",
-      "fragment"
+      "fragment",
+      "video-hero"
     ]
   },
   {
@@ -38,5 +41,9 @@
       "button",
       "title"
     ]
+  },
+  {
+    "id": "video-hero",
+    "components": []
   }
 ]
