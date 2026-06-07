@@ -50,11 +50,10 @@
           "value": ""
         },
         {
-          "component": "reference",
+          "component": "media",
           "name": "image",
           "label": "Card Image",
-          "valueType": "string",
-          "multi": false
+          "valueType": "string"
         }
       ]
     }
