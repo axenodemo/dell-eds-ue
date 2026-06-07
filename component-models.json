@@ -542,6 +542,34 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id":"testimonial-cards-item",
+    "fields":[
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "cardImage",
+        "label": "Card  Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cardTitle",
+        "label": "Card Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cardDescription",
+        "label": "Card Description"
+      },
+      {
+        "component": "aem-content",
+        "name": "cardLink",
+        "label": "Card Link"
+      }
+    ]
   }
-
 ]

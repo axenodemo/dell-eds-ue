@@ -19,7 +19,8 @@
       "columns",
       "fragment",
       "video-hero",
-      "hero-cards"
+      "hero-cards",
+      "testimonial-cards"
     ]
   },
   {
@@ -62,5 +63,9 @@
   {
     "id": "hero-cards",
     "components": ["hero-card-item"]
+  },
+  {
+    "id":"testimonial-cards",
+    "components":["testimonial-cards-item"]
   }
 ]
