@@ -30,13 +30,14 @@
 }
 
 /* =========================
-   MAIN CAROUSEL — desktop fixed height, not aspect-ratio
+   MAIN CAROUSEL — compact banner height, never full viewport
 ========================= */
 
 .dell-hero-block-container .hero-carousel-dell-hero-block {
     position: relative;
     width: 100%;
-    height: 480px; /* fixed desktop height — matches reference */
+    /* clamp: min 320px, preferred ~42vw (scales with width), max 460px */
+    height: clamp(320px, 42vw, 460px);
     overflow: hidden;
 }
 
@@ -358,7 +359,7 @@ button:focus {
 
 @media (min-width: 768px) and (max-width: 1100px) {
     .dell-hero-block-container .hero-carousel-dell-hero-block {
-        height: 420px;
+        height: clamp(280px, 55vw, 400px);
     }
 
     .hero-content-dell-hero-block {
