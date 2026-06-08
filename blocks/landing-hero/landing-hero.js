@@ -7,48 +7,46 @@ export default function decorate(block) {
   carousel.className = "hero-carousel-dell-hero-block";
 
   const slides = slideRows.map((row, index) => {
-    const allRows = [...row.querySelectorAll(":scope > div")];
+    const fields = [...row.querySelectorAll(":scope > div")];
 
-    // ── Extract images ────────────────────────────────────────────────
-    const pictures = [...row.querySelectorAll("picture")];
-    const desktopImg = pictures[0]?.querySelector("img")?.src || "";
-    const mobileImg = pictures[1]?.querySelector("img")?.src || "";
+    // Based on exact field order from UE:
+    // Field 0: desktop image (picture)
+    // Field 1: imageAlt (empty text)
+    // Field 2: eyebrow
+    // Field 3: title
+    // Field 4: description
+    // Field 5: mobile image (picture) or empty
+    // Field 6: primaryButtonUrl (anchor)
+    // Field 7: primaryButtonText
+    // Field 8: secondaryButtonUrl (anchor)
+    // Field 9: secondaryButtonText (if authored)
 
-    // ── Extract text-only rows (no picture inside) ────────────────────
-    const textRows = allRows.filter((r) => {
-      return !r.querySelector("picture") && r.textContent.trim().length > 0;
-    });
+    const getText = (f) => f?.textContent?.trim() || "";
+    const getAnchorHref = (f) =>
+      f?.querySelector("a")?.getAttribute("href") || "#";
 
-    const getText = (r) => r?.textContent?.trim() || "";
+    // ── Images ──────────────────────────────────────────────────────
+    const desktopImg = fields[0]?.querySelector("img")?.src || "";
+    const mobileImg = fields[5]?.querySelector("img")?.src || "";
 
-    // ── Extract anchor tags for URL only (not label) ──────────────────
-    // aem-content fields render as <a href="...">url-path</a>
-    // We use text fields for labels and anchor href for URLs
-    const anchors = [...row.querySelectorAll("a")];
-    const primaryLink = anchors[0]?.getAttribute("href") || "#";
-    const secondaryLink = anchors[1]?.getAttribute("href") || "#";
+    // ── Text fields ──────────────────────────────────────────────────
+    const eyebrow = getText(fields[2]);
+    const title = getText(fields[3]);
+    const description = getText(fields[4]);
 
-    // ── Map text rows to fields ───────────────────────────────────────
-    // Order matches component-models.json field order:
-    // imageAlt(0) → skipped if blank, eyebrow(1), title(2), description(3),
-    // primaryButtonText(4), secondaryButtonText(5)
-    // Filter out rows that look like URLs (aem-content renders URL as text too)
-    const isUrl = (text) => text.startsWith("/") || text.startsWith("http");
-    const cleanTextRows = textRows.filter((r) => !isUrl(getText(r)));
+    // ── CTAs — URL comes before Text in DOM ──────────────────────────
+    const primaryLink = getAnchorHref(fields[6]);
+    const primaryButtonText = getText(fields[7]);
+    const secondaryLink = getAnchorHref(fields[8]);
+    const secondaryButtonText = getText(fields[9]);
 
-    const eyebrow = getText(cleanTextRows[0]);
-    const title = getText(cleanTextRows[1]);
-    const description = getText(cleanTextRows[2]);
-    const primaryButtonText = getText(cleanTextRows[3]);
-    const secondaryButtonText = getText(cleanTextRows[4]);
-
-    // ── Theme ─────────────────────────────────────────────────────────
+    // ── Theme ────────────────────────────────────────────────────────
     const theme =
       index % 2 === 0
         ? "dark-theme-dell-hero-block"
         : "light-theme-dell-hero-block";
 
-    // ── Build slide ───────────────────────────────────────────────────
+    // ── Build slide ──────────────────────────────────────────────────
     const slideEl = document.createElement("div");
     slideEl.className = `hero-slide-dell-hero-block ${index === 0 ? "active" : ""} ${theme}`;
 
@@ -78,7 +76,7 @@ export default function decorate(block) {
     return slideEl;
   });
 
-  // ── Controls ──────────────────────────────────────────────────────────
+  // ── Controls ──────────────────────────────────────────────────────
   const controls = document.createElement("div");
   controls.className = "carousel-controls-dell-hero-block";
   controls.innerHTML = `
@@ -95,7 +93,7 @@ export default function decorate(block) {
   carousel.appendChild(controls);
   block.appendChild(carousel);
 
-  // ── Interaction ───────────────────────────────────────────────────────
+  // ── Interaction ───────────────────────────────────────────────────
   const heroSlides = [...block.querySelectorAll(".hero-slide-dell-hero-block")];
   const nextBtn = block.querySelector(".next-dell-hero-block");
   const prevBtn = block.querySelector(".prev-dell-hero-block");
@@ -105,11 +103,11 @@ export default function decorate(block) {
   let current = 0;
   let autoPlay = true;
 
-  function showSlide(index) {
+  function showSlide(i) {
     heroSlides.forEach((s) => s.classList.remove("active"));
-    heroSlides[index].classList.add("active");
-    currentSlideEl.textContent = index + 1;
-    current = index;
+    heroSlides[i].classList.add("active");
+    currentSlideEl.textContent = i + 1;
+    current = i;
   }
 
   function next() {
