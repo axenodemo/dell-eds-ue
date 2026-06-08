@@ -9,32 +9,31 @@ export default function decorate(block) {
   const slides = slideRows.map((row, index) => {
     const fields = [...row.querySelectorAll(":scope > div")];
 
-    // Exact field order from UE:
+    // Exact field order from UE console:
     // Field 0: desktop image (picture)
     // Field 1: imageAlt (empty)
     // Field 2: eyebrow
     // Field 3: title
     // Field 4: description
-    // Field 5: mobile image
-    // Field 6: primaryButtonUrl (has anchor)
-    // Field 7: primaryButtonText (plain text)
-    // Field 8: secondaryButtonUrl (has anchor)
-    // Field 9: secondaryButtonText (plain text)
+    // Field 5: primaryButtonText  ← text BEFORE url
+    // Field 6: primaryButtonUrl   ← has anchor
+    // Field 7: secondaryButtonText
+    // Field 8: secondaryButtonUrl ← has anchor
 
     const getText = (f) => f?.textContent?.trim() || "";
     const getHref = (f) => f?.querySelector("a")?.getAttribute("href") || "#";
 
     const desktopImg = fields[0]?.querySelector("img")?.src || "";
-    const mobileImg = fields[5]?.querySelector("img")?.src || "";
+    const mobileImg = fields[1]?.querySelector("img")?.src || "";
 
     const eyebrow = getText(fields[2]);
     const title = getText(fields[3]);
     const description = getText(fields[4]);
 
+    const cta1Text = getText(fields[5]);
     const cta1Url = getHref(fields[6]);
-    const cta1Text = getText(fields[7]);
+    const cta2Text = getText(fields[7]);
     const cta2Url = getHref(fields[8]);
-    const cta2Text = getText(fields[9]);
 
     const theme =
       index % 2 === 0
@@ -75,13 +74,13 @@ export default function decorate(block) {
   controls.className = "carousel-controls-dell-hero-block";
   controls.innerHTML = `
     <div class="controls-group-dell-hero-block">
-      <button class="nav-btn-dell-hero-block prev-dell-hero-block" aria-label="Previous slide">&#8592;</button>
+      <button class="nav-btn-dell-hero-block prev-dell-hero-block" aria-label="Previous">&#8592;</button>
       <div class="slide-count-dell-hero-block">
         <span class="current-slide-dell-hero-block">1</span>/${slides.length}
       </div>
-      <button class="nav-btn-dell-hero-block next-dell-hero-block" aria-label="Next slide">&#8594;</button>
+      <button class="nav-btn-dell-hero-block next-dell-hero-block" aria-label="Next">&#8594;</button>
     </div>
-    <button class="pause-btn-dell-hero-block" aria-label="Pause autoplay">Pause ||</button>
+    <button class="pause-btn-dell-hero-block" aria-label="Pause">Pause ||</button>
   `;
 
   carousel.appendChild(controls);
