@@ -113,6 +113,46 @@
     ]
   },
   {
+    "id": "counter",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description"
+      }
+    ]
+  },
+  {
+    "id": "counter-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      }, 
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "value",
+        "label": "Counter Value"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "footnote",
+        "label": "Footnote"
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
