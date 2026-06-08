@@ -9,44 +9,38 @@ export default function decorate(block) {
   const slides = slideRows.map((row, index) => {
     const fields = [...row.querySelectorAll(":scope > div")];
 
-    // Based on exact field order from UE:
+    // Exact field order from UE:
     // Field 0: desktop image (picture)
-    // Field 1: imageAlt (empty text)
+    // Field 1: imageAlt (empty)
     // Field 2: eyebrow
     // Field 3: title
     // Field 4: description
-    // Field 5: mobile image (picture) or empty
-    // Field 6: primaryButtonUrl (anchor)
-    // Field 7: primaryButtonText
-    // Field 8: secondaryButtonUrl (anchor)
-    // Field 9: secondaryButtonText (if authored)
+    // Field 5: mobile image
+    // Field 6: primaryButtonUrl (has anchor)
+    // Field 7: primaryButtonText (plain text)
+    // Field 8: secondaryButtonUrl (has anchor)
+    // Field 9: secondaryButtonText (plain text)
 
     const getText = (f) => f?.textContent?.trim() || "";
-    const getAnchorHref = (f) =>
-      f?.querySelector("a")?.getAttribute("href") || "#";
+    const getHref = (f) => f?.querySelector("a")?.getAttribute("href") || "#";
 
-    // ── Images ──────────────────────────────────────────────────────
     const desktopImg = fields[0]?.querySelector("img")?.src || "";
     const mobileImg = fields[5]?.querySelector("img")?.src || "";
 
-    // ── Text fields ──────────────────────────────────────────────────
     const eyebrow = getText(fields[2]);
     const title = getText(fields[3]);
     const description = getText(fields[4]);
 
-    // ── CTAs — URL comes before Text in DOM ──────────────────────────
-    const primaryLink = getAnchorHref(fields[6]);
-    const primaryButtonText = getText(fields[7]);
-    const secondaryLink = getAnchorHref(fields[8]);
-    const secondaryButtonText = getText(fields[9]);
+    const cta1Url = getHref(fields[6]);
+    const cta1Text = getText(fields[7]);
+    const cta2Url = getHref(fields[8]);
+    const cta2Text = getText(fields[9]);
 
-    // ── Theme ────────────────────────────────────────────────────────
     const theme =
       index % 2 === 0
         ? "dark-theme-dell-hero-block"
         : "light-theme-dell-hero-block";
 
-    // ── Build slide ──────────────────────────────────────────────────
     const slideEl = document.createElement("div");
     slideEl.className = `hero-slide-dell-hero-block ${index === 0 ? "active" : ""} ${theme}`;
 
@@ -56,8 +50,8 @@ export default function decorate(block) {
         ${title ? `<h1 class="title-dell-hero-block">${title}</h1>` : ""}
         ${description ? `<p class="desc-dell-hero-block">${description}</p>` : ""}
         <div class="btn-wrap-dell-hero-block">
-          ${primaryButtonText ? `<a href="${primaryLink}"   class="primary-btn-dell-hero-block">${primaryButtonText}</a>` : ""}
-          ${secondaryButtonText ? `<a href="${secondaryLink}" class="outline-btn-dell-hero-block">${secondaryButtonText}</a>` : ""}
+          ${cta1Text ? `<a href="${cta1Url}" class="primary-btn-dell-hero-block">${cta1Text}</a>` : ""}
+          ${cta2Text ? `<a href="${cta2Url}" class="outline-btn-dell-hero-block">${cta2Text}</a>` : ""}
         </div>
       </div>
       <div class="hero-image-dell-hero-block">
