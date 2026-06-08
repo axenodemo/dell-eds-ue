@@ -29,34 +29,19 @@
     max-width: 100%;
 }
 
-.dell-hero-block-container .hero-carousel-dell-hero-block,
-.dell-hero-block-container .hero-slide-dell-hero-block,
-.dell-hero-block-container .hero-image-dell-hero-block,
-.dell-hero-block-container .hero-image-dell-hero-block picture,
-.dell-hero-block-container .hero-image-dell-hero-block img {
-    width: 100%;
-    max-width: 100%;
-}
-
-.dell-hero-block-container .hero-slide-dell-hero-block,
-.dell-hero-block-container .hero-content-dell-hero-block,
-.dell-hero-block-container .hero-image-dell-hero-block {
-    box-sizing: border-box;
-}
-
 /* =========================
-   MAIN CAROUSEL
+   MAIN CAROUSEL — desktop fixed height, not aspect-ratio
 ========================= */
 
 .dell-hero-block-container .hero-carousel-dell-hero-block {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 6;
+    height: 480px; /* fixed desktop height — matches reference */
     overflow: hidden;
 }
 
 /* =========================
-   SLIDES
+   SLIDES — always absolute on desktop
 ========================= */
 
 .hero-slide-dell-hero-block {
@@ -69,6 +54,8 @@
     transition:
         opacity 0.8s ease,
         visibility 0.8s ease;
+    display: flex; /* needed so content flows correctly */
+    flex-direction: row;
 }
 
 .hero-slide-dell-hero-block.active {
@@ -87,10 +74,7 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #c8d8e8;
+    background: #c2d4e0;
 }
 
 .hero-image-dell-hero-block picture {
@@ -109,7 +93,7 @@
 }
 
 /* =========================
-   OVERLAY — desktop: none
+   OVERLAY — none on desktop
 ========================= */
 
 .hero-slide-dell-hero-block::after {
@@ -117,7 +101,6 @@
     position: absolute;
     inset: 0;
     z-index: 2;
-    /* No overlay on desktop — reference shows clean image */
     background: none;
 }
 
@@ -126,26 +109,26 @@
 }
 
 /* =========================
-   CONTENT
+   CONTENT — left side, vertically centered
 ========================= */
 
 .hero-content-dell-hero-block {
     position: relative;
     z-index: 5;
-    width: 32%;
+    width: 35%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* vertically centered like reference */
-    padding: 0 2% 0 3%; /* reference: generous left padding */
+    justify-content: center;
+    padding: 0 2% 0 3%;
 }
 
 /* =========================
-   TYPOGRAPHY — match reference exactly
+   TYPOGRAPHY
 ========================= */
 
 .eyebrow-dell-hero-block {
-    font-size: 0.875rem; /* ~14px — small label above title */
+    font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.4;
     margin: 0 0 8px 0;
@@ -153,11 +136,11 @@
 }
 
 .hero-content-dell-hero-block .title-dell-hero-block {
-    font-size: 2.875rem; /* ~46px — large, light weight like reference */
+    font-size: 2.625rem; /* ~42px — matches reference */
     font-weight: 300;
     line-height: 1.08;
     letter-spacing: -0.5px;
-    margin: 0 0 20px 0;
+    margin: 0 0 18px 0;
     color: #111;
     font-family:
         Roboto, "Cordia New", "Microsoft Sans Serif", Utsaah, "Devanagari MT",
@@ -173,23 +156,19 @@
 }
 
 .desc-dell-hero-block {
-    font-size: 1rem; /* ~16px body text */
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1.6;
-    margin: 0 0 28px 0;
+    margin: 0 0 26px 0;
     color: #111;
     max-width: 360px;
 }
 
-/* TEXT COLORS — dark theme */
-
 .dark-theme-dell-hero-block .eyebrow-dell-hero-block,
 .dark-theme-dell-hero-block .title-dell-hero-block,
 .dark-theme-dell-hero-block .desc-dell-hero-block {
-    color: #111; /* reference: dark text on light bg */
+    color: #111;
 }
-
-/* TEXT COLORS — light theme */
 
 .light-theme-dell-hero-block .eyebrow-dell-hero-block,
 .light-theme-dell-hero-block .title-dell-hero-block,
@@ -198,12 +177,12 @@
 }
 
 /* =========================
-   BUTTONS — match reference height & style exactly
+   BUTTONS
 ========================= */
 
 .btn-wrap-dell-hero-block {
     display: flex;
-    flex-direction: row; /* side by side on desktop */
+    flex-direction: row;
     flex-wrap: nowrap;
     gap: 12px;
     align-items: center;
@@ -211,55 +190,49 @@
 
 .primary-btn-dell-hero-block,
 .outline-btn-dell-hero-block {
-    height: 48px; /* reference: tall 48px buttons */
+    height: 48px;
     padding: 0 24px;
-    min-width: 140px;
-    width: auto; /* natural content width, not 50% */
-
+    min-width: 130px;
+    width: auto;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     text-decoration: none;
     font-size: 15px;
     font-weight: 500;
     line-height: 1;
-    letter-spacing: 0;
     white-space: nowrap;
-
     box-sizing: border-box;
     transition:
         transform 0.2s ease,
         box-shadow 0.2s ease;
     cursor: pointer;
-    border: none;
 }
 
-/* DARK THEME BUTTONS */
-
-.dark-theme-dell-hero-block .primary-btn-dell-hero-block {
-    background: #000;
-    color: #fff;
-    border: none;
-}
-
-.dark-theme-dell-hero-block .outline-btn-dell-hero-block {
-    background: #fff;
-    color: #000;
-    border: 1.5px solid #6e6e6e;
-}
-
-/* LIGHT THEME BUTTONS */
-
+.dark-theme-dell-hero-block .primary-btn-dell-hero-block,
 .light-theme-dell-hero-block .primary-btn-dell-hero-block {
     background: #000;
     color: #fff;
     border: none;
 }
 
+.dark-theme-dell-hero-block .outline-btn-dell-hero-block,
 .light-theme-dell-hero-block .outline-btn-dell-hero-block {
     background: #fff;
-    color: #333;
+    color: #000;
+    border: 1.5px solid #6e6e6e;
+}
+
+/* Fallback when no theme class */
+.primary-btn-dell-hero-block {
+    background: #000;
+    color: #fff;
+    border: none;
+}
+
+.outline-btn-dell-hero-block {
+    background: #fff;
+    color: #000;
     border: 1.5px solid #6e6e6e;
 }
 
@@ -270,7 +243,7 @@
 }
 
 /* =========================
-   CONTROLS
+   CONTROLS — desktop: absolute bottom-right
 ========================= */
 
 .carousel-controls-dell-hero-block {
@@ -288,8 +261,6 @@
     align-items: center;
     gap: 0;
 }
-
-/* NAV BUTTONS */
 
 .prev-dell-hero-block,
 .slide-count-dell-hero-block,
@@ -316,7 +287,6 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border-radius: 0;
 }
 
 .prev-dell-hero-block {
@@ -339,8 +309,6 @@
     border-radius: 0;
 }
 
-/* PAUSE BUTTON */
-
 .pause-btn-dell-hero-block {
     height: 40px;
     min-width: 66px;
@@ -358,8 +326,6 @@
     cursor: pointer;
     flex-shrink: 0;
 }
-
-/* CONTROL HOVER/FOCUS — keep original colors */
 
 .nav-btn-dell-hero-block:hover,
 .nav-btn-dell-hero-block:focus,
@@ -379,8 +345,6 @@
     box-shadow: none;
 }
 
-/* General button override reset */
-
 a.button:hover,
 a.button:focus,
 button:hover,
@@ -394,8 +358,7 @@ button:focus {
 
 @media (min-width: 768px) and (max-width: 1100px) {
     .dell-hero-block-container .hero-carousel-dell-hero-block {
-        aspect-ratio: unset;
-        height: 520px;
+        height: 420px;
     }
 
     .hero-content-dell-hero-block {
@@ -404,7 +367,7 @@ button:focus {
     }
 
     .hero-content-dell-hero-block .title-dell-hero-block {
-        font-size: 2.25rem;
+        font-size: 2rem;
     }
 
     .desc-dell-hero-block {
@@ -414,47 +377,46 @@ button:focus {
 
 /* =========================
    MOBILE  (≤ 767px)
+   KEY FIX: carousel must NOT be position:relative with height:auto
+   while slides are absolute — that collapses the container to 0.
+   Solution: carousel stays as a block container; slides go static/flex.
 ========================= */
 
 @media (max-width: 767px) {
-    /* Carousel becomes tall stacked layout */
-
+    /* Carousel: auto height to wrap stacked slide */
     .dell-hero-block-container .hero-carousel-dell-hero-block {
-        aspect-ratio: unset;
-        height: auto;
-        min-height: 600px;
-        display: flex;
-        flex-direction: column;
+        height: auto !important;
+        min-height: unset !important;
+        overflow: visible; /* allow natural flow */
+        position: relative;
     }
 
-    /* Slide stacks: image on top, content below */
-
+    /* Active slide: leave the absolute stacking, override to static flow */
     .hero-slide-dell-hero-block {
-        position: relative !important;
+        position: relative !important; /* break out of absolute stack */
         inset: unset !important;
         width: 100%;
-        height: auto;
-        display: flex;
+        height: auto !important;
+        opacity: 0;
+        visibility: hidden;
+        display: none; /* hide all by default */
         flex-direction: column;
-        opacity: 1;
-        visibility: visible;
-        transition: none;
+        transition: none !important;
     }
 
-    /* Hide inactive slides on mobile */
-
-    .hero-slide-dell-hero-block:not(.active) {
-        display: none;
+    .hero-slide-dell-hero-block.active {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: flex !important; /* only active slide renders */
+        z-index: 2;
     }
 
-    /* Remove desktop overlay completely on mobile */
-
+    /* No overlay on mobile */
     .hero-slide-dell-hero-block::after {
-        display: none;
+        display: none !important;
     }
 
-    /* IMAGE — top, full width, natural height */
-
+    /* IMAGE — on top, full width, auto height */
     .hero-image-dell-hero-block {
         position: relative !important;
         inset: unset !important;
@@ -463,34 +425,39 @@ button:focus {
         order: 1;
         overflow: hidden;
         z-index: 1;
-        background: #c8d8e8;
+        background: #c2d4e0;
+        display: block;
     }
 
-    .hero-image-dell-hero-block picture,
+    .hero-image-dell-hero-block picture {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
     .hero-image-dell-hero-block picture img,
     .hero-image-dell-hero-block img {
         width: 100%;
         height: auto;
         display: block;
         object-fit: unset;
+        object-position: unset;
     }
 
     /* CONTENT — below image */
-
     .hero-content-dell-hero-block {
         position: relative !important;
         width: 100%;
-        height: auto;
+        height: auto !important;
         order: 2;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        padding: 24px 20px 16px;
+        padding: 20px 20px 16px;
         z-index: 5;
     }
 
     /* TYPOGRAPHY */
-
     .eyebrow-dell-hero-block {
         font-size: 0.8125rem;
         font-weight: 400;
@@ -498,69 +465,72 @@ button:focus {
     }
 
     .hero-content-dell-hero-block .title-dell-hero-block {
-        font-size: 1.75rem; /* ~28px — readable on mobile */
+        font-size: 1.625rem;
         font-weight: 300;
-        line-height: 1.1;
+        line-height: 1.12;
         letter-spacing: -0.25px;
-        margin: 0 0 14px 0;
+        margin: 0 0 12px 0;
     }
 
     .desc-dell-hero-block {
         font-size: 0.9375rem;
         line-height: 1.5;
-        margin: 0 0 20px 0;
+        margin: 0 0 18px 0;
         max-width: none;
     }
 
-    /* BUTTONS — side by side on mobile (match reference) */
-
+    /* BUTTONS — side by side, equal width */
     .btn-wrap-dell-hero-block {
         display: flex;
-        flex-direction: row; /* row, NOT column */
-        gap: 10px;
-        margin-bottom: 20px;
+        flex-direction: row;
+        gap: 8px;
+        margin-bottom: 16px;
+        flex-wrap: nowrap;
     }
 
     .primary-btn-dell-hero-block,
     .outline-btn-dell-hero-block {
-        flex: 1; /* equal width, fill container */
+        flex: 1;
         height: 44px;
         min-width: 0;
-        padding: 0 12px;
+        padding: 0 10px;
         font-size: 14px;
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
-    /* CONTROLS — inline below buttons */
-
+    /* CONTROLS — inline, below buttons, NOT absolute */
     .carousel-controls-dell-hero-block {
         position: relative !important;
         left: unset !important;
         right: unset !important;
         bottom: unset !important;
+        inset: unset !important;
         display: flex;
         align-items: center;
         gap: 0;
-        margin-top: 4px;
         z-index: 20;
+        margin-top: 0;
     }
 
     .nav-btn-dell-hero-block {
-        width: 40px;
-        height: 38px;
+        width: 38px;
+        height: 36px;
         font-size: 14px;
     }
 
     .slide-count-dell-hero-block {
-        height: 38px;
+        width: 34px;
+        height: 36px;
         font-size: 13px;
     }
 
     .pause-btn-dell-hero-block {
-        height: 38px;
-        min-width: 60px;
+        height: 36px;
+        min-width: 56px;
         font-size: 12px;
-        padding: 0 14px;
+        padding: 0 12px;
         margin-left: 8px;
     }
 }
