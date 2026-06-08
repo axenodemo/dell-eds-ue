@@ -291,13 +291,6 @@ main > .section.landing-hero-container > div {
     cursor: pointer;
 }
 
-/* .prev-dell-hero-block {
-    border-radius: 999px 0 0 999px;
-}
-.next-dell-hero-block {
-    border-radius: 0 999px 999px 0;
-} */
-
 .slide-count-dell-hero-block {
     width: 50px;
     height: 40px;
@@ -316,7 +309,7 @@ main > .section.landing-hero-container > div {
     padding: 0 18px;
     margin-left: 10px;
     border: none !important;
-    /* border-radius: 999px !important; */
+
     background: #000 !important;
     color: #fff !important;
     font-size: 13px;
@@ -450,7 +443,7 @@ main > .section.landing-hero-container > div {
         object-position: unset;
     }
 
-    /* CONTENT below image */
+    /* CONTENT below image — white bg, generous padding like reference */
     .hero-content-dell-hero-block {
         position: relative !important;
         width: 100%;
@@ -459,35 +452,40 @@ main > .section.landing-hero-container > div {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        padding: 20px 20px 16px;
+        padding: 20px 24px 8px; /* reference: 24px sides, tight bottom */
         z-index: 5;
+        background: #fff; /* reference: white content area below image */
+        box-sizing: border-box;
     }
 
     .hero-content-dell-hero-block .eyebrow-dell-hero-block {
-        font-size: 0.8125rem;
-        margin: 0 0 6px 0 !important;
+        font-size: 0.8125rem; /* ~13px small label */
+        font-weight: 400;
+        margin: 0 0 10px 0 !important; /* reference: clear gap below eyebrow */
+        color: #333;
     }
 
     .hero-content-dell-hero-block .title-dell-hero-block {
-        font-size: 1.75rem !important;
+        font-size: 1.625rem !important; /* ~26px — matches reference mobile title */
         font-weight: 300 !important;
-        line-height: 1.1 !important;
-        margin: 0 0 12px 0 !important;
+        line-height: 1.15 !important;
+        margin: 0 0 16px 0 !important; /* reference: good gap below title */
     }
 
     .hero-content-dell-hero-block .desc-dell-hero-block {
-        font-size: 0.9375rem;
-        line-height: 1.5;
-        margin: 0 0 18px 0 !important;
+        font-size: 0.875rem; /* 14px — reference body text */
+        line-height: 1.55;
+        margin: 0 0 22px 0 !important; /* reference: space before buttons */
         max-width: none;
+        color: #333;
     }
 
-    /* Buttons — side by side */
+    /* Buttons — side by side, equal width */
     .btn-wrap-dell-hero-block {
         display: flex;
         flex-direction: row;
-        gap: 8px;
-        margin-bottom: 16px;
+        gap: 10px;
+        margin-bottom: 20px;
         flex-wrap: nowrap;
     }
 
@@ -496,14 +494,16 @@ main > .section.landing-hero-container > div {
         flex: 1;
         height: 46px;
         min-width: 0;
-        padding: 0 10px !important;
+        padding: 0 12px !important;
         font-size: 14px !important;
+        font-weight: 500 !important;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        border-radius: 0 !important;
     }
 
-    /* Controls inline below content */
+    /* Controls inline below buttons — reference has visible gap */
     .carousel-controls-dell-hero-block {
         position: relative !important;
         inset: unset !important;
@@ -511,7 +511,8 @@ main > .section.landing-hero-container > div {
         align-items: center;
         gap: 0;
         z-index: 20;
-        margin-top: 0;
+        margin-top: 4px;
+        padding-bottom: 20px; /* breathing room at bottom */
     }
 
     .nav-btn-dell-hero-block {
@@ -526,9 +527,9 @@ main > .section.landing-hero-container > div {
     }
     .pause-btn-dell-hero-block {
         height: 36px;
-        min-width: 56px;
+        min-width: 60px;
         font-size: 12px;
-        padding: 0 12px !important;
+        padding: 0 14px !important;
         margin-left: 8px;
     }
 }
