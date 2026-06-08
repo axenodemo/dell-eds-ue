@@ -1,12 +1,36 @@
-export default function decorate(block){
-    const odometers  = [...block.firstElementChild.children];
-    odometers.forEach((el,idx)=>{
-      el.classList.add("text-center");
-            el.classList.add("s");
-        el.querySelector("h2").classList.add("animate-here");
-        observeCounter(el.querySelector(".animate-here"))
-        // el.querySelector(".animate-here").textContent = number;
-    });
+export default function decorate(block) {
+  const rows = [...block.children];
+
+  const headerWrap = document.createElement('div');
+  headerWrap.className = 'counter-header';
+
+  const itemsWrap = document.createElement('div');
+  itemsWrap.className = 'counter-items';
+
+  rows.forEach((row) => {
+    if (row.children.length >= 2) {
+      // Counter item row — cells are [label, value, footnote]
+      const valueCell = row.children[1];
+      if (valueCell) {
+        const text = valueCell.textContent.trim();
+        if (text) {
+          const h2 = document.createElement('h2');
+          h2.textContent = text;
+          h2.classList.add('animate-here');
+          valueCell.replaceChildren(h2);
+          observeCounter(h2);
+        }
+      }
+      itemsWrap.appendChild(row);
+    } else {
+      // Header row — title or description (single cell)
+      headerWrap.appendChild(row);
+    }
+  });
+
+  block.replaceChildren();
+  if (headerWrap.children.length > 0) block.appendChild(headerWrap);
+  block.appendChild(itemsWrap);
 }
 
 function observeCounter(el) {
@@ -14,7 +38,7 @@ function observeCounter(el) {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         animateCounter(el);
-        obs.unobserve(el); // run once
+        obs.unobserve(el);
       }
     });
   }, {
@@ -24,23 +48,18 @@ function observeCounter(el) {
   observer.observe(el);
 }
 
-/**
- * Animate counter
- */
 function animateCounter(el, duration = 1500) {
   if (!el) return;
 
   const text = el.textContent.trim();
-
-  // Extract prefix, number, suffix
-  const match = text.match(/^([^0-9]*)([\d,\.]+)(.*)$/);
+  const match = text.match(/^(\D*)([\d,.]+)(.*)$/);
   if (!match) return;
 
-  const prefix = match[1];      // $, ₹
-  const numberPart = match[2];  // 300, 5,000, 4.8
-  const suffix = match[3];      // %, +
+  const prefix = match[1];
+  const numberPart = match[2];
+  const suffix = match[3];
 
-  const endValue = parseFloat(numberPart.replace(/,/g, ''));
+  const endValue = Number.parseFloat(numberPart.replaceAll(',', ''));
   const hasDecimal = numberPart.includes('.');
 
   let startTime = null;
@@ -50,33 +69,21 @@ function animateCounter(el, duration = 1500) {
 
     const progress = timestamp - startTime;
     const progressRatio = Math.min(progress / duration, 1);
-
-    // easeOutCubic
     const eased = 1 - Math.pow(1 - progressRatio, 3);
-
     const currentValue = endValue * eased;
 
-    el.textContent =
-      prefix +
-      formatNumber(currentValue, hasDecimal) +
-      suffix;
+    el.textContent = prefix + formatNumber(currentValue, hasDecimal) + suffix;
 
     if (progress < duration) {
       requestAnimationFrame(animate);
     } else {
-      el.textContent =
-        prefix +
-        formatNumber(endValue, hasDecimal) +
-        suffix;
+      el.textContent = prefix + formatNumber(endValue, hasDecimal) + suffix;
     }
   }
 
   requestAnimationFrame(animate);
 }
 
-/**
- * Format number (handles commas + decimals)
- */
 function formatNumber(value, hasDecimal) {
   return hasDecimal
     ? value.toFixed(1)

@@ -114,11 +114,30 @@
   },
   {
     "id": "counter",
-    "fields": []
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description"
+      }
+    ]
   },
   {
     "id": "counter-item",
     "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      },
       {
         "component": "text",
         "valueType": "string",
@@ -128,8 +147,8 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "label",
-        "label": "Label"
+        "name": "footnote",
+        "label": "Footnote"
       }
     ]
   },
