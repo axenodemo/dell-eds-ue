@@ -291,12 +291,12 @@ main > .section.landing-hero-container > div {
     cursor: pointer;
 }
 
-.prev-dell-hero-block {
+/* .prev-dell-hero-block {
     border-radius: 999px 0 0 999px;
 }
 .next-dell-hero-block {
     border-radius: 0 999px 999px 0;
-}
+} */
 
 .slide-count-dell-hero-block {
     width: 50px;
@@ -316,7 +316,7 @@ main > .section.landing-hero-container > div {
     padding: 0 18px;
     margin-left: 10px;
     border: none !important;
-    border-radius: 999px !important;
+    /* border-radius: 999px !important; */
     background: #000 !important;
     color: #fff !important;
     font-size: 13px;
