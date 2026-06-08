@@ -1,9 +1,7 @@
 [
   {
     "id": "main",
-    "components": [
-      "section"
-    ]
+    "components": ["section"]
   },
   {
     "id": "section",
@@ -30,59 +28,45 @@
   {
     "id": "counter",
     "components": [
-      "counter-item"
+      "counter-item",
+      "landing-hero"
     ]
   },
   {
     "id": "cards",
-    "components": [
-      "card"
-    ]
+    "components": ["card"]
   },
   {
     "id": "columns",
-    "components": [
-      "column"
-    ]
+    "components": ["column"]
   },
   {
     "id": "column",
-    "components": [
-      "text",
-      "image",
-      "button",
-      "title"
-    ]
+    "components": ["text", "image", "button", "title"]
   },
   {
     "id": "hero-cards",
-    "components": [
-      "hero-card-item"
-    ]
+    "components": ["hero-card-item"]
   },
   {
     "id": "icon-cards",
-    "components": [
-      "iconcard"
-    ]
+    "components": ["iconcard"]
   },
   {
     "id": "rewards-block",
-    "components": [
-      "rewards-block"
-    ]
+    "components": ["rewards-block"]
   },
   {
     "id": "teaser-carousal",
-    "components": [
-      "teaser-carousal-slide"
-    ]
+    "components": ["teaser-carousal-slide"]
+  },
+  {
+    "id": "landing-hero",
+    "components": ["landing-hero-slide"]
   },
   {
     "id": "testimonial-cards",
-    "components": [
-      "testimonial-cards-item"
-    ]
+    "components": ["testimonial-cards-item"]
   },
   {
     "id": "video-hero",

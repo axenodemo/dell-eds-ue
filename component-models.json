@@ -52,30 +52,12 @@
         "name": "titleType",
         "label": "Title Type",
         "options": [
-          {
-            "name": "h1",
-            "value": "h1"
-          },
-          {
-            "name": "h2",
-            "value": "h2"
-          },
-          {
-            "name": "h3",
-            "value": "h3"
-          },
-          {
-            "name": "h4",
-            "value": "h4"
-          },
-          {
-            "name": "h5",
-            "value": "h5"
-          },
-          {
-            "name": "h6",
-            "value": "h6"
-          }
+          { "name": "h1", "value": "h1" },
+          { "name": "h2", "value": "h2" },
+          { "name": "h3", "value": "h3" },
+          { "name": "h4", "value": "h4" },
+          { "name": "h5", "value": "h5" },
+          { "name": "h6", "value": "h6" }
         ]
       }
     ]
@@ -103,18 +85,9 @@
         "name": "linkType",
         "label": "Type",
         "options": [
-          {
-            "name": "default",
-            "value": ""
-          },
-          {
-            "name": "primary",
-            "value": "primary"
-          },
-          {
-            "name": "secondary",
-            "value": "secondary"
-          }
+          { "name": "default", "value": "" },
+          { "name": "primary", "value": "primary" },
+          { "name": "secondary", "value": "secondary" }
         ]
       }
     ]
@@ -133,14 +106,8 @@
         "name": "style",
         "label": "Style",
         "options": [
-          {
-            "name": "Highlight",
-            "value": "highlight"
-          },
-          {
-            "name": "Support Background",
-            "value": "support-background"
-          }
+          { "name": "Highlight", "value": "highlight" },
+          { "name": "Support Background", "value": "support-background" }
         ]
       }
     ]
@@ -413,14 +380,8 @@
         "name": "classes_layout",
         "label": "Layout Variant",
         "options": [
-          {
-            "name": "Default (Image Left)",
-            "value": ""
-          },
-          {
-            "name": "Image Right",
-            "value": "image-right"
-          }
+          { "name": "Default (Image Left)", "value": "" },
+          { "name": "Image Right", "value": "image-right" }
         ]
       }
     ]
@@ -521,6 +482,91 @@
         "name": "text",
         "label": "Text",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "landing-hero",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "name",
+        "label": "Carousel Name",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "landing-hero-slide",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Desktop Image",
+        "multi": false,
+        "rootPath": "/content/dam"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobileImage",
+        "label": "Mobile Image",
+        "multi": false,
+        "rootPath": "/content/dam"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "label": "Eyebrow",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title / Headline",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "primaryButtonText",
+        "label": "Primary Button Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "primaryButtonUrl",
+        "label": "Primary Button URL"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "secondaryButtonText",
+        "label": "Secondary Button Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "secondaryButtonUrl",
+        "label": "Secondary Button URL"
       }
     ]
   },
@@ -629,7 +675,7 @@
         "component": "reference",
         "valueType": "string",
         "name": "cardImage",
-        "label": "Card  Image",
+        "label": "Card Image",
         "multi": false
       },
       {
