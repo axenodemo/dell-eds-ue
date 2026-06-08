@@ -9,21 +9,27 @@ export default function decorate(block) {
 
   rows.forEach((row) => {
     if (row.children.length >= 2) {
-      // Counter item row — cells are [label, value, footnote]
-      const valueCell = row.children[1];
-      if (valueCell) {
-        const text = valueCell.textContent.trim();
-        if (text) {
-          const h2 = document.createElement('h2');
-          h2.textContent = text;
-          h2.classList.add('animate-here');
-          valueCell.replaceChildren(h2);
-          observeCounter(h2);
-        }
+      const cells = [...row.children];
+
+      // Detect value cell: if cell[0] starts with digits (old model order was value first)
+      const isValueFirst = /^[^a-zA-Z]*\d/.test(cells[0].textContent.trim());
+      const labelCell = isValueFirst ? cells[1] : cells[0];
+      const valueCell = isValueFirst ? cells[0] : cells[1];
+      const footnoteCell = cells[2] || null;
+
+      const valueText = valueCell.textContent.trim();
+      if (valueText) {
+        const h2 = document.createElement('h2');
+        h2.textContent = valueText;
+        h2.classList.add('animate-here');
+        valueCell.replaceChildren(h2);
+        observeCounter(h2);
       }
+
+      // Ensure visual order: label → value → footnote
+      row.replaceChildren(...[labelCell, valueCell, footnoteCell].filter(Boolean));
       itemsWrap.appendChild(row);
     } else {
-      // Header row — title or description (single cell)
       headerWrap.appendChild(row);
     }
   });
@@ -69,7 +75,7 @@ function animateCounter(el, duration = 1500) {
 
     const progress = timestamp - startTime;
     const progressRatio = Math.min(progress / duration, 1);
-    const eased = 1 - Math.pow(1 - progressRatio, 3);
+    const eased = 1 - (1 - progressRatio) ** 3;
     const currentValue = endValue * eased;
 
     el.textContent = prefix + formatNumber(currentValue, hasDecimal) + suffix;

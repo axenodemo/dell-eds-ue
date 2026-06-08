@@ -61,11 +61,33 @@
   flex: 1;
 }
 
+/* All p tags within items — reset default margins */
+.counter .counter-items > div > div p {
+  margin: 0;
+}
+
+/* Label cell (first) */
+.counter .counter-items > div > div:nth-child(1) p {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  margin-bottom: 12px;
+}
+
+/* Footnote cell (third) */
+.counter .counter-items > div > div:nth-child(3) p {
+  font-size: 13px;
+  margin-top: 12px;
+  opacity: 0.75;
+  line-height: 1.4;
+}
+
 /* Animated big number */
 .counter-container h2.animate-here {
   margin: 0;
   font-weight: 400;
   font-size: 96px;
+  line-height: 1;
 }
 
 /* Legacy support: title/description as section default content */
