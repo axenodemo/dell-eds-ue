@@ -1,9 +1,3 @@
-/* =========================
-   SECTION RESET
-   styles.css: main>.section { margin:40px 0 }
-               main>.section>div { max-width:1200px; padding:0 24px }
-========================= */
-
 main > .section.landing-hero-container {
     margin: 0 !important;
     padding: 0 !important;
@@ -15,10 +9,6 @@ main > .section.landing-hero-container > div {
     padding: 0 !important;
     margin: 0 !important;
 }
-
-/* =========================
-   WRAPPER / BLOCK RESET
-========================= */
 
 .landing-hero-wrapper {
     width: 100%;
@@ -35,15 +25,6 @@ main > .section.landing-hero-container > div {
     padding: 0 !important;
     overflow-x: hidden;
 }
-
-/* =========================
-   MAIN CAROUSEL
-   Reference: ~520px tall on 1366px wide screen.
-   clamp(420px, 38vw, 560px):
-     - 1366px wide → 38vw = 519px ✓
-     - 1920px wide → 38vw = 730px → capped at 560px ✓
-     - 900px wide  → 38vw = 342px → floored at 420px ✓
-========================= */
 
 .hero-carousel-dell-hero-block {
     position: relative;
@@ -103,7 +84,6 @@ main > .section.landing-hero-container > div {
     display: block;
 }
 
-/* Override styles.css: main img { width:auto; height:auto } */
 .hero-image-dell-hero-block picture img,
 .hero-image-dell-hero-block img {
     max-width: none !important;
@@ -113,11 +93,6 @@ main > .section.landing-hero-container > div {
     object-position: center;
     display: block;
 }
-
-/* =========================
-   CONTENT — left side, vertically centered
-   width: 40% matches reference proportion
-========================= */
 
 .hero-content-dell-hero-block {
     position: relative;
@@ -130,24 +105,17 @@ main > .section.landing-hero-container > div {
     padding: 0 3% 0 3%;
 }
 
-/* =========================
-   TYPOGRAPHY
-   Override styles.css:
-     h1 { font-size:45px; margin-top:0.8em; font-weight:600; line-height:1.25 }
-     p  { margin-top:0.8em; margin-bottom:0.25em }
-========================= */
-
 .hero-content-dell-hero-block .eyebrow-dell-hero-block {
-    font-size: 0.9375rem; /* 15px — matches reference */
+    font-size: 0.9375rem;
     font-weight: 400;
     line-height: 1.4;
-    margin: 0 0 10px 0 !important;
+    margin: 70px 0 23px 0 !important;
     color: #111;
     font-family: var(--body-font-family);
 }
 
 .hero-content-dell-hero-block .title-dell-hero-block {
-    font-size: 2.75rem !important; /* 44px — matches reference */
+    font-size: 2.75rem !important;
     font-weight: 300 !important;
     line-height: 1.06 !important;
     letter-spacing: -0.5px;
@@ -167,20 +135,14 @@ main > .section.landing-hero-container > div {
 }
 
 .hero-content-dell-hero-block .desc-dell-hero-block {
-    font-size: 1.125rem; /* 18px — matches reference body text size */
+    font-size: 1.125rem;
     font-weight: 400;
     line-height: 1.55;
     margin: 0 0 28px 0 !important;
     color: #111;
-    max-width: 420px; /* wider than before to match reference */
+    max-width: 420px;
     font-family: var(--body-font-family);
 }
-
-/* =========================
-   BUTTONS
-   Reference: ~52px tall, square corners, no border-radius
-   Override styles.css a.button: border-radius:2.4em, border:2px solid transparent
-========================= */
 
 .btn-wrap-dell-hero-block {
     display: flex;
@@ -227,7 +189,6 @@ main > .section.landing-hero-container > div {
     border: 1.5px solid #6e6e6e !important;
 }
 
-/* Override a:hover { color; text-decoration } from styles.css */
 .primary-btn-dell-hero-block:hover,
 .outline-btn-dell-hero-block:hover {
     text-decoration: none !important;
@@ -322,7 +283,6 @@ main > .section.landing-hero-container > div {
     font-family: var(--body-font-family);
 }
 
-/* Keep control colors locked — override styles.css button:hover { background-color } */
 .nav-btn-dell-hero-block:hover,
 .nav-btn-dell-hero-block:focus,
 .nav-btn-dell-hero-block:active {
@@ -443,7 +403,6 @@ main > .section.landing-hero-container > div {
         object-position: unset;
     }
 
-    /* CONTENT below image — white bg, generous padding like reference */
     .hero-content-dell-hero-block {
         position: relative !important;
         width: 100%;
@@ -452,35 +411,34 @@ main > .section.landing-hero-container > div {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        padding: 20px 24px 8px; /* reference: 24px sides, tight bottom */
+        padding: 20px 24px 8px;
         z-index: 5;
-        background: #fff; /* reference: white content area below image */
+        background: #fff;
         box-sizing: border-box;
     }
 
     .hero-content-dell-hero-block .eyebrow-dell-hero-block {
-        font-size: 0.8125rem; /* ~13px small label */
+        font-size: 0.8125rem;
         font-weight: 400;
-        margin: 0 0 10px 0 !important; /* reference: clear gap below eyebrow */
+        margin: 70px 0 23px 0 !important;
         color: #333;
     }
 
     .hero-content-dell-hero-block .title-dell-hero-block {
-        font-size: 1.625rem !important; /* ~26px — matches reference mobile title */
+        font-size: 1.625rem !important;
         font-weight: 300 !important;
         line-height: 1.15 !important;
-        margin: 0 0 16px 0 !important; /* reference: good gap below title */
+        margin: 0 0 16px 0 !important;
     }
 
     .hero-content-dell-hero-block .desc-dell-hero-block {
-        font-size: 0.875rem; /* 14px — reference body text */
+        font-size: 0.875rem;
         line-height: 1.55;
-        margin: 0 0 22px 0 !important; /* reference: space before buttons */
+        margin: 0 0 22px 0 !important;
         max-width: none;
         color: #333;
     }
 
-    /* Buttons — side by side, equal width */
     .btn-wrap-dell-hero-block {
         display: flex;
         flex-direction: row;
@@ -503,7 +461,6 @@ main > .section.landing-hero-container > div {
         border-radius: 0 !important;
     }
 
-    /* Controls inline below buttons — reference has visible gap */
     .carousel-controls-dell-hero-block {
         position: relative !important;
         inset: unset !important;
@@ -512,7 +469,9 @@ main > .section.landing-hero-container > div {
         gap: 0;
         z-index: 20;
         margin-top: 4px;
-        padding-bottom: 20px; /* breathing room at bottom */
+        padding-bottom: 20px;
+        padding-top: 3rem !important;
+        padding-left: 24px !important;
     }
 
     .nav-btn-dell-hero-block {
