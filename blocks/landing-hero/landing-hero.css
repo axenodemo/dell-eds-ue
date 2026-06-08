@@ -1,9 +1,7 @@
 /* =========================
    SECTION RESET
-   styles.css sets:
-     main > .section { margin: 40px 0 }
-     main > .section > div { max-width: 1200px; padding: 0 24px }
-   We must override both on the section and its direct div child.
+   styles.css: main>.section { margin:40px 0 }
+               main>.section>div { max-width:1200px; padding:0 24px }
 ========================= */
 
 main > .section.landing-hero-container {
@@ -11,7 +9,6 @@ main > .section.landing-hero-container {
     padding: 0 !important;
 }
 
-/* This targets the .landing-hero-wrapper div that styles.css constrains to 1200px */
 main > .section.landing-hero-container > div {
     max-width: 100% !important;
     width: 100% !important;
@@ -41,15 +38,17 @@ main > .section.landing-hero-container > div {
 
 /* =========================
    MAIN CAROUSEL
-   Height = min of: 42vw (width-based), 52vh (viewport-height cap), 460px (absolute max)
-   This ensures it never fills the screen on any device.
+   Reference: ~520px tall on 1366px wide screen.
+   clamp(420px, 38vw, 560px):
+     - 1366px wide → 38vw = 519px ✓
+     - 1920px wide → 38vw = 730px → capped at 560px ✓
+     - 900px wide  → 38vw = 342px → floored at 420px ✓
 ========================= */
 
 .hero-carousel-dell-hero-block {
     position: relative;
     width: 100%;
-    height: min(42vw, 52vh, 460px);
-    min-height: 320px;
+    height: clamp(420px, 38vw, 560px);
     overflow: hidden;
 }
 
@@ -104,58 +103,55 @@ main > .section.landing-hero-container > div {
     display: block;
 }
 
+/* Override styles.css: main img { width:auto; height:auto } */
 .hero-image-dell-hero-block picture img,
 .hero-image-dell-hero-block img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    /* reset styles.css: main img { max-width: 100%; width: auto; height: auto } */
     max-width: none !important;
     width: 100% !important;
     height: 100% !important;
+    object-fit: cover;
+    object-position: center;
+    display: block;
 }
 
 /* =========================
-   CONTENT
+   CONTENT — left side, vertically centered
+   width: 40% matches reference proportion
 ========================= */
 
 .hero-content-dell-hero-block {
     position: relative;
     z-index: 5;
-    width: 35%;
+    width: 40%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0 2% 40px 3%;
+    padding: 0 3% 0 3%;
 }
 
 /* =========================
    TYPOGRAPHY
-   Must override:
-     h1 { font-size: var(--heading-font-size-xxl) } = 45px desktop, 55px mobile
-     h1 { margin-top: 0.8em; margin-bottom: 0.25em }
-     p  { margin-top: 0.8em; margin-bottom: 0.25em }
+   Override styles.css:
+     h1 { font-size:45px; margin-top:0.8em; font-weight:600; line-height:1.25 }
+     p  { margin-top:0.8em; margin-bottom:0.25em }
 ========================= */
 
 .hero-content-dell-hero-block .eyebrow-dell-hero-block {
-    font-size: 0.875rem;
+    font-size: 0.9375rem; /* 15px — matches reference */
     font-weight: 400;
     line-height: 1.4;
-    margin: 0 0 8px 0 !important; /* override p margin */
+    margin: 0 0 10px 0 !important;
     color: #111;
     font-family: var(--body-font-family);
 }
 
 .hero-content-dell-hero-block .title-dell-hero-block {
-    /* Override h1 from styles.css */
-    font-size: 2.5rem !important;
+    font-size: 2.75rem !important; /* 44px — matches reference */
     font-weight: 300 !important;
-    line-height: 1.08 !important;
+    line-height: 1.06 !important;
     letter-spacing: -0.5px;
-    margin: 0 0 16px 0 !important; /* override h1 margin-top: 0.8em */
+    margin: 0 0 20px 0 !important;
     color: #111;
     font-family:
         Roboto, "Cordia New", "Microsoft Sans Serif", Utsaah, "Devanagari MT",
@@ -171,41 +167,35 @@ main > .section.landing-hero-container > div {
 }
 
 .hero-content-dell-hero-block .desc-dell-hero-block {
-    font-size: 1rem;
+    font-size: 1.125rem; /* 18px — matches reference body text size */
     font-weight: 400;
-    line-height: 1.5;
-    margin: 0 0 24px 0 !important; /* override p margin */
+    line-height: 1.55;
+    margin: 0 0 28px 0 !important;
     color: #111;
-    max-width: 360px;
+    max-width: 420px; /* wider than before to match reference */
     font-family: var(--body-font-family);
 }
 
 /* =========================
    BUTTONS
-   Must override:
-     a:any-link { color: var(--link-color) }
-     a:hover    { text-decoration: underline }
-     a.button   { border-radius: 2.4em; border: 2px solid transparent; ... }
+   Reference: ~52px tall, square corners, no border-radius
+   Override styles.css a.button: border-radius:2.4em, border:2px solid transparent
 ========================= */
 
 .btn-wrap-dell-hero-block {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    gap: 12px;
+    gap: 14px;
     align-items: center;
 }
 
 .primary-btn-dell-hero-block,
 .outline-btn-dell-hero-block {
-    /* Reset all a.button styles from styles.css */
     border-radius: 0 !important;
-    border: none !important;
-    padding: 0 24px !important;
-    font: inherit !important;
-
-    height: 48px;
-    min-width: 130px;
+    height: 52px;
+    padding: 0 28px !important;
+    min-width: 140px;
     width: auto;
     display: inline-flex !important;
     align-items: center;
@@ -222,6 +212,7 @@ main > .section.landing-hero-container > div {
         box-shadow 0.2s ease;
     overflow: visible !important;
     text-overflow: unset !important;
+    font-family: var(--body-font-family) !important;
 }
 
 .primary-btn-dell-hero-block {
@@ -236,11 +227,10 @@ main > .section.landing-hero-container > div {
     border: 1.5px solid #6e6e6e !important;
 }
 
-/* Override a:hover from styles.css */
+/* Override a:hover { color; text-decoration } from styles.css */
 .primary-btn-dell-hero-block:hover,
 .outline-btn-dell-hero-block:hover {
     text-decoration: none !important;
-    color: inherit !important;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -249,14 +239,13 @@ main > .section.landing-hero-container > div {
     color: #fff !important;
     background: #000 !important;
 }
-
 .outline-btn-dell-hero-block:hover {
     color: #000 !important;
     background: #fff !important;
 }
 
 /* =========================
-   CONTROLS
+   CONTROLS — absolute bottom-right of carousel
 ========================= */
 
 .carousel-controls-dell-hero-block {
@@ -310,7 +299,7 @@ main > .section.landing-hero-container > div {
 }
 
 .slide-count-dell-hero-block {
-    width: 37px;
+    width: 50px;
     height: 40px;
     padding: 0;
     margin: 0;
@@ -318,11 +307,12 @@ main > .section.landing-hero-container > div {
     font-size: 14px;
     font-weight: 500;
     border-radius: 0;
+    text-align: center;
 }
 
 .pause-btn-dell-hero-block {
     height: 40px;
-    min-width: 66px;
+    min-width: 70px;
     padding: 0 18px;
     margin-left: 10px;
     border: none !important;
@@ -336,14 +326,16 @@ main > .section.landing-hero-container > div {
     justify-content: center;
     cursor: pointer;
     flex-shrink: 0;
+    font-family: var(--body-font-family);
 }
 
+/* Keep control colors locked — override styles.css button:hover { background-color } */
 .nav-btn-dell-hero-block:hover,
 .nav-btn-dell-hero-block:focus,
 .nav-btn-dell-hero-block:active {
     background: #fff !important;
+    background-color: #fff !important;
     color: #006bbd !important;
-    background-color: #fff !important; /* override styles.css button:hover */
     outline: none;
     box-shadow: none;
 }
@@ -352,7 +344,7 @@ main > .section.landing-hero-container > div {
 .pause-btn-dell-hero-block:focus,
 .pause-btn-dell-hero-block:active {
     background: #000 !important;
-    background-color: #000 !important; /* override styles.css button:hover */
+    background-color: #000 !important;
     color: #fff !important;
     outline: none;
     box-shadow: none;
@@ -364,17 +356,21 @@ main > .section.landing-hero-container > div {
 
 @media (min-width: 768px) and (max-width: 1100px) {
     .hero-carousel-dell-hero-block {
-        height: min(55vw, 52vh, 400px);
-        min-height: 280px;
+        height: clamp(360px, 48vw, 480px);
     }
 
     .hero-content-dell-hero-block {
-        width: 44%;
-        padding: 0 2% 30px 3%;
+        width: 46%;
+        padding: 0 3% 0 3%;
     }
 
     .hero-content-dell-hero-block .title-dell-hero-block {
-        font-size: 2rem !important;
+        font-size: 2.25rem !important;
+    }
+
+    .hero-content-dell-hero-block .desc-dell-hero-block {
+        font-size: 1rem;
+        max-width: 340px;
     }
 }
 
@@ -383,7 +379,6 @@ main > .section.landing-hero-container > div {
 ========================= */
 
 @media (max-width: 767px) {
-    /* Section still needs margin reset on mobile */
     main > .section.landing-hero-container {
         margin: 0 !important;
         padding: 0 !important;
@@ -395,7 +390,7 @@ main > .section.landing-hero-container > div {
         margin: 0 !important;
     }
 
-    /* Carousel: height auto, wraps the stacked slide */
+    /* Carousel wraps the stacked active slide */
     .hero-carousel-dell-hero-block {
         height: auto !important;
         min-height: unset !important;
@@ -403,7 +398,7 @@ main > .section.landing-hero-container > div {
         position: relative;
     }
 
-    /* All slides hidden by default, flex-column for stacking */
+    /* All slides hidden, stacked layout */
     .hero-slide-dell-hero-block {
         position: relative !important;
         inset: unset !important;
@@ -416,7 +411,6 @@ main > .section.landing-hero-container > div {
         transition: none !important;
     }
 
-    /* Only active slide shows */
     .hero-slide-dell-hero-block.active {
         opacity: 1 !important;
         visibility: visible !important;
@@ -428,7 +422,7 @@ main > .section.landing-hero-container > div {
         display: none !important;
     }
 
-    /* IMAGE — top, natural height */
+    /* IMAGE top, natural height */
     .hero-image-dell-hero-block {
         position: relative !important;
         inset: unset !important;
@@ -453,9 +447,10 @@ main > .section.landing-hero-container > div {
         max-width: 100% !important;
         display: block;
         object-fit: unset;
+        object-position: unset;
     }
 
-    /* CONTENT — below image */
+    /* CONTENT below image */
     .hero-content-dell-hero-block {
         position: relative !important;
         width: 100%;
@@ -468,26 +463,26 @@ main > .section.landing-hero-container > div {
         z-index: 5;
     }
 
-    /* Override h1 global styles on mobile too */
-    .hero-content-dell-hero-block .title-dell-hero-block {
-        font-size: 1.625rem !important;
-        font-weight: 300 !important;
-        line-height: 1.12 !important;
-        margin: 0 0 12px 0 !important;
-    }
-
-    .hero-content-dell-hero-block .desc-dell-hero-block {
-        font-size: 0.9375rem;
-        margin: 0 0 16px 0 !important;
-        max-width: none;
-    }
-
     .hero-content-dell-hero-block .eyebrow-dell-hero-block {
         font-size: 0.8125rem;
         margin: 0 0 6px 0 !important;
     }
 
-    /* BUTTONS — side by side */
+    .hero-content-dell-hero-block .title-dell-hero-block {
+        font-size: 1.75rem !important;
+        font-weight: 300 !important;
+        line-height: 1.1 !important;
+        margin: 0 0 12px 0 !important;
+    }
+
+    .hero-content-dell-hero-block .desc-dell-hero-block {
+        font-size: 0.9375rem;
+        line-height: 1.5;
+        margin: 0 0 18px 0 !important;
+        max-width: none;
+    }
+
+    /* Buttons — side by side */
     .btn-wrap-dell-hero-block {
         display: flex;
         flex-direction: row;
@@ -499,7 +494,7 @@ main > .section.landing-hero-container > div {
     .primary-btn-dell-hero-block,
     .outline-btn-dell-hero-block {
         flex: 1;
-        height: 44px;
+        height: 46px;
         min-width: 0;
         padding: 0 10px !important;
         font-size: 14px !important;
@@ -508,7 +503,7 @@ main > .section.landing-hero-container > div {
         text-overflow: ellipsis;
     }
 
-    /* CONTROLS — inline below content, not absolute */
+    /* Controls inline below content */
     .carousel-controls-dell-hero-block {
         position: relative !important;
         inset: unset !important;
@@ -524,13 +519,11 @@ main > .section.landing-hero-container > div {
         height: 36px;
         font-size: 14px;
     }
-
     .slide-count-dell-hero-block {
-        width: 34px;
+        width: 46px;
         height: 36px;
         font-size: 13px;
     }
-
     .pause-btn-dell-hero-block {
         height: 36px;
         min-width: 56px;
