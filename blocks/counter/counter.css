@@ -114,6 +114,7 @@
   .counter .counter-items {
     flex-direction: column;
     align-items: center;
+    gap: 24px;
   }
 
   .counter-container h2.animate-here {
