@@ -137,7 +137,7 @@
         "valueType": "string",
         "name": "label",
         "label": "Label"
-      },
+      }, 
       {
         "component": "text",
         "valueType": "string",

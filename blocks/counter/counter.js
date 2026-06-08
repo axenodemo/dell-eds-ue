@@ -11,7 +11,6 @@ export default function decorate(block) {
     if (row.children.length >= 2) {
       const cells = [...row.children];
 
-      // Detect value cell: if cell[0] starts with digits (old model order was value first)
       const isValueFirst = /^[^a-zA-Z]*\d/.test(cells[0].textContent.trim());
       const labelCell = isValueFirst ? cells[1] : cells[0];
       const valueCell = isValueFirst ? cells[0] : cells[1];
@@ -26,7 +25,6 @@ export default function decorate(block) {
         observeCounter(h2);
       }
 
-      // Ensure visual order: label → value → footnote
       row.replaceChildren(...[labelCell, valueCell, footnoteCell].filter(Boolean));
       itemsWrap.appendChild(row);
     } else {
