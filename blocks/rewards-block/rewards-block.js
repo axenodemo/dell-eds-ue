@@ -1,15 +1,38 @@
+function getBlockData(block) {
+  const data = {};
+
+  [...block.children].forEach((row) => {
+    const cells = [...row.children];
+
+    if (cells.length < 2) {
+      return;
+    }
+
+    const key = cells[0].textContent.trim().toLowerCase();
+    data[key] = cells[1];
+  });
+
+  return data;
+}
+
 export default function decorate(block) {
-  const pretitle = block.children[0]?.textContent?.trim();
-  const title = block.children[1]?.textContent?.trim();
-  const subtitle = block.children[2]?.textContent?.trim();
+  const data = getBlockData(block);
 
-  const primaryButtonText = block.children[3]?.textContent?.trim();
-  const primaryButtonLink = block.children[4]?.textContent?.trim();
+  const pretitle = data.pretitle?.textContent.trim();
+  const title = data.title?.textContent.trim();
+  const subtitle = data.subtitle?.textContent.trim();
 
-  const secondaryButtonText = block.children[5]?.textContent?.trim();
-  const secondaryButtonLink = block.children[6]?.textContent?.trim();
+  const primaryButtonText =
+    data['primary button text']?.textContent.trim();
+  const primaryButtonLink =
+    data['primary button link']?.textContent.trim();
 
-  const image = block.children[7]?.querySelector('img');
+  const secondaryButtonText =
+    data['secondary button text']?.textContent.trim();
+  const secondaryButtonLink =
+    data['secondary button link']?.textContent.trim();
+
+  const image = data.image?.querySelector('img');
 
   block.innerHTML = '';
 
