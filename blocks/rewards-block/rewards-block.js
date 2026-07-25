@@ -1,13 +1,15 @@
 export default function decorate(block) {
-  const pretitle = block.children[0]?.textContent?.trim();
-  const title = block.children[1]?.textContent?.trim();
-  const subtitle = block.children[2]?.textContent?.trim();
+  const getField = (index) => block.children[index]?.textContent?.trim() || '';
 
-  const primaryButtonText = block.children[3]?.textContent?.trim();
-  const primaryButtonLink = block.children[4]?.textContent?.trim();
+  const pretitle = getField(0);
+  const title = getField(1);
+  const subtitle = getField(2);
 
-  const secondaryButtonText = block.children[5]?.textContent?.trim();
-  const secondaryButtonLink = block.children[6]?.textContent?.trim();
+  const primaryButtonText = getField(3);
+  const primaryButtonLink = getField(4);
+
+  const secondaryButtonText = getField(5);
+  const secondaryButtonLink = getField(6);
 
   const image = block.children[7]?.querySelector('img');
 

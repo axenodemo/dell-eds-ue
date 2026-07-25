@@ -3,12 +3,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 80px;
-
   padding: 60px 80px;
-
   background: #0b3768;
   color: #fff;
-
   min-height: 420px;
   box-sizing: border-box;
 }
@@ -152,11 +149,13 @@
     flex-wrap: wrap;
   }
 
-  .demo-center-rewards-block__button !important{
+@media (max-width: 768px) {
+  .demo-center-rewards-block__button {
     padding: 14px 22px;
     font-size: 16px;
-    color: white;
+    color: #fff;
   }
+}
 
   .demo-center-rewards-block__link {
     font-size: 16px;
@@ -170,4 +169,14 @@
 .demo-center-rewards-block__button:hover,
 .demo-center-rewards-block__link:hover {
   text-decoration: none;
+}
+
+.rewards-block-wrapper
+{
+  background: #0b3768
+}
+
+.rewards-block-container
+{
+  background: #0b3768
 }
