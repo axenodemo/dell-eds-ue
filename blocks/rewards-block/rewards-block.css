@@ -152,11 +152,13 @@
     flex-wrap: wrap;
   }
 
+@media (max-width: 768px) {
   .demo-center-rewards-block__button {
-  padding: 14px 22px !important;
-  font-size: 16px !important;
-  color: white !important;
+    padding: 14px 22px;
+    font-size: 16px;
+    color: #fff;
   }
+}
 
   .demo-center-rewards-block__link {
     font-size: 16px;
