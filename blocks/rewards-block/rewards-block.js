@@ -1,38 +1,17 @@
-function getBlockData(block) {
-  const data = {};
-
-  [...block.children].forEach((row) => {
-    const cells = [...row.children];
-
-    if (cells.length < 2) {
-      return;
-    }
-
-    const key = cells[0].textContent.trim().toLowerCase();
-    data[key] = cells[1];
-  });
-
-  return data;
-}
-
 export default function decorate(block) {
-  const data = getBlockData(block);
+  const getField = (index) => block.children[index]?.textContent?.trim() || '';
 
-  const pretitle = data.pretitle?.textContent.trim();
-  const title = data.title?.textContent.trim();
-  const subtitle = data.subtitle?.textContent.trim();
+  const pretitle = getField(0);
+  const title = getField(1);
+  const subtitle = getField(2);
 
-  const primaryButtonText =
-    data['primary button text']?.textContent.trim();
-  const primaryButtonLink =
-    data['primary button link']?.textContent.trim();
+  const primaryButtonText = getField(3);
+  const primaryButtonLink = getField(4);
 
-  const secondaryButtonText =
-    data['secondary button text']?.textContent.trim();
-  const secondaryButtonLink =
-    data['secondary button link']?.textContent.trim();
+  const secondaryButtonText = getField(5);
+  const secondaryButtonLink = getField(6);
 
-  const image = data.image?.querySelector('img');
+  const image = block.children[7]?.querySelector('img');
 
   block.innerHTML = '';
 
