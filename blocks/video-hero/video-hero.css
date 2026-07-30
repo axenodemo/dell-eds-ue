@@ -1,7 +1,7 @@
 .video-hero {
   position: relative;
   width: 100%;
-  min-height: 100svh;
+  min-height: 100vh;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -180,4 +180,12 @@
   .video-hero-secondary-links {
     gap: 1.25rem;
   }
+}
+
+/* Universal Editor renders blocks inside a nested iframe whose height is
+   derived from its content. 100svh there measures against that iframe's
+   own viewport, which grows to fit the block, which grows to fit the
+   viewport, and so on. Cap the height to a fixed value while authoring. */
+.adobe-ue-edit .video-hero {
+  min-height: 480px;
 }
