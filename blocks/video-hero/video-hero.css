@@ -1,7 +1,7 @@
 .video-hero {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: clamp(480px, 100vh, 900px);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -170,7 +170,7 @@
 
 @media (width <= 599px) {
   .video-hero {
-    min-height: 70vh;
+    min-height: clamp(360px, 70vh, 700px);
   }
 
   .video-hero-heading {
@@ -182,10 +182,10 @@
   }
 }
 
-/* Universal Editor renders blocks inside a nested iframe whose height is
-   derived from its content. 100svh there measures against that iframe's
-   own viewport, which grows to fit the block, which grows to fit the
-   viewport, and so on. Cap the height to a fixed value while authoring. */
-.adobe-ue-edit .video-hero {
-  min-height: 480px;
+/* Author mode: drop the vh dependency, keep it visually equivalent via fixed bounds */
+.aem-AuthorLayer-Edit .video-hero,
+.aem-AuthorLayer-Preview .video-hero,
+.aem-AuthorLayer-Layouting .video-hero,
+.aem-AuthorLayer-Structure .video-hero {
+  min-height: clamp(480px, 70vh, 900px); /* tighter vh ceiling avoids iframe feedback */
 }
