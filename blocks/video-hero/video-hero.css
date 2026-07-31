@@ -1,7 +1,7 @@
 .video-hero {
   position: relative;
   width: 100%;
-  min-height: clamp(480px, 100vh, 900px);
+  /* min-height: clamp(480px, 100vh, 900px); */
   overflow: hidden;
   display: flex;
   align-items: center;
