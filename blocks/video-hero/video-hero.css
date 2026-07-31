@@ -182,10 +182,7 @@
   }
 }
 
-/* Author mode: drop the vh dependency, keep it visually equivalent via fixed bounds */
 .aem-AuthorLayer-Edit .video-hero,
-.aem-AuthorLayer-Preview .video-hero,
-.aem-AuthorLayer-Layouting .video-hero,
-.aem-AuthorLayer-Structure .video-hero {
-  min-height: clamp(480px, 70vh, 900px); /* tighter vh ceiling avoids iframe feedback */
+.aem-AuthorLayer-Preview .video-hero {
+  min-height: 600px; /* fixed author-mode value, visually close to typical 100vh result */
 }
