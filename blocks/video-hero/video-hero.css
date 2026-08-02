@@ -1,7 +1,7 @@
 .video-hero {
   position: relative;
   width: 100%;
-  height: fit-content;
+  height: 610px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -168,9 +168,9 @@
 }
 
 @media (width <= 599px) {
-  /* .video-hero {
-    min-height: clamp(360px, 70vh, 700px);
-  } */
+  .video-hero {
+    height: 500px;
+  }
 
   .video-hero-heading {
     font-size: 1.75rem;
