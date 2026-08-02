@@ -1,0 +1,494 @@
+main > .section.landing-hero-container {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+main > .section.landing-hero-container > div {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.landing-hero-wrapper {
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden;
+}
+
+.landing-hero.block {
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden;
+}
+
+.hero-carousel-dell-hero-block {
+    position: relative;
+    width: 100%;
+    height: clamp(420px, 38vw, 560px);
+    overflow: hidden;
+}
+
+/* =========================
+   SLIDES
+========================= */
+
+.hero-slide-dell-hero-block {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+.hero-slide-dell-hero-block.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 2;
+}
+
+.hero-slide-dell-hero-block::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: none;
+}
+
+/* =========================
+   BACKGROUND IMAGE
+========================= */
+
+.hero-image-dell-hero-block {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: #c2d4e0;
+}
+
+.hero-image-dell-hero-block picture {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.hero-image-dell-hero-block picture img,
+.hero-image-dell-hero-block img {
+    max-width: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.hero-content-dell-hero-block {
+    position: relative;
+    z-index: 5;
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 3% 0 3%;
+}
+
+.hero-content-dell-hero-block .eyebrow-dell-hero-block {
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.4;
+    margin: 70px 0 23px 0 !important;
+    color: #111;
+    font-family: var(--body-font-family);
+}
+
+.hero-content-dell-hero-block .title-dell-hero-block {
+    font-size: 2.75rem !important;
+    font-weight: 300 !important;
+    line-height: 1.06 !important;
+    letter-spacing: -0.5px;
+    margin: 0 0 20px 0 !important;
+    color: #111;
+    font-family:
+        Roboto, "Cordia New", "Microsoft Sans Serif", Utsaah, "Devanagari MT",
+        "Nirmala UI", Latha, InaiMathi, Gautami, "Telugu Sangam MN", Tunga,
+        "Kannada Sangam MN", Kartika, "Malayalam Sangam MN", Shruti,
+        "Gujarati MT", "Gujarati Sangam MN", Vrinda, "Bangla Sangam MN",
+        "Meiryo UI", "メイリオ", "MS UI Gothic Reg", "Hiragino Kaku Gothic Reg",
+        "ヒラギノ角ゴ Pro W3 Reg", "Microsoft YaHei", "微软雅黑",
+        "Hiragino Sans GB", "Microsoft JhengHei", "微軟正黑體", "Malgun Gothic",
+        "맑은 고딕", Gulim, AppleGothic, "Apple LiGothic", "LiHei Pro", Osaka,
+        STHeiti, "华文黑体", STXihei, "华文细黑", SimHei, "黑体",
+        "Arial Unicode MS", Arial, sans-serif !important;
+}
+
+.hero-content-dell-hero-block .desc-dell-hero-block {
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.55;
+    margin: 0 0 28px 0 !important;
+    color: #111;
+    max-width: 420px;
+    font-family: var(--body-font-family);
+}
+
+.btn-wrap-dell-hero-block {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 14px;
+    align-items: center;
+}
+
+.primary-btn-dell-hero-block,
+.outline-btn-dell-hero-block {
+    border-radius: 0 !important;
+    height: 52px;
+    padding: 0 28px !important;
+    min-width: 140px;
+    width: auto;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    line-height: 1 !important;
+    white-space: nowrap;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    font-family: var(--body-font-family) !important;
+}
+
+.primary-btn-dell-hero-block {
+    background: #000 !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+.outline-btn-dell-hero-block {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1.5px solid #6e6e6e !important;
+}
+
+.primary-btn-dell-hero-block:hover,
+.outline-btn-dell-hero-block:hover {
+    text-decoration: none !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.primary-btn-dell-hero-block:hover {
+    color: #fff !important;
+    background: #000 !important;
+}
+.outline-btn-dell-hero-block:hover {
+    color: #000 !important;
+    background: #fff !important;
+}
+
+/* =========================
+   CONTROLS — absolute bottom-right of carousel
+========================= */
+
+.carousel-controls-dell-hero-block {
+    position: absolute;
+    right: 5%;
+    bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    z-index: 20;
+}
+
+.controls-group-dell-hero-block {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.prev-dell-hero-block,
+.slide-count-dell-hero-block,
+.next-dell-hero-block {
+    height: 40px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.nav-btn-dell-hero-block {
+    width: 40px;
+    height: 40px;
+    border: none !important;
+    padding: 0;
+    margin: 0;
+    background: #fff !important;
+    color: #006bbd !important;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.slide-count-dell-hero-block {
+    width: 50px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    color: #006bbd;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 0;
+    text-align: center;
+}
+
+.pause-btn-dell-hero-block {
+    height: 40px;
+    min-width: 70px;
+    padding: 0 18px;
+    margin-left: 10px;
+    border: none !important;
+
+    background: #000 !important;
+    color: #fff !important;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-family: var(--body-font-family);
+}
+
+.nav-btn-dell-hero-block:hover,
+.nav-btn-dell-hero-block:focus,
+.nav-btn-dell-hero-block:active {
+    background: #fff !important;
+    background-color: #fff !important;
+    color: #006bbd !important;
+    outline: none;
+    box-shadow: none;
+}
+
+.pause-btn-dell-hero-block:hover,
+.pause-btn-dell-hero-block:focus,
+.pause-btn-dell-hero-block:active {
+    background: #000 !important;
+    background-color: #000 !important;
+    color: #fff !important;
+    outline: none;
+    box-shadow: none;
+}
+
+/* =========================
+   TABLET  768px – 1100px
+========================= */
+
+@media (min-width: 768px) and (max-width: 1100px) {
+    .hero-carousel-dell-hero-block {
+        height: clamp(360px, 48vw, 480px);
+    }
+
+    .hero-content-dell-hero-block {
+        width: 46%;
+        padding: 0 3% 0 3%;
+    }
+
+    .hero-content-dell-hero-block .title-dell-hero-block {
+        font-size: 2.25rem !important;
+    }
+
+    .hero-content-dell-hero-block .desc-dell-hero-block {
+        font-size: 1rem;
+        max-width: 340px;
+    }
+}
+
+/* =========================
+   MOBILE  ≤ 767px
+========================= */
+
+@media (max-width: 767px) {
+    main > .section.landing-hero-container {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    main > .section.landing-hero-container > div {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Carousel wraps the stacked active slide */
+    .hero-carousel-dell-hero-block {
+        height: auto !important;
+        min-height: unset !important;
+        overflow: visible !important;
+        position: relative;
+    }
+
+    /* All slides hidden, stacked layout */
+    .hero-slide-dell-hero-block {
+        position: relative !important;
+        inset: unset !important;
+        width: 100%;
+        height: auto !important;
+        opacity: 0;
+        visibility: hidden;
+        display: none;
+        flex-direction: column;
+        transition: none !important;
+    }
+
+    .hero-slide-dell-hero-block.active {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: flex !important;
+        z-index: 2;
+    }
+
+    .hero-slide-dell-hero-block::after {
+        display: none !important;
+    }
+
+    /* IMAGE top, natural height */
+    .hero-image-dell-hero-block {
+        position: relative !important;
+        inset: unset !important;
+        width: 100%;
+        height: auto !important;
+        order: 1;
+        z-index: 1;
+        background: #c2d4e0;
+        display: block;
+    }
+
+    .hero-image-dell-hero-block picture {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .hero-image-dell-hero-block picture img,
+    .hero-image-dell-hero-block img {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100% !important;
+        display: block;
+        object-fit: unset;
+        object-position: unset;
+    }
+
+    .hero-content-dell-hero-block {
+        position: relative !important;
+        width: 100%;
+        height: auto !important;
+        order: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 20px 24px 8px;
+        z-index: 5;
+        background: #fff;
+        box-sizing: border-box;
+    }
+
+    .hero-content-dell-hero-block .eyebrow-dell-hero-block {
+        font-size: 0.8125rem;
+        font-weight: 400;
+        margin: 70px 0 23px 0 !important;
+        color: #333;
+    }
+
+    .hero-content-dell-hero-block .title-dell-hero-block {
+        font-size: 1.625rem !important;
+        font-weight: 300 !important;
+        line-height: 1.15 !important;
+        margin: 0 0 16px 0 !important;
+    }
+
+    .hero-content-dell-hero-block .desc-dell-hero-block {
+        font-size: 0.875rem;
+        line-height: 1.55;
+        margin: 0 0 22px 0 !important;
+        max-width: none;
+        color: #333;
+    }
+
+    .btn-wrap-dell-hero-block {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: nowrap;
+    }
+
+    .primary-btn-dell-hero-block,
+    .outline-btn-dell-hero-block {
+        flex: 1;
+        height: 46px;
+        min-width: 0;
+        padding: 0 12px !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border-radius: 0 !important;
+    }
+
+    .carousel-controls-dell-hero-block {
+        position: relative !important;
+        inset: unset !important;
+        display: flex;
+        align-items: center;
+        gap: 0;
+        z-index: 20;
+        margin-top: 4px;
+        padding-bottom: 20px;
+        padding-top: 3rem !important;
+        padding-left: 24px !important;
+    }
+
+    .nav-btn-dell-hero-block {
+        width: 38px;
+        height: 36px;
+        font-size: 14px;
+    }
+    .slide-count-dell-hero-block {
+        width: 46px;
+        height: 36px;
+        font-size: 13px;
+    }
+    .pause-btn-dell-hero-block {
+        height: 36px;
+        min-width: 60px;
+        font-size: 12px;
+        padding: 0 14px !important;
+        margin-left: 8px;
+    }
+}

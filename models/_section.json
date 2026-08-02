@@ -33,6 +33,10 @@
             {
               "name": "Highlight",
               "value": "highlight"
+            },
+            {
+              "name": "Support Background",
+              "value": "support-background"
             }
           ]
         }
@@ -49,9 +53,17 @@
         "title",
         "hero",
         "cards",
+        "rewards-block",
+        "dell-cards",
         "columns",
         "fragment",
-        "video-hero"
+        "feature-card",
+        "video-hero",
+        "teaser-carousal",
+        "title-eyebrow",
+        "testimonial-cards",
+        "icon-cards",
+        "counter"
       ]
     }
   ]

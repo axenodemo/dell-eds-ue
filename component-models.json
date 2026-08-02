@@ -52,30 +52,12 @@
         "name": "titleType",
         "label": "Title Type",
         "options": [
-          {
-            "name": "h1",
-            "value": "h1"
-          },
-          {
-            "name": "h2",
-            "value": "h2"
-          },
-          {
-            "name": "h3",
-            "value": "h3"
-          },
-          {
-            "name": "h4",
-            "value": "h4"
-          },
-          {
-            "name": "h5",
-            "value": "h5"
-          },
-          {
-            "name": "h6",
-            "value": "h6"
-          }
+          { "name": "h1", "value": "h1" },
+          { "name": "h2", "value": "h2" },
+          { "name": "h3", "value": "h3" },
+          { "name": "h4", "value": "h4" },
+          { "name": "h5", "value": "h5" },
+          { "name": "h6", "value": "h6" }
         ]
       }
     ]
@@ -103,18 +85,9 @@
         "name": "linkType",
         "label": "Type",
         "options": [
-          {
-            "name": "default",
-            "value": ""
-          },
-          {
-            "name": "primary",
-            "value": "primary"
-          },
-          {
-            "name": "secondary",
-            "value": "secondary"
-          }
+          { "name": "default", "value": "" },
+          { "name": "primary", "value": "primary" },
+          { "name": "secondary", "value": "secondary" }
         ]
       }
     ]
@@ -133,11 +106,49 @@
         "name": "style",
         "label": "Style",
         "options": [
-          {
-            "name": "Highlight",
-            "value": "highlight"
-          }
+          { "name": "Highlight", "value": "highlight" },
+          { "name": "Support Background", "value": "support-background" }
         ]
+      }
+    ]
+  },
+  {
+    "id": "counter",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description"
+      }
+    ]
+  },
+  {
+    "id": "counter-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      }, 
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "value",
+        "label": "Counter Value"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "footnote",
+        "label": "Footnote"
       }
     ]
   },
@@ -180,12 +191,252 @@
     ]
   },
   {
+    "id": "dell-cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "label": "Eyebrow"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "cards_card1Image",
+        "label": "Card 1 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card1ImageAlt",
+        "label": "Card 1 Image Alt Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card1Headline",
+        "label": "Card 1 Title"
+      },
+      {
+        "component": "aem-content",
+        "name": "cards_card1Link",
+        "label": "Card 1 CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card1LinkText",
+        "label": "Card 1 CTA Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "cards_card2Image",
+        "label": "Card 2 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card2ImageAlt",
+        "label": "Card 2 Image Alt Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card2Headline",
+        "label": "Card 2 Title"
+      },
+      {
+        "component": "aem-content",
+        "name": "cards_card2Link",
+        "label": "Card 2 CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card2LinkText",
+        "label": "Card 2 CTA Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "cards_card3Image",
+        "label": "Card 3 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card3ImageAlt",
+        "label": "Card 3 Image Alt Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card3Headline",
+        "label": "Card 3 Title"
+      },
+      {
+        "component": "aem-content",
+        "name": "cards_card3Link",
+        "label": "Card 3 CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card3LinkText",
+        "label": "Card 3 CTA Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "cards_card4Image",
+        "label": "Card 4 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card4ImageAlt",
+        "label": "Card 4 Image Alt Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card4Headline",
+        "label": "Card 4 Title"
+      },
+      {
+        "component": "aem-content",
+        "name": "cards_card4Link",
+        "label": "Card 4 CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cards_card4LinkText",
+        "label": "Card 4 CTA Text"
+      },
+      {
+        "component": "aem-content",
+        "name": "footer_link1",
+        "label": "Footer Link 1"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "footer_link1Text",
+        "label": "Footer Link 1 Text"
+      },
+      {
+        "component": "aem-content",
+        "name": "footer_link2",
+        "label": "Footer Link 2"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "footer_link2Text",
+        "label": "Footer Link 2 Text"
+      }
+    ]
+  },
+  {
+    "id": "feature-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "primaryButton",
+        "label": "Primary Button",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "secondaryButton",
+        "label": "Secondary Button",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "icons",
+        "label": "Icons",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "classes_layout",
+        "label": "Layout Variant",
+        "options": [
+          { "name": "Default (Image Left)", "value": "" },
+          { "name": "Image Right", "value": "image-right" }
+        ]
+      }
+    ]
+  },
+  {
     "id": "fragment",
     "fields": [
       {
         "component": "aem-content",
         "name": "reference",
         "label": "Reference"
+      }
+    ]
+  },
+  {
+    "id": "hero-card-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link (Page Path)",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "image",
+        "label": "Card Image",
+        "valueType": "string"
       }
     ]
   },
@@ -211,6 +462,273 @@
         "name": "text",
         "value": "",
         "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "icon-cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "label": "Eyebrow",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "iconcard",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "landing-hero",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "name",
+        "label": "Carousel Name",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "landing-hero-slide",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Desktop Image",
+        "multi": false,
+        "rootPath": "/content/dam"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobileImage",
+        "label": "Mobile Image",
+        "multi": false,
+        "rootPath": "/content/dam"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "label": "Eyebrow",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title / Headline",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "primaryButtonText",
+        "label": "Primary Button Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "primaryButtonUrl",
+        "label": "Primary Button URL"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "secondaryButtonText",
+        "label": "Secondary Button Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "secondaryButtonUrl",
+        "label": "Secondary Button URL"
+      }
+    ]
+  },
+  {
+    "id": "rewards-block",
+    "fields": [
+      {
+        "component": "text",
+        "name": "pretitle",
+        "label": "Pretitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "multiline",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "primaryButtonText",
+        "label": "Primary Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "primaryButtonLink",
+        "label": "Primary Button Link"
+      },
+      {
+        "component": "text",
+        "name": "secondaryButtonText",
+        "label": "Secondary Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "secondaryButtonLink",
+        "label": "Secondary Button Link"
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "teaser-carousal",
+    "fields": [
+      {
+        "name": "slides",
+        "component": "container",
+        "label": "Slides",
+        "item": "teaser-carousal-slide"
+      }
+    ]
+  },
+  {
+    "id": "teaser-carousal-slide",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "valueType": "string",
+        "rootPath": "/content/dam"
+      },
+      {
+        "component": "text",
+        "name": "eyebrow",
+        "label": "Eyebrow",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "headline",
+        "label": "Headline",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "ctas",
+        "label": "CTAs",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "testimonial-cards-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "cardImage",
+        "label": "Card Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cardTitle",
+        "label": "Card Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cardDescription",
+        "label": "Card Description"
+      },
+      {
+        "component": "aem-content",
+        "name": "cardLink",
+        "label": "Card Link"
+      }
+    ]
+  },
+  {
+    "id": "title-eyebrow",
+    "fields": [
+      {
+        "component": "text",
+        "name": "eyebrow",
+        "label": "Eyebrow",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
         "valueType": "string"
       }
     ]
