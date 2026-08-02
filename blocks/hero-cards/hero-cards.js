@@ -13,7 +13,7 @@ export default function decorate(block) {
 
     // UE model field order = col[0]: label, col[1]: link, col[2]: image
     const labelCol = cols[0];
-    const linkCol  = cols[1];
+    const linkCol = cols[1];
     const imageCol = cols[2];
 
     const card = document.createElement('a');
