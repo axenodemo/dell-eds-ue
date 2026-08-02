@@ -1,12 +1,11 @@
 .video-hero {
   position: relative;
   width: 100%;
-  /* min-height: clamp(480px, 100vh, 900px); */
+  height: fit-content;
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
-  
+  justify-content: center;  
 }
 
 .video-hero-video {
