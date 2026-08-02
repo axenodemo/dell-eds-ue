@@ -169,9 +169,9 @@
 }
 
 @media (width <= 599px) {
-  .video-hero {
+  /* .video-hero {
     min-height: clamp(360px, 70vh, 700px);
-  }
+  } */
 
   .video-hero-heading {
     font-size: 1.75rem;
