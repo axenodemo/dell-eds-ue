@@ -101,7 +101,11 @@ export default function decorate(block) {
         closeBtn.setAttribute('aria-label', 'Close video');
         closeBtn.textContent = '✕';
 
-        const close = () => { modalVideo.pause(); modal.remove(); };
+        const close = () => {
+          modalVideo.pause();
+          modal.remove();
+          document.removeEventListener('keydown', onKeyDown);
+        };
         const onKeyDown = (ev) => { if (ev.key === 'Escape') close(); };
 
         closeBtn.addEventListener('click', close);
