@@ -180,8 +180,3 @@
     gap: 1.25rem;
   }
 }
-
-.aem-AuthorLayer-Edit .video-hero,
-.aem-AuthorLayer-Preview .video-hero {
-  min-height: 600px; /* fixed author-mode value, visually close to typical 100vh result */
-}
