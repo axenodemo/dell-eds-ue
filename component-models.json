@@ -647,6 +647,8 @@
         "name": "slides",
         "component": "container",
         "label": "Slides",
+        "multi": true,
+        "fields": [],
         "item": "teaser-carousal-slide"
       }
     ]
