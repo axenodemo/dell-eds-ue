@@ -1,4 +1,5 @@
 .icon-cards {
+  font-family: 'Roboto', sans-serif;
   margin: 40px auto;
   max-width: 100%;
 }
@@ -6,7 +7,7 @@
 .icon-cards-inner {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 20px;
 }
 
 .icon-cards-header {
@@ -21,13 +22,18 @@
   font-weight: 400;
   text-transform: none;
   letter-spacing: normal;
-  color: #0672ba; /* Dell Blue accent color */
+  color: #0672ba;
+  /* Dell Blue accent color */
 }
 
-.icon-cards-title {
-  font-family: var(--heading-font-family);
+.icon-cards .icon-cards-title,
+.icon-cards h2.icon-cards-title,
+.icon-cards h1,
+.icon-cards h2,
+.icon-cards h3 {
+  font-family: 'Roboto', sans-serif !important;
   font-size: 28px;
-  font-weight: 400;
+  font-weight: 300 !important;
   margin: 0;
   line-height: 1.25;
   color: var(--text-color);
@@ -35,12 +41,16 @@
 
 .icon-cards-description {
   font-size: 16px;
-  line-height: 1.5;
+  font-weight: 400;
+  line-height: 24px;
   color: var(--dark-color);
   margin: 0;
 }
 
 .icon-cards-description p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
   margin: 0 0 12px;
 }
 
@@ -62,7 +72,8 @@
 }
 
 .icon-cards-item {
-  background-color: #253443; /* Match Dell's darker support background sub-cards */
+  background-color: #253443;
+  /* Match Dell's darker support background sub-cards */
   padding: 24px;
   display: flex;
   flex-direction: row;
@@ -115,7 +126,7 @@
 .icon-cards-card-body {
   margin: 0;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.4;
 }
 
@@ -140,9 +151,9 @@
   color: #e0e0e0;
 }
 
-@media (width >= 900px) {
+@media (width >=900px) {
   .icon-cards-inner {
-    gap: 40px;
+    gap: 20px;
   }
 
   .icon-cards-header {
@@ -184,3 +195,4 @@
     height: 48px;
   }
 }
+

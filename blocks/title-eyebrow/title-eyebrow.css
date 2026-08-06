@@ -1,12 +1,7 @@
 .title-eyebrow {
-  padding: 2.5rem 4rem 1.5rem;
-  color: #ffffff;
+  padding: 2.5rem 0 0.5rem;
+  color: #fff;
 }
-
-body > main > div > div.title-eyebrow-wrapper{
-  padding: 0%;
-}
-
 
 .title-eyebrow .ts-container {
   max-width: 1200px;
@@ -20,8 +15,8 @@ body > main > div > div.title-eyebrow-wrapper{
 .title-eyebrow .ts-eyebrow {
   margin: 0;
   font-size: 0.85rem;
-  font-weight: 700;
-  color: #ffffff;
+  font-weight: 500;
+  color: #fff;
   text-transform: none;
   letter-spacing: 0.02em;
 }
@@ -30,8 +25,7 @@ body > main > div > div.title-eyebrow-wrapper{
   margin: 0;
   padding-top: 0.3rem;
   font-size: clamp(1.5rem, 2.8vw, 2.25rem);
-  font-weight: 400;
-  color: #ffffff;
+  font-weight: 300;
+  color: #fff;
   line-height: 1.2;
 }
-

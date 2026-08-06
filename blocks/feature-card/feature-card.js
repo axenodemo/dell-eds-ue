@@ -138,7 +138,6 @@ export default function decorate(block) {
 
   if (title) {
     title.className = 'feature-card-title';
-    title.id = 'card-title';
     if (titleCell) moveInstrumentation(titleCell, title);
     content.append(title);
   }

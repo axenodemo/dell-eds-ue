@@ -104,7 +104,7 @@ main > .section.carousel-container > div:has(.hero-cards-category-grid) {
   align-items: center;
   background: #1a2433;
   color: #fff;
-  font-size: 0.7rem !important;;
+  font-size: 0.7rem !important;
   font-weight: 300;
   font-family: Roboto, Arial, sans-serif;
   padding: 8px 10px;
